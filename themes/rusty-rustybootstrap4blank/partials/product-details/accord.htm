@@ -1,0 +1,63 @@
+
+  <div id="accordion">
+  <h3>Specification</h3>
+  <div>
+    
+<table class="table">
+  
+  <tbody>
+    <tr>
+    
+      <td>
+        
+        {% for specName in adsingles.spec_name %}
+        {% if specName is not empty %}
+        <div style="font-weight: bold; font-family: arial">{{ specName }}</div><br><br>
+       {% endif %}
+        {% endfor %}
+      </td>
+     
+    
+     
+      <td>
+        {% for specDetail in adsingles.spec_detail %}
+        {% if specDetail is not empty %}
+           <div style="font-family: arial;">{{ specDetail }}</div><br><br>
+           {% endif %}
+        {% endfor %}
+      </td>
+      
+      
+    </tr>
+  
+  </tbody>
+</table>
+
+
+  </div>
+  <h3>Description</h3>
+  <div>
+   {{adsingles.description|raw }}
+  </div>
+  <h3>Min Order Quantity</h3>
+  <div>
+    {{ adsingles.minimum_order }}
+   
+  </div>
+  <h3>Discount Offer</h3>
+  <div>
+    {{ adsingles.discount_offer }}
+  </div>
+   <h3>Supply Ability</h3>
+  <div>
+    {{ adsingles.supply_ability }}
+  </div>
+   <h3>Review</h3>
+  <div>
+    {% component 'commentsPost' %}
+  </div>
+</div>
+
+
+
+

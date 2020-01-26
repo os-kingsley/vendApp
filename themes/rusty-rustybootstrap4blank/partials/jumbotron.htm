@@ -1,0 +1,54 @@
+<div style="margin-top: -45px; background-color: #1484B3; background-image: url({{ 'assets/images/ware.png'|theme }}); background-repeat: no-repeat; background-size: cover; background-blend-mode: soft-light;" class="jumbotron jumbotron-fluid text-white shadow-lg fixed-right">
+  <div class="container-fluid"><br>
+  	<p class="lead" align="center" style="margin-top: -18px; font-family: arial; font-weight: bold" ><small>Nigeria's B2B and B2C Marketplace</small></p>
+  	<h3 class="display-5" align="center" style="margin-top: -20px; font-family: arial;">Connecting Buyers with Sellers</h3>
+  		
+               
+               {% if not user %} 
+            	<div align="center"><button type="button" class="btn rounded-pill col-6 col-lg-4 shadow rounded" data-toggle="modal" data-target="#exampleModal" style="font-family: arial; background-color: #08172A; color: white; font-size: 15px">Sign Up</button></div>
+                {% elseif user %}
+                {% if inGroup('seller') %}
+                <div align="center"><a href="{{ 'post'|page }}"><button type="button" class="btn rounded-pill col-8 col-lg-4 shadow rounded" style="font-family: arial; background-color: #08172A; color: white; font-size: 15px"><span class="fa fa-edit"></span> Post Product/Service</button></a></div>
+                {% endif %}
+                   {% if inGroup('buyer')%}
+                  <div align="center"><a href="{{ 'request'|page }}"><button style="background-color: #08172A; color: white" type="button" class="btn rounded-pill col-6 col-lg-4 shadow rounded" style="font-family: arial; font-size: 15px"><span class="fa fa-edit"></span> Post Buy Request</button></a></div>
+                  {% endif %}
+                  {% endif %}
+
+  	
+ 
+
+            	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+         <h6 style="color: grey; font-family: arial">Sign up as...</h6>
+      </div>
+      
+      
+     
+      <div class="modal-body" align="center">
+         <a  href="{{ 'seller-account-phone-verification'|page }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-sm btn-success col-5 shadow">Seller</a>
+       
+            <a  href="{{ 'buyer-account-phone-verification'|page }}" style="border-radius: 5px; font-family: arial;  background-color: #08172A; color: white" role="button" class="btn btn-sm  col-5 shadow">Buyer</a>
+   
+      </div>
+      <div class="modal-footer">
+
+         <button style="outline: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><small style="color: navy; font-size: 15px;"><b>Close</b></small></span>
+        </button>
+
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            	
+  	
+  </div>
+</div>

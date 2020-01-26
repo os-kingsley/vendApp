@@ -1,0 +1,71 @@
+{% for request in requests %}
+
+
+
+<div class=" border shadow-sm p-3 mb-5  mx-auto " style="margin-top: -35px; border-radius: 10px; background-color: white">
+
+
+ <div style="margin-top: -25px" ><br>
+   <a href="{{ 'buy-request-single'|page({ slug: request.slug }) }}" style="color: darkblue; text-decoration: none"; >
+
+     <div style="font-size: 18px" align="left"> <small style="font-size: 20px">{{ request.title }}</small></div>
+   </a>
+ </div>
+
+ <div align="left"><small style="margin-top: -25px; color: grey"> {{ request.description|truncate(90)|raw }} </small></div>
+
+ <hr style="margin-top: -10px">
+
+ <div align="left" style="margin-top: -2px">
+
+
+  <small>
+    <span style="color: black">
+      <span class="fa fa-map-marker" style="color: grey; font-size: 12px"></span> {{ request.location|truncate(15) }}
+    </span>
+  </small>
+
+  <small>
+    <span class="float-right" align="right" style="margin-top: -2px; font-size: 12px"><span  class="fa fa-clock" style="color: grey"></span> {{ request.created_at| time_diff }}</span></small>
+
+
+  </div><br>
+
+
+
+  {% set foo = request.catbuy %}
+  {% for row in foo|batch(3) %}
+  <div class="row">
+    {% for foo in row %}
+    <div class="col-auto col-lg-auto" style=" font-family: arial; margin-top: -40px; margin: -12px">
+
+     <h6 align="left"><span style="background-color: grey; color: white; margin-left: 10px" class="badge">{{ foo.cat_title }}</span></h6><br>
+
+
+   </div>
+
+   {% endfor %}
+
+ </div>
+
+
+ {% endfor %}
+
+
+
+</div>
+
+
+
+
+{% else %}
+
+<p style="color: grey">No Record Found</p>
+
+{% endfor %}
+
+
+
+
+
+

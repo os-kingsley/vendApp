@@ -1,0 +1,24 @@
+plugin:
+    name: 'corymillz.adverts::lang.plugin.name'
+    description: 'corymillz.adverts::lang.plugin.description'
+    author: Corymillz
+    icon: oc-icon-adjust
+    homepage: ''
+navigation:
+    main-menu-item:
+        label: Adverts
+        url: corymillz/adverts/adverts
+        icon: icon-life-ring
+        sideMenu:
+            side-menu-item:
+                label: Cat
+                url: corymillz/adverts/cat
+                icon: icon-sitemap
+            side-menu-item2:
+                label: 'Buy Request'
+                url: corymillz/adverts/buy
+                icon: icon-sitemap
+    main-menu-item2:
+        label: Credit
+        url: corymillz/adverts/credit
+        icon: icon-money

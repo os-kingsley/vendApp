@@ -1,0 +1,43 @@
+<nav style="background-color:  #08172A;" class="navbar fixed-bottom navbar-light d-lg-none d-sm-block" > 
+  <a  href="tel:{{ userprofile.phone }}" style="background-color: darkcyan; color: white;margin-left: 5px" role="button" class="btn rounded-pill shadow col-5 tab-view-call" ><span class="fa fa-phone"></span>&nbsp;Call</a>
+
+  <a style="margin-right: 25px" href="#myModal" role="button" class="btn btn-success rounded-pill shadow col-5 tab-view-msg" data-toggle="modal" data-target="#myModal"><span class="fa fa-envelope"></span> Message</a>
+
+</nav>
+
+
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header"><span style="color: grey">Seller Message Options...<br><span style="font-size: 12px; color: grey">Instantly click to chat on Whatsapp or send an Email/SMS.</span></span>
+      
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" align="center">
+
+
+
+     <a  href="https://wa.me/{{ userprofile.phone[1:]}}?text=Hello,%20I%20am%20interested%20in%20items%20on%20your%20vend.com.ng%20store" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-success col-10 shadow"><span class="fab fa-whatsapp"></span> Whatsapp</a><br><br>
+     <!--
+     <a  href="#" style="border-radius: 5px; font-family: arial; background-color: #3b5998" role="button" class="btn  text-light col-5 shadow"><span class="fab fa-facebook"></span> Facebook</a><br><br>
+-->
+        <a  href="mailto:{{ userprofile.email }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-primary col-5 shadow"><span class="fa fa-envelope-o"></span> Email</a>&nbsp;
+
+
+  <a  href="sms:{{ userprofile.phone }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-info col-5"><span class="fa fa-envelope-square"></span> Sms</a>
+      </div>
+
+      </div>
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,6 @@
+plugin:
+    name: 'corymillz.profile::lang.plugin.name'
+    description: 'corymillz.profile::lang.plugin.description'
+    author: Corymillz
+    icon: oc-icon-user
+    homepage: ''

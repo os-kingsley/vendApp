@@ -1,0 +1,108 @@
+title = "Promotion"
+url = "/promotion/:slug"
+layout = "default"
+is_hidden = 0
+[paidboost]
+[account]
+
+security = "user"
+redirect = "login"
+==
+<?php
+use Corymillz\Adverts\Models\Advert;
+use Corymillz\Adverts\Models\Msb;
+use Corymillz\Adverts\Models\Mbb;
+use Corymillz\Adverts\Models\Meb;
+use Corymillz\Adverts\Models\Bmsb;
+use Corymillz\Adverts\Models\Bmbb;
+use Corymillz\Adverts\Models\Bmeb;
+
+function onStart(){
+	
+	$slug = $this->param('slug');
+
+$this['post'] = Advert::where('slug', $slug)->first();
+
+
+$msbId = Msb::lists('msb');  
+$this['msBoost'] = Advert::whereIn('id', $msbId)->pluck('id'); 
+
+    
+
+$mbbId = Mbb::lists('mbb'); 
+$this['mbBoost'] = Advert::whereIn('id', $mbbId)->pluck('id'); 
+
+
+$mebId = Meb::lists('meb');  
+$this['meBoost'] = Advert::whereIn('id', $mebId)->pluck('id'); 
+
+
+$bmsbId = Bmsb::lists('bmsb');
+$this['bmsBoost'] = Advert::whereIn('id', $bmsbId)->pluck('id'); 
+
+
+$bmbbId = Bmbb::lists('bmbb');
+$this['bmbBoost'] = Advert::whereIn('id', $bmbbId)->pluck('id');
+
+
+$bmebId = Bmeb::lists('bmeb');
+$this['bmeBoost'] = Advert::whereIn('id', $bmebId)->pluck('id');
+
+
+
+
+
+}
+
+
+
+
+?>
+==
+
+<!--
+{% if user.credit.amount == 150 or user.credit.amount > 150 %}
+
+<form  data-request ="onPaidBoost2"  data-request-success="alert('Boosted Successfully')">
+	<input type="text" name="run" value="{{ post.id }}">
+	
+<button type="submit" style="border-radius: 20px"  class="btn btn-sm btn-outline-primary">P Boost</button>
+</form>
+
+ 
+ {% endif %}
+-->
+
+ <!--
+ 	data-request-data= "paidboost: {{ post.id }}"
+ 	-->
+{% if inGroup('seller') %}
+ 	 <div class="container " style="font-family: arial">
+  <div class="starter-template " style="margin-top: -30px; margin: -30px">
+
+    {% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+
+<h5><span class="badge" style="background-color: #1484B3; color: white; font-family: arial">Posted Product/Service</span><hr>{{ post.title }}</h5>
+<hr>
+
+
+<div id="boost">{% partial 'boostPlans'%}</div>
+
+
+  </div>
+</div>
+
+
+{% else %}
+
+<div align="center" style="color: grey">Oops! Seems you have missed a turn. <a href="{{ 'home'|page}}">Go Back</a></div>
+
+{% endif %}
+

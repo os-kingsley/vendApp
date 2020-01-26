@@ -1,0 +1,4 @@
+title: Adverts
+modelClass: Corymillz\Adverts\Models\Advert
+toolbar:
+    buttons: reorder_toolbar

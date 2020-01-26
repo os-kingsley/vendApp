@@ -1,0 +1,154 @@
+
+         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content"><br>
+
+      <div class="modal-header">
+       <span style="color: grey; font-family: arial; font-size: 14px">Edit Store.</span>
+
+         <button style="outline: none;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <br>
+        
+         <div align="center" style=" font-family: arial; font-size: 15px; margin-top: -10px">
+
+ <div class="container " >
+  <div class="starter-template " style="margin-top: -40px">
+        <form  data-request="onUpdate" data-request-files data-request-flash>
+
+
+    <div class="form-group">
+        <div align="left"><small><b><label for="accountEmail">Store   Name</label></b></small></div>
+        <input type="text" class="form-control form-control-sm" name='store_title' value="{{ user.store_title }}">
+    </div>
+
+   
+
+     <div class="form-group">
+     <small><b><label class="float-left" for="inputCategory">Store  Name Font Style</label></b></small>
+      <select name="font_family" id="bank" class="form-control form-control-sm" required="true">
+        <option selected disabled="disabled">{% if userprofile.font_family %}{{ userprofile.font_family }}{% else %}Choose{% endif %}</option>
+        <option style="font-family: arial">Arial</option>
+        <option style="font-family: Times New Roman">Times New Roman</option>
+        <option style="font-family: Helvetica">Helvetica</option>
+        <option style="font-family: Times">Times</option>
+        <option style="font-family: Courier New">Courier New</option>
+        <option style="font-family: Verdana">Verdana</option>
+        <option style="font-family: Courier">Courier</option>
+        <option style="font-family: Arial Narrow">Arial Narrow</option>
+        <option style="font-family: Candara">Candara</option>
+        <option style="font-family: Geneva">Geneva</option>
+        <option style="font-family: Calibri">Calibri</option>
+        <option style="font-family: Optima">Optima</option>
+        <option style="font-family: Cambria">Cambria</option>
+        <option style="font-family: Garamond">Garamond</option>
+        <option style="font-family: Perpetua">Perpetua</option>
+        <option style="font-family: Monaco">Monaco</option>
+        <option style="font-family: Didot">Didot</option>
+        <option style="font-family: Brush Script MT">Brush Script MT</option>
+        <option style="font-family: Lucida Bright">Lucida Bright</option>
+        <option style="font-family: Copperplate">Copperplate</option>
+        <option style="font-family: Georgia">Georgia</option>
+        <option style="font-family: Impact">Impact</option>
+        <option style="font-family: Trebuchet MS">Trebuchet MS</option>
+        <option style="font-family: Bookman Old Style">Bookman Old Style</option>
+        <option style="font-family: palatino">Palatino</option>
+        
+        
+    </select>
+  </div>
+ <div class="form-group">
+        <div align="left"><small><b><label for="accountAddress">Store Name color</label></b></small></div>
+        <input name="font_color" type="color" class="form-control form-control-sm"  value="{{ user.font_color }}">
+    </div>
+
+<div class="form-group">
+        <div align="left"><small><b><label for="accountAddress">Store Name Background Color</label></b></small></div>
+        <input name="background_color" type="color" class="form-control form-control-sm"  value="{{ user.background_color }}" >
+    </div>
+
+    <div class="form-group">
+     <small><b><label class="float-left" for="inputCategory">Show Logo</label></b></small>
+      <select name="show_icon" class="form-control form-control-sm">
+        <option selected disabled="disabled">{% if userprofile.show_icon %}{{ userprofile.show_icon }}{% else %}Choose...{% endif %}</option>
+        <option>Yes</option>
+        <option>No</option>
+
+    </select>
+  </div>
+
+
+    <div class="form-group">
+        <div align="left"><small><b><label for="accountCompany">Short Store Description (Optional)</label></b></small></div>
+        <input name="store_description" type="text" class="form-control form-control-sm"  value="{{ user.store_description }}">
+    </div>
+
+     <div class="form-group">
+     <small><b><label class="float-left" for="inputCategory">Store Description Font</label></b></small>
+      <select name="store_description_font_style" class="form-control form-control-sm" required="true">
+        <option selected disabled="disabled">{% if userprofile.store_description_font_style %}{{ userprofile.store_description_font_style }}{% else %}Choose{% endif %}</option>
+        <option style="font-family: arial">Arial</option>
+        <option style="font-family: Times New Roman">Times New Roman</option>
+        <option style="font-family: Helvetica">Helvetica</option>
+        <option style="font-family: Times">Times</option>
+        <option style="font-family: Courier New">Courier New</option>
+        <option style="font-family: Verdana">Verdana</option>
+        <option style="font-family: Courier">Courier</option>
+        <option style="font-family: Arial Narrow">Arial Narrow</option>
+        <option style="font-family: Candara">Candara</option>
+        <option style="font-family: Geneva">Geneva</option>
+        <option style="font-family: Calibri">Calibri</option>
+        <option style="font-family: Optima">Optima</option>
+        <option style="font-family: Cambria">Cambria</option>
+        <option style="font-family: Garamond">Garamond</option>
+        <option style="font-family: Perpetua">Perpetua</option>
+        <option style="font-family: Monaco">Monaco</option>
+        <option style="font-family: Didot">Didot</option>
+        <option style="font-family: Brush Script MT">Brush Script MT</option>
+        <option style="font-family: Lucida Bright">Lucida Bright</option>
+        <option style="font-family: Copperplate">Copperplate</option>
+         <option style="font-family: Georgia">Georgia</option>
+        <option style="font-family: Impact">Impact</option>
+        <option style="font-family: Trebuchet MS">Trebuchet MS</option>
+        <option style="font-family: Bookman Old Style">Bookman Old Style</option>
+        <option style="font-family: palatino">Palatino</option>
+       
+        
+    </select>
+  </div>
+
+   <div class="form-group">
+        <div align="left"><small><b><label for="accountAddress">Store Description Font color</label></b></small></div>
+        <input name="store_description_font_color" type="color" class="form-control form-control-sm"  value="{{ user.store_description_font_color }}">
+    </div>
+
+ 
+
+     
+<small> Choose or Change Store Image</small>
+      <div class="custom-file">
+  <input type="file" class="custom-file-input" name="store_pic" accept="image/*" id="customFile" data-request="onImage" data-request-files data-request-flash>
+
+  <label class="custom-file-label float-left" for="customFile">Choose</label>
+</div>
+<br><br>
+<div style="font-family: arial" id="imageResult"><img src="{{ userprofile.store_pic.thumb(100,100) }}"></div>
+
+
+<br><br>
+    <button type="submit" class="btn btn-success btn-sm col-6 shadow">Save</button>
+
+</form>
+</div></div>
+
+
+         </div><br>
+
+        
+      
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+title = "Filter Buy-Request"
+url = "/filter-buy-request"
+layout = "default"
+is_hidden = 0
+
+==
+<?php
+use Corymillz\Adverts\Models\Buy;
+use Corymillz\Adverts\Models\Cat;
+
+function onStart(){ 
+
+$this->prepareVars(); 
+
+}
+
+
+
+function prepareVars(){
+
+$options = post('filter', []);
+
+$this['buyfilter'] = Buy::listFrontEnd($options);
+
+$this['categories'] = Cat::all();
+
+
+}
+	
+
+?>
+
+==
+
+<h4>Filter Request</h4>
+
+<div>filters</div>
+ <select class="custom-select form-control-sm" name="category" id="inputGroupSelect01"  data-request="onUserPro" data-request-loading>
+    <option  selected disabled="true">All</option>
+        {% for item in items %}
+        <option value={{ item.cats.id }}> {{ item.cats.cat_title }}</option>
+        {% endfor %}
+  
+  </select>
+
+<div>
+	  <div id="filter-partial">
+	  	{% partial 'request/buy-request'%}
+
+	  </div>
+</div>

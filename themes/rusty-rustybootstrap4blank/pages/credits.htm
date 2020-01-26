@@ -1,0 +1,147 @@
+title = "Vend Credits"
+url = "/credits"
+layout = "default"
+is_hidden = 0
+[session]
+security = "user"
+redirect = "login"
+
+==
+<?php
+
+function onStart(){
+ $this['API_KEY'] = getenv('FW_publicKey');
+
+
+
+//$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/credits.js');
+
+}
+
+
+
+?>
+
+
+==
+
+
+{% if inGroup('seller') %}
+<div align="center" style="background-color: #1484B3; height: 45px; line-height: 45px; color: white; margin-top: -15px" class="shadow"><p><span class="fa fa-arrow"></span> Buy Vend Credit</p></div>
+<div align="center"><img src="{{ 'assets/images/power.png'|theme }}"></div>
+<br>
+<div align="center" style="color: grey; margin-top: -30px">
+<div class="container" style="margin-top: -50px">
+  <div class="starter-template">
+
+<div style="color: grey;">Vend credits for posted product/service <a href="{{ 'manage-posts'|page ({ slug: user.id }) }}">Promotion.</a></div><hr>
+<small>NGN 1000 - 1200 Vend Credits</small><br>
+<small>NGN 3000 - 3300 Vend Credits</small><br>
+<small>NGN 5000 - 5500 Vend Credits</small><br><br>
+
+<div align="center" style="font-family: arial; color: grey; font-size: 14px">Once Payment is made, your account will be updated with the amount of credits bought.</div><br>
+
+
+<small><b><label class="float-left">Amount</label></b></small>
+  <select class="custom-select" id="pay40">
+  <option selected>Select a Price</option>
+  <option value="1000">NGN 1000</option>
+  <option value="3000">NGN 3000</option>
+  <option value="5000">NGN 5000</option>
+</select>
+<br><br>
+
+
+
+
+
+   <div class="form-group">
+    <small><b><label class="float-left">Email</label></b></small>
+    <input readonly="readonly" type="email" id="pay2" class="form-control"  aria-describedby="email" value="{{ user.email }}">
+    
+  </div>
+
+   	  <div class="form-group">
+    <small><b><label class="float-left">Phone Number</label></b></small>
+    <input readonly="readonly" value="{{ user.phone }}" type="text" id="pay3" class="form-control"  aria-describedby="number" autocomplete="on">
+    
+  </div>
+
+  <div class="form-group" style="display: none;">
+    <small><b><label class="float-left">Last Name</label></b></small>
+    <input value="{{user.id}}" type="text" id="pay6" class="form-control"  aria-describedby="text" autocomplete="on">
+</div>
+
+ <button style="background-color: #08172A; color: white" type="submit" value="Continue" id="submi" class="btn btn-sm col-4">Continue</button>
+</div>
+</div>
+
+
+{% else %}
+
+<div align="center" style="color: grey">Oops! Seems you have missed a turn. <a href="{{ 'home'|page}}">Go Back</a></div>
+
+{% endif %}
+
+
+{% put scripts %}
+<script type="text/javascript">
+  import("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
+import("https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js");
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById('submi').addEventListener('click', function () {
+
+    var flw_ref = "", 
+      chargeResponse = "",
+      trxref = "FDKHGK"+ Math.random(),
+      API_publicKey =  "{{API_KEY}}", 
+      email = $('#pay2').val(), 
+      first_name = $('#pay5').val(), 
+      last_name = $('#pay6').val(), 
+      amount = $('#pay40').val(),
+      phone = $('#pay3').val(),  
+      id = $('#pay4').val(),  
+      txref = "VENDCREDIT-"+ Date.now()+ ~~(Math.random().toString(36).slice(2) * 256)+ "-VC";
+
+
+
+     
+    getpaidSetup(
+      {
+        PBFPubKey: API_publicKey,
+        customer_email: email,
+        amount: amount,
+        customer_phone: phone,
+        customer_firstname: first_name,
+        customer_lastname: last_name,
+        currency: "NGN",
+        payment_method: "both",
+        txref: txref,
+        //payment_options: "card,account",
+      
+        
+
+        meta: [{metaname:"vendCredits", metavalue: "BUY1234"}],
+        onclose:function(response) {
+        },
+        callback:function(response) {
+          txref = response.tx.txRef, chargeResponse = response.tx.chargeResponseCode;
+          if (chargeResponse == "00" || chargeResponse == "0") {
+            //Add your success page here
+          } else {
+             //Add your failure page here
+          }
+        }
+      }
+    );
+    });
+  });
+
+
+
+
+
+
+</script>
+{% endput %}

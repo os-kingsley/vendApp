@@ -1,0 +1,65 @@
+
+
+<nav aria-label="Page navigation example" style="font-size: 17px;">
+  {% if ads.hasPages %}
+  <ul class="pagination justify-content-center">
+    {% if ads.currentPage > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ ads.previousPageUrl }}" rel="prev" ><span class=" fa fa-arrow-left"></span></a>
+    </li>
+        {% else %}
+         <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-left"></span></a>
+    </li>
+                     
+            {% endif %}
+
+
+{% if ads.currentPage > 3 %}
+ <li class="page-link"><a href="{{ ads.url(1) }}">1</a></li>
+{% endif %}
+
+{% if ads.currentPage > 4 %}
+  <li class="page-link"><span>...</span></li>
+{% endif %}
+
+
+
+
+
+    {% for page in range(1, ads.lastPage) %}
+   {% if page >= ads.currentPage - 2 and page <= ads.currentPage + 2 %}
+   {% if page == ads.currentPage %}
+    <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+               {% else %}
+                    <li class="page-link"><a href="{{ ads.url(page) }}">{{ page }}</a></li>
+    {% endif %}
+    {% endif %}
+   
+
+     {% endfor %}
+
+{% if ads.currentPage < ads.lastPage - 3 %}
+<li class="page-link"><span>...</span></li>
+{% endif %}
+
+{% if ads.currentPage < ads.lastPage - 2 %}
+ <li class="page-link"><a href="{{ ads.url(ads.lastPage) }}">{{ ads.lastPage }}</a></li>
+{% endif %}
+
+       {% if ads.hasMorePages %}
+     
+    <li class="page-item">
+      <a class="page-link" href="{{ ads.nextPageUrl }}"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% else %}
+       <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+       {% endif %}
+
+  </ul>
+  {% endif %}
+</nav>
+ 
+

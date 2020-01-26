@@ -1,0 +1,338 @@
+title = "Manage Posts"
+url = "/manage-posts/:slug"
+layout = "default"
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "login"
+
+==
+
+<?php
+use Corymillz\Adverts\Models\Advert;
+use Carbon\Carbon;
+use Corymillz\Adverts\Models\Favourite;
+use Corymillz\Adverts\Models\Msb;
+use Corymillz\Adverts\Models\Mbb;
+use Corymillz\Adverts\Models\Meb;
+use Corymillz\Adverts\Models\Bmsb;
+use Corymillz\Adverts\Models\Bmbb;
+use Corymillz\Adverts\Models\Bmeb;
+
+
+
+
+
+
+function onStart(){
+
+$slug = $this->param('slug');
+
+//$userpro = \RainLab\User\Models\User::where('company', $slug)->first();
+
+$this['posts'] = Advert::where('user_id', $slug)->orderby('created_at','desc')->paginate(15);
+
+
+
+
+
+
+
+$msbId = Msb::lists('msb');
+
+Msb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['msBoost'] = Advert::whereIn('id', $msbId)->pluck('id'); 
+
+    
+
+$mbbId = Mbb::lists('mbb');
+
+Mbb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['mbBoost'] = Advert::whereIn('id', $mbbId)->pluck('id'); 
+
+
+
+$mebId = Meb::lists('meb');
+
+Meb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['meBoost'] = Advert::whereIn('id', $mebId)->pluck('id'); 
+
+
+
+$bmsbId = Bmsb::lists('bmsb');
+
+Bmsb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmsBoost'] = Advert::whereIn('id', $bmsbId)->pluck('id'); 
+
+$bmbbId = Bmbb::lists('bmbb');
+
+Bmbb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmbBoost'] = Advert::whereIn('id', $bmbbId)->pluck('id');
+
+$bmebId = Bmeb::lists('bmeb');
+
+Bmeb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmeBoost'] = Advert::whereIn('id', $bmebId)->pluck('id');
+
+}
+
+
+
+
+
+
+
+
+
+	
+
+
+
+function onDelete()
+{
+$recordId = post('record');
+$record = Advert::find($recordId)->delete();
+Flash::success('Successfully Deleted!');
+return Redirect::back();
+
+}
+
+
+
+function onBoost()
+{
+ 
+$recordId = post('boost');
+$record = Advert::find($recordId)->update(['created_at'=>Carbon::now()]);
+Flash::success('Successfully Boosted!');
+return Redirect::back();
+
+}
+
+
+
+
+
+
+
+
+
+?>
+
+==
+
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+<b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -15px; background-color: #1484B3">Manage Products/Services</h6></b>
+
+<br>
+
+
+<div style="font-family: arial; font-size: 14px" class="container">
+  <div class="starter-template" style="margin: -45px; margin-top: -60px">
+
+{% set counter = 0 %}
+   {% for post in posts %}
+    {% set counter = counter + 1 %}
+    <div class="card  {% if  post.id in msBoost or post.id in mbBoost or post.id in meBoost or post.id in bmsBoost or post.id in bmbBoost or post.id in bmeBoost %}border-warning {% endif %}" style="border-radius: 10px;">
+  <div class="card-body">
+    <a  href="{{ 'product-single'|page({ slug: post.slug }) }}" style="text-decoration: none; color: black;">
+   <h6><span><p class="float-left">{{ counter }}. </p></span> {{ post.title }}</h6>
+</a>
+   
+<hr>
+  <ul class="nav nav-pills  nav-fill" > 
+    
+
+  <li class="nav-item">
+     <a  href="{{ 'post-edit'|page ({ slug: post.slug }) }}" class="btn btn-sm btn-info">Edit</a>
+    </li>
+  <li class="nav-item">
+     <a href="" id="my-element" class="btn btn-sm btn-danger" data-request ="onDelete" data-request-confirm="Are you sure?"  data-request-data= "record: {{ post.id }}">Delete</a> 
+  </li>
+
+
+  <li class="nav-item">
+    {% if date(post.created_at) < date('-3days') %}
+     <a href="" data-request ="onBoost" data-request-data= "boost: {{ post.id }}" class="btn btn-sm btn-success">Free Boost</a>
+     
+        {% else %}
+         <a href="#" class="btn btn-sm btn-warning" onclick="$.oc.flashMsg({text: 'You can only boost this item once every three(3) days', 'class': 'error'}); return false;">
+        Free Boost </a>
+          {% endif %}
+  </li>
+
+
+
+    <li class="nav-item">
+    <a href="{{ 'promotion'|page ({ slug: post.slug }) }}"  class="btn btn-sm btn-primary" href="">Promote</a>
+  </li>
+</ul>
+ {% if  post.id in msBoost or post.id in mbBoost or post.id in meBoost or post.id in bmsBoost or post.id in bmbBoost or post.id in bmeBoost and date(post.created_at) < date('-2seconds')%}
+        <small class="float-left" style="color: grey; margin-left: 15px; margin-top: 10px"><span class="fa fa-clock"></span> Paid Boost Running...</small>
+        {% endif %}
+  </div>
+</div><br>
+
+
+    {% else %}
+
+<div><p style="color: grey"> No Product/Service Posted</p></div>
+{% endfor %}
+
+
+
+
+
+
+<nav aria-label="Page navigation example" style="font-size: 17px;">
+  {% if posts.hasPages %}
+  <ul class="pagination justify-content-center">
+
+    {% if posts.currentPage > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ posts.previousPageUrl }}" rel="prev" ><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    
+    {% endif %}
+    
+
+
+{% if posts.currentPage > 3 %}
+ <li class="page-link"><a href="{{ posts.url(1) }}">1</a></li>
+{% endif %}
+
+{% if posts.currentPage > 4 %}
+  <li class="page-link"><span>...</span></li>
+{% endif %}
+
+
+
+
+
+    {% for page in range(1, posts.lastPage) %}
+   {% if page >= posts.currentPage - 2 and page <= posts.currentPage + 2 %}
+   {% if page == posts.currentPage %}
+    <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+               {% else %}
+                    <li class="page-link"><a href="{{ posts.url(page) }}">{{ page }}</a></li>
+    {% endif %}
+    {% endif %}
+   
+
+     {% endfor %}
+
+{% if posts.currentPage < posts.lastPage - 3 %}
+<li class="page-link"><span>...</span></li>
+{% endif %}
+
+{% if posts.currentPage < posts.lastPage - 2 %}
+ <li class="page-link"><a href="{{ posts.url(posts.lastPage) }}">{{ posts.lastPage }}</a></li>
+{% endif %}
+
+ {% if posts.hasMorePages %}
+    
+    <li class="page-item">
+      <a class="page-link" href="{{ posts.nextPageUrl }}"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% endif %}
+
+      
+
+  </ul>
+  {% endif %}
+</nav>
+ 
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="modal fade" id="delectModal" tabindex="-1" role="dialog" aria-labelledby="delectModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+    
+      <div class="modal-body">
+        <p align="center" style="font-size: 20px; font-family: arial; color: grey; font-family: arial">
+           <div align="center" style="font-size: 20px" class="result">
+            
+          </div>
+      </div>
+    </p>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary" id="okay-button">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxConfirmMessage', function(event, message) {
+        // Stop the default confirm dialog
+        event.preventDefault();    
+
+        // open our own bootstrap modal
+        $('#delectModal').modal('show');
+        $(".result").html(message); 
+
+        // Okay Button. we will unbind if any events are attached to it first
+        // reattach click event - this is required as this code will call each time
+        $('#okay-button').unbind().click(function() {        
+            // hide modal
+            $('#delectModal').modal('hide'); 
+            // Resolve the deferred object, this will trigger whatever was being confirmed
+            event.promise.resolve();
+        });
+
+        // Cancel Button
+        $('#cancel-button').unbind().click(function() {        
+            // hide modal
+            $('#delectModal').modal('hide'); 
+            // Reject the object, this will cancel whatever was being confirmed            
+            event.promise.reject();        
+        });
+
+        // Return a value so the framework knows we're handling the confirm
+        return true;
+    });
+</script>
+{% endput %}

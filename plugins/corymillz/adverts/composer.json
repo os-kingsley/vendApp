@@ -1,0 +1,21 @@
+{
+
+	"name": "corymillz/adverts",
+	"type": "october-plugin",
+	"description": "Laravl Search and Filter Package",
+	"author": [
+
+		{
+			"name": "Osuji Kingsley",
+			"email": "corymillz404@gmail.com"
+		}
+  
+
+
+	],
+	"require": {
+
+		"aginev/search-filters": "1.0.*"
+	}
+
+}

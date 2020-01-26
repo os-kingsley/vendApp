@@ -1,0 +1,224 @@
+title = "Buy-request-single"
+url = "/buy-request-single/:slug"
+layout = "productlayout"
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "login"
+==
+<?php
+use Corymillz\Adverts\Models\Buy;
+
+
+
+function onStart(){
+$slug = $this->param('slug');
+
+$getPostUser = Buy::where('slug', $slug)->first();
+
+if(Auth::getUser() && Auth::getUser()->id == $getPostUser->user_id ){
+  
+  $this['getuser'] = Auth::getUser();
+}
+
+$this['buysingles'] = Buy::where('slug',$slug)->first();
+$this['buyimagesingles'] = Buy::with('buy_image')->where('slug',$slug)->get();
+
+
+}
+?>
+==
+
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+
+
+{% if buysingles %}
+<div class=" d-xl-none" align="center" style="color:  #08172A; font-family: arial; margin-top: 20px; font-size: 25px; margin: 10px"><p>{{ buysingles.title }}</p></div>
+<div class="container  d-xl-none" style="margin-top: -50px; font-family: arial">
+  <div class="starter-template" style="margin: -22px">
+    {% if getuser %}
+    <a  href="{{ 'buy-request-edit'|page ({ slug: buysingles.slug }) }}"><div style="color: grey; font-size: 14px" align="right"><span class="fa fa-edit"> Edit</span></div></a>
+    {% endif %}
+    <hr>
+
+    <div align="left" style="margin-top: -2px;"><small><span style="color: black"><span class="fa fa-map-marker" style="color: grey"></span> {{ buysingles.location|truncate(30) }}</span></small><span class="float-right" align="right" style="margin-top: -2px", ><small><span  class="fa fa-clock" style="color: grey"></span> {{ buysingles.created_at| time_diff }}</small></span></div> 
+
+
+    <hr>
+    <div align="left"><p style="font-size: 12px">Posted by:  {% if inGroup('seller') %} {{ buysingles.user.company }}  {% elseif inGroup('buyer') %} {{ buysingles.user.name }} {% endif %}</p></div><hr>
+
+    <div align="center" style="color: grey; font-size: 14px;margin: 10px"><p>{{ buysingles.description|raw }}</p></div><hr>
+
+    <div><p style="font-size: 12px; color: grey">Prefered Means of Contact: <span style="font-size: 12px" class="badge badge-success">{{ buysingles.contact_means }}</span></div>
+
+
+
+
+     {% endif %}
+     
+        <small><strong><span class="fa fa-paperclip"></span> Image Attachment</strong></small><br><hr>
+<div id="carousel" class="offscroll"><br>
+        {% for buyerimage in buyimagesingles %}
+
+        {% for buypics in buyerimage.buy_image %}
+       
+        <div class="slide"><img style="height: 150px; width: auto;" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></div>
+
+
+
+        {% else %}
+
+        <p style="font-size: 14px; font-family: arial; color: grey"> No Image Posted</p>
+
+        {% endfor %}
+        {% endfor %}
+
+</div>
+
+  </div>
+</div>
+
+
+<nav style="background-color: #08172A;" class="navbar fixed-bottom navbar-light d-xl-none">
+ 
+  <a  href="tel:{{ buysingles.user.phone }}" style="background-color: darkcyan; color: white; margin-left: 5px" role="button" class="btn rounded-pill shadow col-5" ><span class="fa fa-phone"></span>&nbsp;Call</a>
+
+  <a  href="mymodal2"  style="margin-right: 25px" role="button" class="btn btn-success rounded-pill shadow col-5" data-toggle="modal" data-target="#myModal2"><span class="fa fa-envelope"></span> Message</a>
+
+
+</nav>
+</div>
+</div>
+
+
+
+
+
+
+
+<!--
+desktop view
+-->
+{% if buysingles %}
+<span class="float-left d-none d-xl-block" style="width: 20%; margin-left: 20px; margin-top: 100px">
+    <a  style="background-color: darkcyan; color: white; margin-left: 5px" role="button" class="btn rounded-pill shadow col-11 showNumber" ><span class="fa fa-phone"></span>&nbsp;View Phone Number</a><br><br>
+<input style="display: none;" class="phonenum" type="text" value="{{ buysingles.user.phone}}">
+  <a  href="mymodal2"  style="margin-right: 25px" role="button" class="btn btn-success rounded-pill shadow col-12" data-toggle="modal" data-target="#myModal2"><span class="fa fa-envelope"></span> Message</a>
+
+</span>
+
+
+
+
+<div class="container  d-none d-xl-block" style="margin-top: -50px; font-family: arial">
+  <div class="starter-template" style="margin: -22px">
+    <div class="  d-none d-xl-block" align="center" style="color:  #08172A; font-family: arial; margin-top: 20px; font-size: 25px; margin: 10px"><p>{{ buysingles.title }}</p></div>
+    <hr>
+
+    <div align="left" style="margin-top: -2px", ><small><span style="color: black"><span class="fa fa-map-marker" style="color: grey"></span> {{ buysingles.location }}</span></small><span class="float-right" align="right" style="margin-top: -2px", ><small><span  class="fa fa-clock" style="color: grey"></span> {{ buysingles.created_at| time_diff }}</small></span></div> 
+
+
+    <hr>
+    <div align="left"><p style="font-size: 12px">Posted by:  {% if inGroup('seller') %} {{ buysingles.user.company }}  {% elseif inGroup('buyer') %} {{ buysingles.user.name }} {% endif %}</p></div><hr>
+
+    <div align="center" style="color: grey; font-size: 14px"><p>{{ buysingles.description|raw }}</p></div><hr>
+
+    <div><p style="font-size: 12px; color: grey">Prefered Means of Contact: <span style="font-size: 12px" class="badge badge-success">{{ buysingles.contact_means }}</span></div>
+
+
+
+
+
+     {% else %}
+     no record
+
+
+     {% endif %}
+     
+        <small><strong><span class="fa fa-paperclip"></span> Image Attachment</strong></small><br><hr>
+<div id="carousel" class="offscroll"><br>
+        {% for buyerimage in buyimagesingles %}
+
+        {% for buypics in buyerimage.buy_image %}
+       
+        <div class="slide"><img style="height: 150px; width: auto;" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></div>
+
+
+
+        {% else %}
+
+        <p style="font-size: 14px; font-family: arial; color: grey"> No Image Posted</p>
+
+        {% endfor %}
+        {% endfor %}
+
+</div>
+
+  </div>
+</div>
+<div class="d-none d-xl-block">
+{% partial "Footer" %}
+</div>
+<!--
+end
+-->
+
+
+
+
+
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header"><span style="color: grey">Message Options...<br><span style="font-size: 12px; color: grey">Instantly click to chat on Whatsapp or send an Email/SMS.</span></span>
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" align="center">
+
+
+       <a  href="https://wa.me/{{ buysingles.user.phone[1:] }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-success col-10 shadow"><span class="fab fa-whatsapp"></span> Whatsapp</a><br><br>
+     <!--
+     <a  href="#" style="border-radius: 5px; font-family: arial; background-color: #3b5998" role="button" class="btn  text-light col-5 shadow"><span class="fab fa-facebook"></span> Facebook</a><br><br>
+   -->
+   <a  href="mailto:{{ buysingles.user.email }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-primary col-5 shadow"><span class="fa fa-envelope-o"></span> Email</a>&nbsp;
+
+
+   <a  href="sms:{{ buysingles.user.phone }}" style="border-radius: 5px; font-family: arial" role="button" class="btn btn-info col-5"><span class="fa fa-envelope-square"></span> Sms</a>
+ </div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+</div>
+
+{% put scripts %}
+
+
+<script type="text/javascript">
+  $(function(){
+  $(".showNumber").click(function(event){
+    var phone = $('.phonenum').val();
+    $('.showNumber').html(phone);
+   // e.target.innerHTML = e.target.parent.querySelector('.phonenum').value;
+  });
+});
+</script>
+{% endput %}

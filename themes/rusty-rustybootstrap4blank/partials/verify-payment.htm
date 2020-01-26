@@ -1,0 +1,42 @@
+==
+<?php
+
+function onStart(){
+
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/payment-verification.js');
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/payment-settlement.js');
+
+}
+
+
+
+?>
+
+==
+<div style="font-family: arial">
+<b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -20px; background-color: #1484B3;">Verify Payment</h6></b><br>
+<div align="center"><p style="color: grey">Payment Verification</p></div>
+<div align="center"><p style="font-size: 12px; margin-top: -17px">Please enter your Transaction Reference to verify a payment</p></div>
+
+	<div class="spinner-grow text-success" role="status" style="width: 3rem; height: 3rem; display: none; " >
+  <span class="sr-only">Loading...</span>
+</div>
+    
+<div class="container">
+  <div class="starter-template" style="margin: -25px; margin-top: -40px"><br>
+	<div class="card" style="margin: -30px">
+  		<div class="card-body " >
+ <div class="form-group">
+    <small><b><label class="float-left">Transaction Reference</label></b></small>
+    <input type="email" class="form-control form-control-sm verify"  aria-describedby="email" >
+
+    
+  </div>
+
+  <button style="background-color: #08172A; color: white;"  type="submit" id="verve" class="btn btn-sm col-4">Verify</button>
+
+</div>
+</div>
+</div>
+</div></div>
+

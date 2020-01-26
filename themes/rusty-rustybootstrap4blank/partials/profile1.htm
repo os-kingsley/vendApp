@@ -1,0 +1,122 @@
+
+[session]
+[account]
+==
+<?php
+function onStart(){
+	
+$id  =  $this->param('id');
+
+
+
+$this['userprofile'] = \RainLab\User\Models\User::where('id', $id)->first();
+
+if(Auth::check() && Auth::getUser()->id == $id ){
+  
+  $this['getuser'] = Auth::getUser();
+}
+
+
+
+}
+
+
+
+?>
+
+
+
+
+==
+
+
+{% set foo = user.payment_id %}
+{% if foo and user and inGroup('seller') and  getuser %}
+
+
+<div align="left"  style="  font-size: 14px; font-style: ; letter-spacing: 1px" align="center"><p><small><span style="color: #1484B3;"><br> Payment Id:</span> {{ user.payment_id }}</small></p></div>
+  {% endif %}	
+
+
+
+
+
+
+
+{% if user and inGroup('seller') and  getuser %}
+
+<div align="left"  style="{% if user.payment_id %}margin-top: -30px;{% endif %} font-size: 14px; font-style: ; letter-spacing: 1px" align="center"><p><small><span style="color: #1484B3;"><br> Vend Credit:</span> {% if user.credit.amount is null or user.credit.amount is not defined or user.credit.amount == 0 %}0{% else %} {{ user.credit.amount }} {% endif %}</small><a href="{{'credits'|page}}"></a></p></div> <br>
+
+{% endif %}
+
+
+
+
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Company/Business Name:</b></small><hr></div>
+
+
+<small>{{ userprofile.company }}</small>
+<br><br>
+</div>
+
+<br><br><br>
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Company/Business Address</b></small><hr></div>
+
+
+<small>{{ userprofile.street_addr }}</small>
+<br><br>
+</div>
+
+<br><br><br>
+
+
+
+
+
+
+
+
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">About</b></small><hr></div>
+
+
+<small>{{ userprofile.about_us }}</small>
+<br><br>
+</div>
+{% if getuser %}
+<br><br><br>
+
+
+
+
+  	<div style="margin: -30px" class="border">
+
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Phone</b></small><hr></div>
+
+
+<small style="font-size: 15px">{{ user.phone }}</small>
+<br><br>
+</div>
+</div>
+
+{% endif %}
+<br>
+
+
+
+
+
+

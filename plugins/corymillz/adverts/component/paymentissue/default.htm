@@ -1,0 +1,44 @@
+<form style="font-family: arial"  data-request="onSend" data-request-flash data-request-files >
+
+
+	<div align="center"><small style="color: grey; font-size: 12px"> This form is used to request a refund and raise other issues with protected pay transactions. You can find the transaction reference from the payment receipt/payment notification sent when a payment is made.  Please fill in the following fields and send.</small></div><br>
+
+
+
+	<div class="form-group" style="display: none;">
+    <small><b><label class="float-left">Email</label></b></small>
+    <input value="{{ user.email }}" type="text" name="email" class="form-control"  autocomplete="off" required="true">
+    
+  </div>
+
+  <div class="form-group">
+    <small><b><label class="float-left">Name/Business Name</label></b></small>
+    <input style="font-size: 13px" type="text" name="name" class="form-control"  autocomplete="off" required="true">
+    
+  </div>
+
+
+	<div class="form-group">
+    <small><b><label class="float-left">Transaction Reference</label></b></small>
+    <input style="font-size: 13px" type="text" name="txref" class="form-control"  autocomplete="off" required="true" placeholder="i.e PROTECTEDPAY-15564345*****98768-PP">
+    
+  </div>
+
+
+  <div class="form-group">
+    <div align="left"><small><b><label>Payment Issue</label></b></small></div>
+    <div align="left" style="font-size: 12px;color: grey; margin-top: -10px">Include all relevant information.</div>
+
+   <div class="form-group" style="margin-top: 10px">
+                <textarea style="font-size: 13px" placeholder="What is your issue? ..." class="form-control" id="issue" name="issue"
+                          cols="50" rows="5"></textarea>
+            </div>
+    	
+  
+
+</div>
+
+<button type="submit" style="background-color:  #08172A; color: white" class="btn col-6 shadow" data-attach-loading >Send</button><br>
+
+
+</form>

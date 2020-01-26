@@ -1,0 +1,206 @@
+
+{% for ad in ads %}
+
+ <div class="media border shadow-sm p-3 mb-5 {% if  ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost %}border-warning {% endif %}" style="margin-top: -40px; font-family: arial; border-radius: 5px;{% if  ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost %}background-color: #FAF8E9{% else %} background-color: white{% endif %}">
+
+ {% for image in ad.allimage %}
+  {% if loop.first %}
+   <img src="{{ image.thumb(500, auto) }}" style="height: 200px; width:230px; margin-top: 20px; margin-left: -7px" class="mr-3 " alt="...">
+   {% endif %}
+    {% else %}
+    <img src="{{ 'assets/images/no-image.png'|theme }}" style="height: 200px; width:230px; margin-top: 20px; margin-left: 10px" class="mr-3 " alt="...">
+  
+   {% endfor %}
+
+   
+   
+  <div class="media-body handle" style="margin-top: -10px">
+
+   <div>
+    {% if ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost  %} 
+    <div style="margin-top: 0px; margin-left: -235px" class="float-left "><span style="background-color: darkcyan; color: white" class="badge">Boosted</span></div>
+    {% endif %}
+{% if user %}
+    <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"  data-request ="onBookmark" data-request-confirm="Add to Favourite List"  data-request-data= "bookmark: {{ ad.id }}" data-request-flash><span style="font-size: 15px; color: #08172A;" class="fa fa-heart-o"></span></a> 
+{% else %}
+   <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"   onclick="$.oc.flashMsg({text: 'Log in to Favourite a Produt/Servce', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A;" class="fa fa-heart-o"></span></a>
+   {% endif %}
+
+
+
+
+    <br>
+  	 <a  href="{{ 'product-single'|page({ slug: ad.slug }) }}" style="text-decoration: none;">
+    <h6 style="color:  darkblue; overflow-wrap: break-word; font-size: 18px;" class="mt-0" align="left">{{ ad.title| truncate(30)}}</h6>
+    </a>
+
+ 
+{% if ad.price %}
+  
+    <div align="left" style="margin-top: -5px"><span style="color: grey; font-size: 17px" ><span>₦</span>{{ ad.price }}</span></div>
+    {% else %}
+
+     <div  class="float-left "><span style="background-color: #1484B3; color: white" class="badge">Contact for Price</span></div><br>
+
+    {% endif %}
+
+    <div align="left" style="color: grey; font-size: 17px"><small><span>Sold by:</span> {{ ad.user.company|truncate(35) }}</small></div>
+ {% if ad.user.trust_badge %}
+<span class="float-right"><img style="height: 30px; width: 30px; " src="{{ 'assets/images/verified.png'|theme }}"></span>
+{% endif %}
+
+
+    <div align="left" style="font-size: 15px;"> 
+
+  
+    {% if ad.rating %}
+        {% for i in range(1,5) %}
+            {% if ad.rating >=  max(0, i-0.25) %}
+                <span style="color: orange" class="fa fa-star"></span>
+            {% elseif (ad.rating > (i-0.75)) %}
+                <span style="color: orange" class="fa fa-star-half-o"></span>
+            {% else %}
+                <span style="color: grey" class="fa fa-star-o"></span>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+     
+    
+</div>
+
+   
+    
+
+
+ 
+
+    <div align="left" style="margin-top: -2px", ><small><span style="color: black; font-size: 15px"><span class="fa fa-map-marker" style="color: grey; "></span> {{ ad.location|truncate(15) }}
+
+    </span></small><br>
+
+
+<!--
+    <br><br><br><br>
+
+    <a style=" font-family: arial; font-size: 15px; margin-left: -240px; margin-top: 10px; border-radius: 100px; width: 70%; color: white" class="btn btn-info btn-lg btn  shadow showNumber" ><span class="fa fa-phone"></span> View Phone Number</a>
+   
+    <input class="phonenum" style="display: none;" type="text" value="{{ ad.user.phone }}">
+
+
+
+
+
+<div class="dropdown ipadmsg" >
+  <a style="margin-top: -40px; margin-right: -13px; font-family: arial; font-size: 15px; border-radius: 100px; width: 100%" class="btn btn-lg btn-success dropdown-toggle btn shadow float-right " data-toggle="dropdown" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true"><span class="fa fa-envelope"></span>
+    Message
+  </a>
+
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item  "href="https://wa.me/{{ ad.user.phone [1:]}}?text=Hello,%20I%20am%20interested%20in%20your%20ad%20({{ ad.title }})%20posted%20on%20merch.com.ng"  style="font-family: arial"><span class="fab fa-whatsapp"></span> Whatsapp</a>
+     <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="mailto:{{ ad.user.email }}"><span class="fa fa-envelope-o"></span> Email</a>
+     <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="sms:{{ ad.user.phone }}"><span class="fa fa-envelope-square"></span> Sms</a>
+  </div>
+</div>
+-->
+
+  </div> 
+
+</div>
+  </div>
+</div>
+
+
+                       
+
+
+
+ {% else %}
+
+ <div align="center"><p style="color: grey; font-family: arial">No Product/Service Yet<br><span><small>Be the first to post here or check back later.</small></span></p></div>
+
+
+ {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav aria-label="Page navigation example" style="font-size: 17px;">
+  {% if ads.hasPages %}
+  <ul class="pagination justify-content-center">
+
+    {% if ads.currentPage > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ ads.previousPageUrl }}" rel="prev" ><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    
+    {% endif %}
+    
+
+
+{% if ads.currentPage > 3 %}
+ <li class="page-link"><a href="{{ ads.url(1) }}">1</a></li>
+{% endif %}
+
+{% if ads.currentPage > 4 %}
+  <li class="page-link"><span>...</span></li>
+{% endif %}
+
+
+
+
+
+    {% for page in range(1, ads.lastPage) %}
+   {% if page >= ads.currentPage - 2 and page <= ads.currentPage + 2 %}
+   {% if page == ads.currentPage %}
+    <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+               {% else %}
+                    <li class="page-link"><a href="{{ ads.url(page) }}">{{ page }}</a></li>
+    {% endif %}
+    {% endif %}
+   
+
+     {% endfor %}
+
+{% if ads.currentPage < ads.lastPage - 3 %}
+<li class="page-link"><span>...</span></li>
+{% endif %}
+
+{% if ads.currentPage < ads.lastPage - 2 %}
+ <li class="page-link"><a href="{{ ads.url(ads.lastPage) }}">{{ ads.lastPage }}</a></li>
+{% endif %}
+
+ {% if ads.hasMorePages %}
+    
+    <li class="page-item">
+      <a class="page-link" href="{{ ads.nextPageUrl }}"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% endif %}
+
+      
+
+  </ul>
+  {% endif %}
+</nav>
+ 
+

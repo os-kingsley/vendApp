@@ -1,0 +1,364 @@
+
+
+  {{ form_ajax('onSubmit', { data: { record:  post.id  } }) }}
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+
+<div  style=" font-family: arial">
+  
+  <div class="container">
+<small><b><p style="color: grey">Fields Marked <span style="color: red">*</span> are Required</p></b></small>
+</div>
+
+
+
+
+
+  <div  class="form-group">
+    <small><b><label  class="float-left control-label" >Title <span style="color: red">*</span></label></b></small>
+    <input value="{{ post.title }} " id="pro_title" type="text" name ="title" class="form-control"  aria-describedby="title" autocomplete="off">
+      </div>
+ 
+
+
+ <!-- File uploader -->
+    {% component 'imageUploader' %}
+
+
+  
+ <small><b><label class="float-left control-label" for="inputCategory">Category <span style="color: red">*</span></label></b></small>
+<div id="cats" class="form-group required">
+     
+      <select name="catsId" id="category" class="custom-select" data-request="onChangeCat" >
+        <option selected>Choose...</option>
+
+        {% for key, item in items %}
+        <option value={{ key }}> {{ item }}</option>
+         
+        {% endfor %}
+        
+      </select>
+     
+  </div>
+ 
+
+ 
+  
+
+ <div id="subcategory" class="form-group"></div>
+   
+  
+
+
+
+
+ <small><b><label class="control-label required"></label>Fill Price or Check "Contact for price" box <span style="color: red">*</span></b></small><br>
+<div class="border"><br>
+<div class="container">
+
+  <div class="form-group  ">
+    <small><b><label class="float-left control-label">Price</label></b></small><br>
+
+         <div class="input-group ">
+        <div class="input-group-prepend">
+          <div class="input-group-text form-control"> ₦</div>
+        </div>
+    <input value="{{ post.price}}" name="price" type="text" class="form-control" id="price">
+    
+    
+  </div>
+    
+ </div>
+</div>
+<div class="container">
+<div align="left" class="custom-control custom-checkbox required " >
+  <input type="checkbox" class="custom-control-input" id="customCheck1" name="contact" value="Contact for Price">
+  <label class="custom-control-label " for="customCheck1" style="font-size: 15px">Contact for Price</label>
+</div>
+</div><br>
+</div>
+<br>
+
+
+
+
+<div class="form-group">
+   <small><b><label class="float-left control-label">Min. Order Quantity</label></b></small><br>
+    <input value="{{ post.minimum_order}}" name="minimum_order" type="text" class="form-control" id="orderQuantity" >
+   <span style="font-size: 12px; color: grey">The minimum order a buyer can request for. ie. 1 unit, 10 packs etc.</span>
+  </div>
+
+
+
+  
+   <div class="form-group">
+   <small><b><label class="float-left">Discount Offer</label></b></small>
+    <input value="{{discount_offer}}" name="discount_offer" type="text" class="form-control col-12" id="discountOffer" >
+    <span style="font-size: 12px; color: grey">Discount based on quantity bought or pomotion. You may include discounts if you are selling to other businesses/retailers.</span>
+  </div>
+
+  <div class="form-group">
+    <small><b><label class="float-left">Supply Ability</label></b></small>
+    <input value="{{ supply_ability }}" name="supply_ability" type="text" class="form-control" id="supplyAbility" >
+    <span style="font-size: 12px; color: grey">How much quantity can be supplied in a week, month etc.</span>
+  </div>
+
+
+  <small><b><label class="float-left" for="inputCategory">Delivery <span style="color: red">*</span></label></b></small>
+ <div class="form-group">
+     
+      <select name="delivery" id="delivery" class="custom-select">
+        <option selected>{{post.delivery}}</option>
+        <option>Yes</option>
+        <option>No</option>
+
+    </select>
+  </div>
+
+
+<!--
+  <div  class="form-group">
+    <small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
+    <input value="{{post.delivery_time}}" type="text" name ="delivery_time" class="form-control form-control-sm" id="delivery_time" aria-describedby="delivery_time">
+    <span style="font-size: 12px; color: grey">i.e. 1-3 days etc.</span>
+   
+  </div>
+  -->
+
+
+  <small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
+  <span style="font-size: 12px; color: grey">i.e within 2 Days</span>
+<select class="custom-select" name="delivery_time">
+  <option selected>{{post.delivery_time}}</option>
+  <option value="1 Day">1 Day</option>
+  <option value="2 Days">2 Days</option>
+  <option value="3 Days">3 Days</option>
+  <option value="4 Days">4 Days</option>
+  <option value="5 Days">5 Days</option>
+  <option value="6 Days">6 Days</option>
+  <option value="7 Days">7 Days</option>
+  <option value="8 Days">8 Days</option>
+  <option value="9 Days">9 Days</option>
+  <option value="10 Days">10 Days</option>
+  <option value="11 Days">11 Days</option>
+  <option value="12 Days">12 Days</option>
+  <option value="13 Days">13 Days</option>
+  <option value="14 Days">14 Days</option>
+</select><br><br>
+
+
+<!--
+  <small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
+  <div class="float-right" style="font-size: 13px; font-weight: bold; color: brown"><label for="customRange2">Day(s)</label> <output name="timeoutput" id="timeoutput" ></output></div>
+<input type="range" name="delivery_time" class="custom-range"  id="customRange2" oninput="timeoutput.value=customRange2.value" min="0" max="14" value="0">
+
+-->
+
+<div class="form-group">
+  <div align="left"><small><b><label class="control-label" >Description <span style="color: red">*</span></label></b></small></div>
+   <div style="margin-top: -10px;" align="left"><span style="font-size: 12px; color: grey">Make your Description as Detailed as possible.</span></div>
+ 
+  
+<textarea  name="description" id="editor1" rows="3">{{post.description}}
+
+  
+</textarea>
+ 
+</div>
+
+<div>
+
+  <!--
+<div align="left">
+{% for posting in post.spec_name %}
+
+ <input type="" name="" value="{{ posting }}">  <br>  
+
+{% endfor %}
+</div>
+<span class="float-right">
+{% for posting2 in post.spec_detail %}
+<input type="" name="" value="{{ posting2 }}">  <br> 
+{% endfor %}
+</span>
+</div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+<div align="left"><small><b><label class="control-label" >Specification <span style="color: red">*</span></label></b></small></div>
+ <div style="margin-top: -10px;" align="left"><span style="font-size: 12px; color: grey">Add your product specification like Model, Size, Condition, Brand etc..<br>Have Atleast One Specification.</span></div>
+<div class="row clearfix" style="font-family: arial">
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+          <tr>
+            <th class="text-center" style="font-size: 13px"> # </th>
+            <th class="text-center" style="font-size: 13px"> Spec Name </th>
+            <th class="text-center" style="font-size: 13px"> Spec Detail</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>1</td>
+            <td><input type="text" name='spec_name[]' placeholder='I.e Size.' class="form-control"  /></td>
+            <td><input type="text" name='spec_detail[]' placeholder='5.5 inches' class="form-control qty" step="0" min="0"  /></td>
+            
+          </tr>
+          <tr id='addr1'></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12">
+      <button id="add_row" type="button" class="btn btn-sm btn-outline-info pull-right col-4">Add Row</button>
+      <button id='delete_row' type="button" class="pull-left btn btn-sm btn-outline-success col-4">Delete Row</button>
+    </div>
+  </div>
+<br>
+
+
+
+<table class="table">
+   <tr>
+      <th scope="col"><small>Spec Name</small></th>
+      <th scope="col"><small>Spec Detail</small></th>
+    
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    
+      <td>
+       
+        {% for posting in post.spec_name %}
+         {% if posting is not empty %}
+    <input type="text" name="spec_name[]" value="{{ posting }}" class="form-control" ><br>
+       {% endif %}
+   {% endfor %}
+
+      </td>
+     
+    
+     
+      <td>
+       
+        {% for posting2 in post.spec_detail %}
+         {% if posting2 is not empty %}
+  <input type="text" name="spec_detail[]" value="{{ posting2 }}" class="form-control" ><br>
+  {% endif %}
+  {% endfor %}
+  
+      </td>
+      
+      
+    </tr>
+  
+  </tbody>
+</table>
+
+
+<small><b><label class="float-left">Location <span class="fa fa-map-marker"></span> <span style="color: red">*</span></label></b></small>
+ <div  class="form-group">
+<select id="postform" class="form-control form-control-sm form-select places" name='location' multiple="multiple">
+  <option></option>
+  
+</select>
+</div>
+<br>
+
+
+
+
+<button style="border-radius: 5px; background-color:  #08172A; color: white" id="submit" type="submit" class="btn btn-sm shadow col-4" data-attach-loading >Update</button>
+
+</div>
+
+</div>
+
+{{ form_close() }}
+
+
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxErrorMessage', function(event, message){
+
+        // This can be any custom JavaScript you want
+       $.oc.flashMsg({text: message, 'class': 'error'}); return false;
+
+        // This will stop the default alert() message
+        event.preventDefault();
+
+    })
+</script>
+{% endput %}
+
+
+
+
+
+
+{% put scripts %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    
+      
+      $(document).ready(function(){
+    var i=1;
+    $("#add_row").click(function(){b=i-1;
+        $('#addr'+i).html($('#addr'+b).html()).find('td:first-child').html(i+1);
+        $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+        i++; 
+    });
+    $("#delete_row").click(function(){
+      if(i>1){
+    $("#addr"+(i-1)).html('');
+    i--;
+    }
+    
+  });
+ 
+
+
+});
+
+
+
+
+</script>
+
+
+{% endput %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

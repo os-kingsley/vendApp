@@ -1,0 +1,10 @@
+name: Buy
+form: $/corymillz/adverts/models/buy/fields.yaml
+modelClass: Corymillz\Adverts\Models\Buy
+defaultRedirect: corymillz/adverts/buy
+create:
+    redirect: 'corymillz/adverts/buy/update/:id'
+    redirectClose: corymillz/adverts/buy
+update:
+    redirect: corymillz/adverts/buy
+    redirectClose: corymillz/adverts/buy

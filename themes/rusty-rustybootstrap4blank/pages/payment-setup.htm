@@ -1,0 +1,84 @@
+title = "Payment setup"
+url = "/payment-setup"
+layout = "default"
+is_hidden = 0
+
+[paymentsetup]
+[session]
+security = "user"
+redirect = "login"
+
+==
+<?php
+
+function onStart(){
+$this['API_KEY'] = getenv('FW_publicKey');
+
+
+
+}
+
+
+
+?>
+
+
+==
+ {% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="10">
+        {{message}}
+    </p>
+{% endflash %}
+
+{% if inGroup('seller') %}
+  <div align="center"><p style="font-family: arial; background-color: #1484B3; height: 45px; line-height: 45px; color: white; font-size: 15px;margin-top: -14px" class="shadow">Request Payment Account Setup</p></div><br>
+
+
+<div class="container" style="margin-top: -70px">
+  <div class="starter-template" style="margin: -25px">
+<div style="font-family: arial">
+  	<div style="font-size: 18px"><b style="color: #1484B3">Pricing</b><br><br>
+  		<div class="card" style="margin-top: -20px">
+  			<div class="card-body">
+  	<p><small style="color: grey">Payment Setup is free<hr>
+  	<span style="font-size: 16px; font-weight: bold; color: #1484B3;">Direct Pay</span> carries a charge of 1.5% + ₦100 of each transaction<br>
+    (₦100 is waved for all payments below ₦1500)<hr>
+  	<span style="font-size: 16px; font-weight: bold; color:#1484B3;">Protected Pay</span> carries a charge of 2.8% of each transaction</small>
+   </p></div></div></div>
+<p><small style="color: grey; font-size: 12px"  >
+   *Please note that a seller recieving payments via Protected Pay might have his payment setup disabled if the seller has up to 3 issues raised against him by different buyers, so it depends on the seller to ask as many questions as is neccessary to give buyers exactly what they want.<br> With each issue raised by a buyer, a charge back email is sent to the seller to respond to in 72 hours(3 days) at most. If the seller agrees or totally ignores, a refund is made to the buyer. If the seller disagrees then the seller has to provide proof that value for payment was given as agreed and it was recieved.<br> <code>PLEASE NOTE: Partial refunds are not supported at this time</code>.</small>  
+ </p> 	<hr><br>
+ <div style="font-size: 18px"><b style="color: #1484B3">Settement Cycle</b></div><br>
+ <div class="card" style="margin-top: -20px">
+  			<div class="card-body">
+  			<p><small style="color: grey">All Bank Settlements to sellers provided Bank Accounts takes place automatically in T+1 day, where T stands for time of transaction. Emails are sent instantly notifying sellers of payments made to them with details of the payment but Bank Settlements for payments comes in within 24 hours from when the transaction is made. For Protected Pay, Settlement is within 24 hours from when the buyer authorizes settlement.</small></p>	
+  			</div></div>
+        <br>
+  			<p style="font-size: 12px; color: grey">*You can Verify all payments plus Protected Pay Status from your Profile Page using the transaction reference(i.e PROTECTEDPAY-15508658*****8778-PP or DIRECTPAY-15554677*******6766-DP) sent in each payment notification.</p>
+
+  			<hr></div>
+
+    <div style="font-size: 18px"><b style="color: #1484B3">Payment Id</b></div><br>
+ <div class="card" style="margin-top: -20px">
+        <div class="card-body">
+        <p><small style="color: grey">Once your Payment setup is complete, your generated Payment Id will become visible on your profile page and attached to all Products/Services you post and buyers can now pay you. Your Payment Id routes all your payments instantly to you once the payment is made. You can verify each payment using the transaction Reference of the payment.</small></p> 
+        </div></div>    
+        
+
+{% component 'paymentsetup' %}
+</div>
+</div>
+
+{% else %}
+
+<div align="center"><p style="color: grey">You need a Seller Account to access this page.</p><br>
+	<span><a style="color: teal" href="{{ 'home'|page }}">Home</a></span>
+
+</div>
+
+{% endif %}
+
+

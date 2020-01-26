@@ -1,0 +1,75 @@
+title = "Receipt"
+url = "/receipt"
+layout = "default"
+is_hidden = 0
+[account]
+[session]
+security = "user"
+redirect = "login"
+==
+<?php
+
+use Renatio\DynamicPDF\Classes\PDF;
+use Carbon\Carbon;
+use RainLab\User\Models\User;
+
+
+function onStart()
+{  
+   $this['image'] = \RainLab\User\Models\User::where('id', Session::get('userId'))->first(); 
+
+    $email = Auth::getUser()->email;
+    $company = Auth::getUser()->company;
+    $phone = Auth::getUser()->phone;
+    $address = Auth::getUser()->street_addr;
+    $date = Carbon::now();
+    $product = Session::get('invoice-data1');
+    $qty = Session::get('invoice-data2');
+    $price = Session::get('invoice-data3');
+    $total = Session::get('invoice-data4');
+    $subTotal = Session::get('invoice-data5');
+    $taxAmount = Session::get('invoice-data6');
+    $totalAmount = Session::get('invoice-data7');
+    $customerName = Session::get('invoice-data8');
+    $customerNo = Session::get('invoice-data9');
+    $other = Session::get('invoice-data10');
+    $discount = Session::get('invoice-data11');
+
+    $templateCode = 'renatio::invoice'; // unique code of the template
+
+    $data  = array(
+    'email' => $email,
+    'phone' => $phone,
+    'address' => $address,
+    'company' => $company,
+    'date' => $date,
+    'product' => $product,
+    'qty' => $qty,
+    'price' => $price,
+    'total' => $total,
+    'subTotal' => $subTotal,
+    'discount' => $discount,
+    'taxAmount' => $taxAmount,
+    'totalAmount' => $totalAmount,
+    'customerName' => $customerName,
+    'customerNo' => $customerNo,
+    'other' => $other,
+    
+
+
+    ); // optional data used in template
+
+    
+  
+
+    
+
+    return PDF::loadTemplate($templateCode, $data)->setOptions(['isRemoteEnabled' => true])->stream('download.pdf');
+}
+
+
+
+
+?>
+==
+

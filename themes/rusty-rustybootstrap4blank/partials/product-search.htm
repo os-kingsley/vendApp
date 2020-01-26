@@ -1,0 +1,127 @@
+{% for ad in ads %}
+
+ <div class="media border shadow-sm p-3 mb-5 {% if  ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost %}border-warning {% endif %}" style="margin-top: -40px; font-family: arial; border-radius: 5px;{% if  ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost %}background-color: #FAF8E9{% endif %}">
+
+ {% for image in ad.allimage %}
+  {% if loop.first %}
+   <img src="{{ image.thumb(500, auto) }}" style="height: 110px; width:120px; margin-top: 20px; margin-left: 10px" class="mr-3 " alt="...">
+   {% endif %}
+    {% else %}
+    <img src="{{ 'assets/images/no-image.png'|theme }}" style="height: 110px; width:120px; margin-top: 20px; margin-left: 10px" class="mr-3 " alt="...">
+  
+   {% endfor %}
+
+   
+   
+  <div class="media-body handle" style="margin-top: -10px">
+
+   <div>
+    {% if ad.id in msBoost or ad.id in mbBoost or ad.id in meBoost or ad.id in bmsBoost or ad.id in bmbBoost or ad.id in bmeBoost  %} 
+    <div style="margin-top: 0px; margin-left: -135px" class="float-left "><span style="background-color: darkcyan; color: white" class="badge">Boosted</span></div>
+    {% endif %}
+
+    <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"  data-request ="onBookmark" data-request-confirm="Add to Bookmark: {{ ad.title }}"  data-request-data= "bookmark: {{ ad.id }}" data-request-flash><span style="font-size: 19px; color: #08172A;" class="fa fa-heart-o"></span></a> <br>
+     <a  href="{{ 'product-single'|page({ slug: ad.slug }) }}" style="text-decoration: none;">
+    <h6 style="color:  darkblue; overflow-wrap: break-word; font-size: 20px" class="mt-0" align="left">{{ ad.title| truncate(30)}}</h6>
+    </a>
+
+ 
+{% if ad.price %}
+  
+    <div align="left" style="margin-top: -5px"><span style="color: grey; font-size: 17px" ><span>₦</span>{{ ad.price }}</span></div>
+    {% else %}
+
+     <div  class="float-left "><span style="background-color: #1484B3; color: white" class="badge">Contact for Price</span></div><br>
+
+    {% endif %}
+
+    <div align="left" style="color: grey; font-size: 17px"><small><span>Sold by:</span> {{ ad.user.company|truncate(35) }}</small></div>
+ {% if ad.user.trust_badge %}
+<span class="float-right"><img style="height: 30px; width: 30px; " src="{{ 'assets/images/verified.png'|theme }}"></span>
+{% endif %}
+
+
+    <div align="left" style="font-size: 15px;"> 
+
+  
+    {% if ad.rating %}
+        {% for i in range(1,5) %}
+            {% if ad.rating >=  max(0, i-0.25) %}
+                <span style="color: orange" class="fa fa-star"></span>
+            {% elseif (ad.rating > (i-0.75)) %}
+                <span style="color: orange" class="fa fa-star-half-o"></span>
+            {% else %}
+                <span style="color: grey" class="fa fa-star-o"></span>
+            {% endif %}
+        {% endfor %}
+      {% endif %}
+     
+    
+</div>
+
+   
+    
+
+
+ 
+
+    <div align="left" style="margin-top: -2px", ><small><span style="color: black; font-size: 15px"><span class="fa fa-map-marker" style="color: grey; "></span> {{ ad.location|truncate(15) }}
+
+    </span></small><br>
+
+    <a href="tel:{{ ad.user.phone }}" style=" font-family: arial; font-size: 15px; margin-left: -140px; margin-top: 10px; border-radius: 100px; width: 64%" class="ipadcall btn btn-info  btn  shadow"><span class="fa fa-phone"></span>   Call</a>
+
+
+
+
+<div class="dropdown" >
+  <a style="margin-top: -36px; margin-right: 5px; font-family: arial; font-size: 15px; border-radius: 100px; width: 73%" class="btn btn-success dropdown-toggle btn shadow float-right ipadmsg" data-toggle="dropdown" href="#" role="button" id="dropdownMenuLink"  aria-haspopup="true"><span class="fa fa-envelope"></span>
+    Message
+  </a>
+
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item  "href="https://wa.me/{{ ad.user.phone [1:]}}?text=Hello,%20I%20am%20interested%20in%20your%20ad%20({{ ad.title }})%20posted%20on%20merch.com.ng"  style="font-family: arial"><span class="fab fa-whatsapp"></span> Whatsapp</a>
+     <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="mailto:{{ ad.user.email }}"><span class="fa fa-envelope-o"></span> Email</a>
+     <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="sms:{{ ad.user.phone }}"><span class="fa fa-envelope-square"></span> Sms</a>
+  </div>
+</div>
+
+
+  </div> 
+
+</div>
+  </div>
+</div>
+
+
+                       
+
+
+
+ {% else %}
+
+ <div align="center"><p style="color: grey; font-family: arial">No Result Found</p></div>
+
+
+ {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+

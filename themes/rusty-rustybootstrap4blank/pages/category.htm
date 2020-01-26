@@ -1,0 +1,81 @@
+title = "Category"
+url = "/category"
+layout = "pro"
+is_hidden = 0
+==
+<?php
+use Corymillz\Adverts\Models\Cat;
+function onStart(){
+$this['cats'] = Cat::where('parent_id',0)->remember(30)->get();
+
+}
+?>
+==
+
+
+<div class="text-dark" align="center"><b><h6 style=" background-color: lightgrey; height: 45px; line-height: 45px">Browse All Products/Services by Category</h6></b></div><br>
+
+
+
+
+
+<div class="d-xl-none container" style="margin-top: -50px">
+  <div class="starter-template" style="margin: -25px">
+{%partial "homescreen"%}
+
+{% for row in cats|batch(3) %}
+    <div class="row">
+        {% for cats in row %}
+            <div class="col-4 border"><br>
+
+            	<a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" ><img src="{{ cats.poster.thumb(500, auto)  }}" class="img-fluid shadow" alt="" style="border-radius: 35px; height: 55px; width: auto"></a><br>
+                    <small><a style="color: #08172A; text-decoration: none" href="{{ 'subcategory'|page({ slug: cats.slug }) }}" >
+                    {{ cats.cat_title|truncate(20) }}
+
+                </a></small>
+              
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+
+</div>
+</div>
+
+<!-- desktop view -->
+
+
+
+<div class="d-none d-xl-block container" style="margin-top: 90px">
+  <div class="starter-template" style="margin: -120px">
+
+
+{% for row in cats|batch(3) %}
+    <div class="row">
+        {% for cats in row %}
+            <div class="col-4 border"><br>
+
+                <img src="{{ cats.poster.thumb(500, auto)  }}" class="img-fluid shadow cat-image" alt="" style="border-radius: 35px; height: 55px; width: auto"><br>
+                    <small><a style="color: #08172A; text-decoration: none" href="{{ 'subcategory'|page({ slug: cats.slug }) }}" >
+                    {{ cats.cat_title|truncate(20) }}
+
+                </a></small>
+              
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+<br><br><br><br><br>
+</div>
+</div>
+
+
+
+
+
+
+  

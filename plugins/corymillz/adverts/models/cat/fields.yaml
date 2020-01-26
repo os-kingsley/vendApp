@@ -1,0 +1,39 @@
+fields:
+    cat_title:
+        label: Cat_title
+        span: auto
+        type: text
+    parent_id:
+        label: Parent_id
+        span: auto
+        type: text
+    nest_left:
+        label: Nest_left
+        span: auto
+        type: text
+    nest_right:
+        label: Nest_right
+        span: auto
+        type: text
+    nest_depth:
+        label: Nest_depth
+        span: auto
+        type: text
+    slug:
+        label: Slug
+        span: auto
+        preset:
+            field: cat_title
+            type: slug
+        type: text
+    poster:
+        label: 'Cat Poster'
+        span: auto
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        imageWidth: '100'
+        imageHeight: '100'
+        type: fileupload

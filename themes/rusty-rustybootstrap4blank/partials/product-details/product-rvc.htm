@@ -1,0 +1,41 @@
+
+<div  style="font-size: 19px; margin-left: 20px; margin-top: -30px; font-family: arial">
+
+
+  {% if adsingles.rating %}
+  {% for i in range(1,5) %}
+  {% if adsingles.rating >=  max(0, i-0.25) %}
+  <span style="color: orange" class="fa fa-star"></span>
+  {% elseif (adsingles.rating > (i-0.75)) %}
+  <span style="color: orange" class="fa fa-star-half-o"></span>
+  {% else %}
+  <span style="color: grey" class="fa fa-star-o"></span>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  &nbsp;&nbsp;&nbsp;<span style="font-size: 14px; color: grey" class="fa fa-user" > 
+    {% if count.ratings|length == 1 or count.ratings|length == 0 %}
+    {{ count.ratings|length }} Rating
+    {% else %}
+    {{ count.ratings|length }} Ratings
+    {% endif %}
+
+  </span>&nbsp;&nbsp;&nbsp;<span class="fa fa-eye" style="font-size: 14px; color: grey"> 
+    {% if page == 1 %}
+    {{ page }} View
+    {% else %}
+    {{ page }} Views
+    {% endif %}
+  </span>&nbsp;&nbsp;
+  {% set posts = commentsPost.posts %}
+
+  {% if(commentsPost.count) > 0 %}
+  <span  style="font-size: 14px; color: grey" class="text-right fa fa-comment"> <span id="comments-count"> {{ commentsPost.count }}</span> reviews</span>
+
+  {% elseif(commentsPost.count) == 0 %}
+  <span  style="font-size: 14px; color: grey" class="text-right fa fa-comment"><span id="comments-count"> 0</span> review</span>
+
+  {% endif %}
+  
+</div>

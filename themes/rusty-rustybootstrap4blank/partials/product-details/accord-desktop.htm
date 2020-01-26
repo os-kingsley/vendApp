@@ -1,0 +1,65 @@
+
+  <div id="accordiondesk" style="margin: -80px">
+  <h3>Specification</h3>
+  <div>
+    
+<table class="table">
+  
+  <tbody>
+    <tr>
+    
+      <td>
+        
+        {% for specName in adsingles.spec_name %}
+         {% if specName is not empty %}
+        {{ specName }}<br><br>
+        {% endif %}
+        {% endfor %}
+
+      </td>
+     
+    
+     
+      <td>
+        {% for specDetail in adsingles.spec_detail %}
+        {% if specDetail is not empty %}
+           {{ specDetail }}<br><br>
+           {% endif %}
+        {% endfor %}
+      </td>
+      
+      
+    </tr>
+  
+  </tbody>
+</table>
+
+
+  </div>
+  <h3>Description</h3>
+  <div>
+   {{adsingles.description|raw }}
+  </div>
+  <h3>Min Order Quantity</h3>
+  <div>
+    {{ adsingles.minimum_order }}
+   
+  </div>
+  <h3>Discount Offer</h3>
+  <div>
+    {{ adsingles.discount_offer }}
+  </div>
+   <h3>Supply Ability</h3>
+  <div>
+    {{ adsingles.supply_ability }}
+  </div>
+   <h3>Review</h3>
+  <div>
+    {% partial 'comments/list' %}
+  </div>
+</div>
+
+
+
+
+ 

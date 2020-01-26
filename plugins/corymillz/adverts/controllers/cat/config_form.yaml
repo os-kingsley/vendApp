@@ -1,0 +1,10 @@
+name: Cat
+modelClass: Corymillz\Adverts\Models\Cat
+form: $/corymillz/adverts/models/cat/fields.yaml
+defaultRedirect: corymillz/adverts/cat
+create:
+    redirect: 'corymillz/adverts/cat/update/:id'
+    redirectClose: corymillz/adverts/cat
+update:
+    redirect: corymillz/adverts/cat
+    redirectClose: corymillz/adverts/cat

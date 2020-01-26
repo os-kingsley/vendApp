@@ -1,0 +1,545 @@
+title = "Store"
+url = "/store/:slug"
+layout = "productlayout"
+is_hidden = 0
+
+[account]
+paramCode = "code"
+forceSecure = 0
+
+[ssbuttonsssb]
+facebook = 1
+twitter = 1
+google+ = 0
+tumblr = 0
+pinterest = 0
+pocket = 0
+reddit = 0
+linkedin = 1
+wordpress = 0
+pinboard = 0 
+email = 1
+order_facebook = 1
+order_twitter = 2
+order_google+ = 3
+order_tumblr = 4
+order_pinterest = 5
+order_pocket = 6
+order_reddit = 7
+order_linkedin = 8
+order_wordpress = 9
+order_pinboard = 10
+order_email = 11
+theme = "flat_web_icon_set_color"
+==
+<?php
+use Corymillz\Adverts\Models\Advert;
+use Corymillz\Adverts\Models\Cat;
+use RainLab\User\Models\User;
+use System\Models\File;
+
+
+
+
+
+function onStart(){
+
+	
+	$slug  =  $this->param('slug');
+
+ 
+  
+
+
+$this['allproducts'] = Advert
+::withCount(['ratings as rating' => function ($query) {
+    $query->select(DB::raw('COALESCE(avg(rating), 0)'));
+}])
+->where('user_id',$slug)->orderby('created_at','desc')->paginate(10);
+
+
+
+
+
+$this['items'] = Advert::select('cat_id')
+                   ->distinct('cat_id')
+                   ->with('cats')
+                   ->where('user_id', $slug)
+                  ->get();
+
+$this['url'] = Request::url();
+
+
+
+$this['userprofile'] = \RainLab\User\Models\User::where('id', $slug)->first();
+
+
+
+if(Auth::getUser() && Auth::getUser()->id == $slug ){
+  
+  $this['getuser'] = Auth::getUser();
+}
+
+$productCount = Advert::with('allimage')->where('user_id', $slug)->count();
+
+if($productCount <= 15){
+
+$limit = 5;
+}elseif($productCount > 15 and $productCount < 30){
+
+$limit = 7; 
+
+}elseif($productCount > 30 ){
+  $limit = 10;
+}
+if($productCount > 9){
+$this['storePopular'] = Advert::with('allimage')->where('user_id', $slug)->orderBy('view_count','desc')->limit($limit)->get();
+}
+}
+
+
+
+function onBookmark()
+{
+ 
+$recordId = post('bookmark');
+
+$record = Advert::find($recordId);
+
+$user=  Auth::getUser();
+
+$user->ads()->syncWithoutDetaching($record);
+
+
+
+
+}
+
+
+
+function onUserPro()
+{
+$id = post('category');
+
+$slug  =  $this->param('slug');
+
+$this['allproducts'] = Advert
+::withCount(['ratings as rating' => function ($query) {
+    $query->select(DB::raw('COALESCE(avg(rating), 0)'));
+}])
+->whereHas('cats', function ($query) use ($id) {
+                  $query->where('id','=', $id);
+               })
+->where('user_id',$slug)->orderby('created_at','desc')->get();
+
+
+   return [
+        '#myDiv' => $this->renderPartial('pro'), '#myDiv2' => $this->renderPartial('pro')
+    ];
+
+  
+}
+
+
+
+
+  public function onImage(){
+
+
+  $image = Input::all();
+  $file = (new File())->fromPost($image['store_pic']);
+
+  return[
+
+  '#imageResult' => '<img src="' . $file->getThumb(100, 100,['mode' => 'crop']) . '">'
+
+
+  ];
+}
+?>
+==
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+
+
+<nav class="navbar navbar-dark sticky-top shadow d-xl-none" style="margin-top: -39px; color: white; background-color:{% if userprofile.background_color %} {{ userprofile.background_color }}{% else%}#8E134C{% endif %}">
+
+  <span class="navbar-brand" style="font-family: {% if userprofile.font_font_family %}{{ userprofile.font_family }}{% else %}cambria{% endif %}; color: {% if userprofile.font_color %}{{ userprofile.font_color }}{% else%}white{% endif %}" >
+    {% if userprofile.show_icon == 'Yes' and userprofile.avatar %}
+    <img style="height: 30px; width: 30px; border-radius: 20%; border: 2px solid white" src="{{ userprofile.avatar.thumb(500,auto) }}">
+    {% endif %}
+    {% if userprofile.store_title  %} {{ userprofile.store_title|truncate(25) }} {% else %}My new store
+{% endif %}
+  </span>
+
+   <button style="margin-right: 10px; outline: none;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="{{ 'seller-profile'|page ({ id: userprofile.id }) }}">About</a>
+      </li>
+    </ul>
+  </div>
+  
+</nav>
+
+
+
+
+    <div align="center" class="align-middle store-background d-xl-none" style=" {% if userprofile.store_pic %} background-image: url('{{ asset(userprofile.store_pic.path) }}'); {% else %}  background-image: url('{{ 'assets/images/shopper.jpg'|theme }}');{% endif %}background-repeat: no-repeat; background-size: 100% 300px; background-position: center; height: 300px; width: 100%; line-height: 300px">
+
+        <span style=" display: inline-block; vertical-align: middle; line-height: normal; font-size: 30px; text-align: center; margin: 10px; color: white; font-weight: bolder; font-family: {% if userprofile.store_description_font_style %}{{ userprofile.store_description_font_style }}{% else %}arial{% endif %}; color: {% if userprofile.store_description_font_color %}{{ userprofile.store_description_font_color }}{% else %}grey{% endif %}">{{userprofile.store_description}}</span>
+    </div>
+  
+
+
+
+   {% if getuser %}
+  <div align="right" class="d-xl-none"><a href="#" class="btn btn-link"  data-toggle="modal" data-target="#editModal"  style="font-size: 12px; color: grey; margin-right: 20px" ><span class="fa fa-edit"></span> Edit</a></div>
+  {% else %}
+  <br>
+ {% endif %}
+</div>
+
+
+
+{% if inGroup('seller') or user or not user %}
+
+
+ <div class="container d-xl-none">
+  <div class="starter-template store-desktop" style="margin-top: -30px">
+
+
+<small class="float-left" style="overflow-wrap: break-word; margin-left: -20px">Copy and Share store link</small>
+<div class="input-group mb-3" style="margin-top: 25px">
+  <input style="margin-left: -20px"  type="text" id="myInput" class="form-control form-control-sm col-5 " value="{{ url }}" aria-label="" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button onclick="myFunction(); $.oc.flashMsg({text: 'Copied to Clipboard', 'class': 'success', 'interval': 2}); return false;" class="btn btn-sm btn-outline-secondary" type="button" id="button-addon2"><span class="fa fa-copy"></span></button>
+    
+
+  </div> 
+</div>
+{% if userprofile.trust_badge %}
+<img style="height: 40px; width: 40px; margin-top: -100px; margin-right: -50px" src="{{ 'assets/images/verified.png'|theme }}">
+{% endif %}
+ <span style="margin-right: -30px; margin-top: -60px; font-family: arial; width: 120px" class="float-right"><p style="font-size: 14px"><a style="color: #1484B3; text-decoration: none; color:  #08172A;" href="{{ 'profile'|page ({ id: userprofile.company }) }}">{{userprofile.company|truncate(22)}}</p>
+  </a>
+
+
+ </span>
+
+
+
+<div align="center">
+
+<small>Share on:</small>
+
+{% component 'ssbuttonsssb' %}
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Category</label>
+  </div>
+  <select class="custom-select form-control-sm" name="category" id="inputGroupSelect01"  data-request="onUserPro" data-request-loading>
+    <option selected disabled="disabled">Browse Store by Category</option>
+        {% for item in items %}
+        <option value={{ item.cats.id }}> {{ item.cats.cat_title }}</option>
+        {% endfor %}
+  
+  </select>
+</div>
+
+
+
+
+{% endif %}
+
+<br>
+
+
+<div id="myDiv"style="margin: -20px">{% partial 'userall' %}</div>
+
+
+
+
+{% partial "store/store-edit" %}
+
+
+
+
+
+
+{% partial "store/favourite" %}
+
+
+
+</div>
+</div>
+
+{% if storePopular%}
+<div class="d-xl-none" style="margin-top: -20px;  margin-left: 10px">
+<small style="margin-left: 10px;">Popular</small><br><br>
+<div id="carousel" class="offscroll" style="margin-top: -28px; margin-left: 5px"><br>
+        {% for storePopular in storePopular %}
+
+        {% for buypics in storePopular.allimage %}
+        {% if loop.first %}
+       
+        <div class="slide" style="margin: -8px">
+
+          <a href="{{ 'product-single'|page({ slug: storePopular.slug }) }} "><img style="height: 150px; width: 170px; margin: -10px; margin-left: 10px" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></a>
+           <div style="font-family: arial; margin-top:15px"><small style="font-size: 15px;margin-left: 12px"><a style="color: teal" href="{{ 'product-single'|page({ slug: storePopular.slug }) }}">{{ storePopular.title|truncate(15) }}</a></small></div>
+         
+
+        </div>
+
+
+         {% endif %}
+
+        {% endfor %}
+        {% endfor %}
+           {% endif %}
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+desktop view
+-->
+
+
+<nav class="navbar navbar-dark sticky-top shadow d-none d-xl-block" style="margin-top: -100px; color: white; background-color:{% if userprofile.background_color %} {{ userprofile.background_color }}{% else%}#8E134C{% endif %}">
+
+  <span class="navbar-brand" style="font-family: {% if userprofile.font_font_family %}{{ userprofile.font_family }}{% else %}cambria{% endif %}; color: {% if userprofile.font_color %}{{ userprofile.font_color }}{% else%}white{% endif %}" >
+    {% if userprofile.show_icon == 'Yes' and userprofile.avatar %}
+    <img style="height: 30px; width: 30px; border-radius: 20%; border: 2px solid white" src="{{ userprofile.avatar.thumb(500,auto) }}">
+    {% endif %}
+    {% if userprofile.store_title  %} {{ userprofile.store_title }} {% else %}My new store
+{% endif %}
+  </span>
+
+   <button style="margin-right: 10px; outline: none;" class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link" href="{{ 'seller-profile'|page ({ id: userprofile.id }) }}">About</a>
+      </li>
+    </ul>
+  </div>
+  
+</nav>
+
+
+
+
+    <div align="center" class="align-middle d-none d-xl-block" style=" {% if userprofile.store_pic %} background-image: url('{{ asset(userprofile.store_pic.path) }}'); {% else %}  background-image: url('{{ 'assets/images/shopper.jpg'|theme }}');{% endif %}background-repeat: no-repeat; background-size: 100% 500px; background-position: center; height: 500px; width: 100%; line-height: 500px">
+
+        <span style=" display: inline-block; vertical-align: middle; line-height: normal; font-size: 30px; text-align: center; margin: 10px; color: white; font-weight: bolder; font-family: {% if userprofile.store_description_font_style %}{{ userprofile.store_description_font_style }}{% else %}arial{% endif %}; color: {% if userprofile.store_description_font_color %}{{ userprofile.store_description_font_color }}{% else %}grey{% endif %}">{{userprofile.store_description}}</span>
+    </div>
+  
+
+
+
+   {% if getuser %}
+  <div align="right" class="d-none d-xl-block"><a href="#" class="btn btn-link"  data-toggle="modal" data-target="#editModal"  style="font-size: 12px; color: grey; margin-right: 20px" ><span class="fa fa-edit"></span> Edit</a></div>
+  {% else %}
+  <br>
+ {% endif %}
+</div>
+
+
+
+{% if inGroup('seller') or user or not user %}
+<span class="d-none d-xl-block" style="margin-left: 20px; margin-top: 30px">
+<div align="center">
+    <a  style="background-color: darkcyan; color: white;margin-right: 10px" role="button" class="btn rounded-pill shadow col-4 tab-view-call showNumber" ><span class="fa fa-phone"></span>&nbsp;View Phone Number</a><br><br>
+<input style="display: none;" class="phonenum" type="text" value="{{ userprofile.phone }}">
+  <a style="margin-right: 12px" href="#myModal" role="button" class="btn btn-success rounded-pill shadow col-5 tab-view-msg" data-toggle="modal" data-target="#myModal"><span class="fa fa-envelope"></span> Message</a>
+  <br><br><br><br>
+</div>
+</span>
+
+
+ <div class="container d-none d-xl-block">
+  <div class="starter-template store-desktop" style="margin-top: -30px; margin: -80px">
+
+
+<small class="float-left" style="overflow-wrap: break-word; margin-left: -30px">Copy and Share store link</small>
+<div class="input-group mb-3" style="margin-top: 25px">
+  <input style="margin-left: -30px"  type="text" id="myInput" class="form-control form-control-sm col-5 " value="{{ url }}" aria-label="" aria-describedby="button-addon2">
+  <div class="input-group-append">
+    <button onclick="myFunction(); $.oc.flashMsg({text: 'Copied to Clipboard', 'class': 'success', 'interval': 2}); return false;" class="btn btn-sm btn-outline-secondary" type="button" id="button-addon2"><span class="fa fa-copy"></span></button>
+    
+
+  </div> 
+</div>
+{% if user.trust_badge %}
+<img style="height: 45px; width: 45px; margin-top: -100px; margin-right: -70px" src="{{ 'assets/images/verified.png'|theme }}">
+{% endif %}
+ <span style="margin-right: -30px; margin-top: -60px; font-family: arial; width: 30%" class="float-right"><p style="font-size: 14px"><a style="color: #1484B3; text-decoration: none; color:  #08172A;" href="{{ 'profile'|page ({ id: userprofile.company }) }}">{{userprofile.company|truncate(40)}}</p>
+  </a>
+
+
+ </span>
+
+
+
+<div align="center">
+
+<small>Share on:</small>
+
+{% component 'ssbuttonsssb' %}
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Category</label>
+  </div>
+  <select class="custom-select form-control-sm" name="category" id="inputGroupSelect01"  data-request="onUserPro" data-request-loading>
+    <option selected disabled="disabled">Browse Store by Category</option>
+        {% for item in items %}
+        <option value={{ item.cats.id }}> {{ item.cats.cat_title }}</option>
+        {% endfor %}
+  
+  </select>
+</div>
+
+
+
+
+{% endif %}
+
+
+
+
+<div id="myDiv2">{% partial 'userall' %}</div>
+
+
+
+
+{% partial "store/store-edit" %}
+
+
+
+
+{% partial "store/favourite" %}
+
+
+</div>
+</div>
+
+{% if storePopular%}
+
+<div class="d-none d-xl-block starter-template" style="margin-top: -20px; margin-left: 20px">
+<small style="color: grey; margin-left: 10px;">popular</small><br><br>
+<div id="carousel" class="offscroll" style="margin-top: -35px; margin-left: 10px"><br>
+        {% for storePopular in storePopular %}
+
+        {% for buypics in storePopular.allimage %}
+        {% if loop.first %}
+       
+        <div class="slide">
+
+          <a href="{{ 'product-single'|page({ slug: storePopular.slug }) }} "><img style="height: 150px; width: 170px; margin: -10px" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></a>
+           <div style="font-family: arial; margin-top:15px"><small style="font-size: 15px"><a style="color: teal" href="{{ 'product-single'|page({ slug: storePopular.slug }) }}">{{ storePopular.title|truncate(15) }}</a></small></div>
+         
+
+        </div>
+
+
+         {% endif %}
+
+        {% endfor %}
+        {% endfor %}
+           {% endif %}
+
+</div>
+</div>
+
+
+
+
+{% partial "store/messaging" %}
+
+
+
+<!--
+end of desktop view
+-->
+{% put scripts %}
+<script>
+    $(window).on('ajaxConfirmMessage', function(event, message) {
+        // Stop the default confirm dialog
+        event.preventDefault();    
+
+        // open our own bootstrap modal
+        $('#bookmarkModal').modal('show'); 
+          $(".result").html(message);
+        // Okay Button. we will unbind if any events are attached to it first
+        // reattach click event - this is required as this code will call each time
+        $('#okay-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Resolve the deferred object, this will trigger whatever was being confirmed
+            event.promise.resolve();
+        });
+
+        // Cancel Button
+        $('#cancel-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Reject the object, this will cancel whatever was being confirmed            
+            event.promise.reject();        
+        });
+
+        // Return a value so the framework knows we're handling the confirm
+        return true;
+    });
+</script>
+
+<script type="text/javascript">
+    
+  function myFunction() {
+
+    var copyText = document.getElementById("myInput");
+
+    copyText.select();
+    document.execCommand("copy");
+   
+  }
+</script>
+
+<script type="text/javascript">
+  $(function(){
+  $(".showNumber").click(function(event){
+    var phone = $('.phonenum').val();
+    $('.showNumber').html(phone);
+   // e.target.innerHTML = e.target.parent.querySelector('.phonenum').value;
+  });
+});
+</script>
+
+{% endput %}
+
+

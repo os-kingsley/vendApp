@@ -1,0 +1,1 @@
+bootstrapValidate('#pro_title', 'min:4:Enter atleast 4 characters!' );

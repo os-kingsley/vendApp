@@ -1,0 +1,79 @@
+
+[session]
+[account]
+==
+<?php
+function onStart(){
+	
+$id  =  $this->param('id');
+
+
+
+if(Auth::check() && Auth::getUser()->id == $id ){
+  
+  $this['getuser'] = Auth::getUser();
+}
+
+
+
+}
+
+
+
+?>
+
+
+
+
+==
+
+<div style="font-family: arial">
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Name</b></small><hr></div>
+
+
+<small style="font-size: 15px">{{ user.name }}</small>
+<br><br>
+</div>
+
+<br><br><br>
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Email</b></small><hr></div>
+
+
+<small style="font-size: 15px">{{ user.email }}</small>
+<br><br>
+</div>
+
+<br><br><br>
+
+
+
+
+
+
+
+
+
+  	<div style="margin: -30px" class="border">
+	
+ 
+<div style="background-color: #08172A"> <br><small><b style="color: white">Phone</b></small><hr></div>
+
+
+<small style="font-size: 15px">{{ user.phone }}</small>
+<br><br>
+</div>
+</div>
+<br>
+
+
+
+
+

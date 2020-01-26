@@ -1,0 +1,19 @@
+columns:
+    title:
+        label: Title
+        type: text
+        searchable: true
+        sortable: true
+    price:
+        label: Price
+        type: text
+        searchable: true
+        sortable: true
+    slug:
+        label: Slug
+        type: text
+    location:
+        label: Location
+        type: text
+        searchable: true
+        sortable: true

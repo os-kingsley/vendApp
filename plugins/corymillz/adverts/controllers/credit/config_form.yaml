@@ -1,0 +1,10 @@
+name: Credit
+form: $/corymillz/adverts/models/credit/fields.yaml
+modelClass: Corymillz\Adverts\Models\Credit
+defaultRedirect: corymillz/adverts/credit
+create:
+    redirect: 'corymillz/adverts/credit/update/:id'
+    redirectClose: corymillz/adverts/credit
+update:
+    redirect: corymillz/adverts/credit
+    redirectClose: corymillz/adverts/credit

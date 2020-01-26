@@ -1,0 +1,14 @@
+<p class="lead">
+    <div style="font-family: arial"><p><strong>Lost your password?</strong><b style="color: grey"> No problem! Enter your email address to verify your account.</b></p></div>
+</p>
+
+<form
+    data-request="{{ __SELF__ }}::onRestorePassword"
+    data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'">
+    <div class="form-group">
+       <div style="font-family: arial" align="left"> <small><b><label for="userRestoreEmail">Email</label></b></small></div>
+        <input name="email" type="email" class="form-control" id="userRestoreEmail" >
+    </div>
+
+    <button style="font-family: arial; background-color: #08172A; color: white " type="submit" class="btn btn-dark rounded--lg-pill shadow rounded col-6">Restore password</button>
+</form>

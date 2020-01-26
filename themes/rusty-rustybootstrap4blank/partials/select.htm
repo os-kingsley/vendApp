@@ -1,0 +1,22 @@
+
+
+
+      <small><b><label class="float-left control-label" for="inputSubcategory">SubCategory <span style="color: red">*</span></label></b></small><br>
+      <select  class="custom-select" name="cats" >
+        <option></option>
+
+        {% for key, sub in subs %}
+        <option value={{ key }}> {{ sub }}</option>
+        {% endfor %}
+
+ </select>
+
+   
+   
+
+
+      
+
+   
+
+       

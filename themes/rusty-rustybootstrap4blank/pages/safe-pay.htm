@@ -1,0 +1,158 @@
+title = "Safe-Pay"
+url = "/safe-pay/:slug"
+layout = "default"
+is_hidden = 0
+
+[session]
+security = "user"
+redirect = "login"
+==
+
+
+<?php
+
+use Corymillz\Adverts\Models\Advert;
+
+function onStart() {
+$this['API_KEY'] = getenv('FW_publicKey');
+
+//$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/protected-pay.js');
+
+
+$slug = $this->param('slug');
+
+$this['protectcheckout'] = Advert::where('slug',$slug)->first();
+
+  
+}
+
+
+
+
+
+
+==
+
+
+
+<div align="center" style="background-color: #1484B3; height: 50px; line-height: 50px; color: white; margin-top: -15px"><p><span class="fa fa-lock"></span> Protected Pay</p></div>
+<div align="center"><img src="{{ 'assets/images/power.png'|theme }}"></div>
+<br>
+
+<div class="container" style="margin-top: -70px">
+  <div class="starter-template" style="margin: -25px">
+
+<div class="card" style="margin: -10px">
+<div class="card-body shadow">
+
+  <div>
+<label><small><b><span style="letter-spacing: 1px">{{ protectcheckout.user.company }}</span><br>
+<span style="color: #1484B3;">Seller's Payment Id</span></b></small></label><br>
+  <div style="margin-top: -15px; font-size: 15px"><small >{{ protectcheckout.user.payment_id }}</small></div>
+</div><br>
+
+
+
+
+  <div class="form-group" style="display: none">
+    <small><b><label class="float-left">Seller's Payment Id</label></b></small>
+    <input type="text" value="{{ protectcheckout.user.payment_id }}" id="test4" class="form-control"  aria-describedby="sub">
+    <span style="font-size: 12px; color: grey;">Please collect this from the seller and paste here to make payment.</span>
+    
+  </div>
+
+
+  
+    
+  
+  	  <div class="form-group"><br><span class="float-right" style="font-size: 12px">Max. of NGN100,000</span>
+    <small><b><label class="float-left">Amount</label></b></small>
+    <input type="text" id="test" class="form-control"  aria-describedby="amount" autocomplete="off" max="100000">
+    
+  </div>
+
+    <div class="form-group">
+    <small><b><label class="float-left">Email</label></b></small>
+    <input readonly="readonly" type="email" id="test2" class="form-control"  aria-describedby="email" value="{{ user.email }}">
+    
+  </div>
+
+   	  <div class="form-group">
+    <small><b><label class="float-left">Phone Number</label></b></small>
+    <input readonly="readonly" value="{{ user.phone }}" type="text" id="test3" class="form-control"  aria-describedby="number" >
+    
+  </div>
+
+   <div class="form-group" style="display: none;">
+    <small><b><label class="float-left">Last Name</label></b></small>
+    <input type="text" value="{{ protectcheckout.user.email }}" id="test6" class="form-control form-control-sm"  aria-describedby="text" autocomplete="on">
+    
+  </div>
+
+ <button style="background-color: #08172A; color: white;"  type="submit" value="Continue" id="subm" class="btn btn-sm col-4">Continue</button>
+
+<br>
+<br>
+  <img height="70px;" width="200px" src="{{ 'assets/images/flutter.png'|theme }}">
+
+</div>
+</div>
+
+
+
+
+</div>
+</div>
+
+
+{% put scripts %}
+<script type="text/javascript">
+  import("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
+import("https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js");
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+    document.getElementById('subm').addEventListener('click', function () {
+
+    var flw_ref = "", chargeResponse = "", trxref = "FDKHGK"+ Math.random(), API_publicKey =  "{{ API_KEY }}", email = $('#test2').val(),  first_name = $('#test5').val(), last_name = $('#test6').val(), phone = $('#test3').val(),  id = $('#test4').val(),  amount = $('#test').val(), charge = 2.8/100 * $('#pay').val(), txref = "PROTECTEDPAY-"+ Date.now()+ ~~(Math.random().toString(36).slice(2) * 256)+ "-PP"; 
+      
+    getpaidSetup(
+      {
+        PBFPubKey: API_publicKey,
+        customer_email: email,
+        amount: amount,
+        customer_phone: phone,
+        customer_firstname: first_name,
+        customer_lastname: last_name,
+        currency: "NGN",
+        //payment_method: "both",
+        custom_title: "Protected Pay",
+        txref: txref,
+        subaccounts: [
+              {
+                id: id, // This assumes you have setup your commission on the dashboard.
+                transaction_charge_type: 'flat',
+                transaction_charge: charge,
+              }
+            ],
+        
+
+        meta: [{metaname: "rave_escrow_tx", metavalue: 1 }],
+        onclose:function(response) {
+        },
+        callback:function(response) {
+          txref = response.tx.txRef, chargeResponse = response.tx.chargeResponseCode;
+          if (chargeResponse == "00" || chargeResponse == "0") {
+            //Add your success page here
+          } else {
+             //Add your failure page here
+          }
+        }
+      }
+    );
+    });
+  });
+
+
+
+</script>
+{% endput %}

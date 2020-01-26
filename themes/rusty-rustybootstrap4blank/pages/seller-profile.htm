@@ -1,0 +1,178 @@
+title = "Profile"
+url = "/seller-profile/:id"
+layout = "default"
+is_hidden = 0
+
+[session]
+
+==
+<?php
+use Corymillz\Adverts\Models\Credit;
+use RainLab\User\Models\User; 
+use Corymillz\Adverts\Classes\LastLogin;
+
+function onStart(){
+
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/payment-verification.js');
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/payment-settlement.js');
+	
+$id  =  $this->param('id');
+
+
+
+$this['userprofile'] = \RainLab\User\Models\User::where('id', $id)->first();
+
+
+if(Auth::check() && Auth::getUser()->id == $id ){
+  
+  $this['getuser'] = Auth::getUser();
+}
+ 
+
+}
+
+
+function onTest(){
+
+ $credit = Credit::firstOrCreate(['user_id' => Auth::getUser()->id]);
+$credit->increment('amount', 400);
+$credit->refresh();
+
+
+}
+?>
+==
+
+{% if userprofile.avatar %}
+<div style="background-color:  #1484B3; height: 130px; margin-top: -45px; font-family: arial; background-image: url({{ userprofile.avatar.thumb(500,auto) }}); background-repeat: no-repeat; background-blend-mode: soft-light; background-position: center"><br><br>
+	<div align="center"><img src="{{ userprofile.avatar.thumb(500,auto) }}"  style=" height: 100px; width: 100px; margin-top: 40px; border-radius: 100px; margin-top: 40px; "></div>
+	
+</div><br>
+
+{% else %}
+
+
+<div style="background-color:  #1484B3; height: 130px; margin-top: -45px; font-family: arial; background-image: url( {{ 'assets/images/abstract.jpg'|theme }} ); background-repeat: no-repeat; background-blend-mode: soft-light; background-position: cover"><br><br>
+	
+
+<div align="center" style=" border-radius: 50%; margin-right: 10px; margin-top: 40px"><p  style="height: 80px; width: 80px; line-height: 80px; background-color: grey; border-radius: 50%; font-size: 20px; color: white; text-align: center">{{ userprofile.company[:2] }}</p></div>
+
+
+
+</div><br>
+	{% endif %}
+
+  
+<a href="{{ 'account-update'|page }}"><div class="fa fa-gear float-right" style="margin-right: 20px; font-size: 18px; color: black"></div></a>
+
+
+
+
+<div  class="container" style="margin-top: -50px">
+  <div  class="starter-template" style=" font-family: arial"><br><br>
+ 
+
+
+  		<div align="right" style="color: grey;"><span class="float-left">
+        {% if date(userprofile.last_seen) > date('-5Minutes') %}
+        <small style="margin-left: -20px"><span style="color: green;" class="fa fa-circle"></span> Online</small>
+        {% else %}
+        <small style="margin-left: -20px">Last Seen: {{ userprofile.last_seen|time_diff }}</small>
+        {% endif %}
+        <!--
+     {% if user and  user.credit.amount == 0 and inGroup('seller')  %}
+     <small>Merch Credit: 0 <a href="{{ 'credits'|page }}">Buy</a></small>
+     {% elseif user  and inGroup('seller')  %}
+     <small>Merch Credit: {{ user.credit.amount }} <a href="{{ 'credits'|page }}">Buy</a></small>
+     {% endif %}
+
+     -->
+
+     
+      </span>
+        <small style="margin-right: -30px">Registered: {{ userprofile.created_at| time_diff }}</small>
+      </div>
+      <hr>
+      <br>
+
+
+
+
+
+
+
+
+       
+ {% if user and inGroup('seller') and getuser %}
+<div style="margin: -30px" align="center"  class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div  class="btn-group mr-2 offscroll" role="group" aria-label="First group" style="  overflow-x:auto; white-space: nowrap; width: 70em; ">
+ 
+      <a href="{{ 'store'|page ({ slug: userprofile.id }) }}"><button type="button" class="btn btn-sm btn-outline-info ">Store</button></a>
+      
+  &nbsp;&nbsp;
+       <a href="{{ 'favorites'|page  }}"><button type="button" class="btn btn-sm btn-outline-info ">Favourites</button></a>
+    
+   &nbsp;&nbsp;
+      
+       <a href="{{ 'receipt-input'|page }}"><button  type="button" class="btn btn-sm btn-outline-info ">Make Receipt</button></a> 
+    &nbsp;&nbsp;
+    
+       <a href="{{ 'payment-setup'|page }}"><button  type="button" class="btn btn-sm btn-outline-info ">Payment Setup</button></a>
+
+    
+      
+    
+  </div>
+</div>
+
+
+
+{% endif %}
+{% if not user or not getuser  %}
+ <div style="margin-top: -30px" align="center"><a href="{{ 'store'|page ({ slug: userprofile.id }) }}"><button type="button" class="btn btn-sm btn-outline-info col-8" style="border-radius: 30px">Store</button></a></div>
+
+{% endif %}
+
+{% if user %}
+
+<br><br>
+{% if getuser %}
+<br>
+ {% endif %}
+{% endif %}
+
+{% if not user %}
+<br><br>
+{% endif %}
+    
+
+ {% if user and inGroup('seller') and getuser %}
+
+  		<div align="center">
+
+  		<div style="margin: -30px" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group mr-2 offscroll" role="group" aria-label="First group" style="overflow-x:auto; white-space: nowrap; width: 70em;">
+        <a href="{{ 'payment-verification'|page }}"><button  class="btn btn-light btn-sm ">Verify a Payment</button></a>
+         &nbsp;&nbsp;
+        <a href="{{ 'authorize-settlement'|page }}"><button class="btn btn-light btn-sm">Authorize Settlement</button></a>
+         &nbsp;&nbsp;
+        <a href="{{ 'payment-issue'|page }}"><button class="btn btn-light btn-sm">Payment Issue</button></a>
+      
+    
+  </div>
+</div>
+
+  	
+{% endif %}
+  	{% if getuser %}
+    <br>
+    {% endif %}
+<div id="profileComponents">{% partial 'profile1' %}</div>
+
+
+  
+
+
+
+</div>
+</div>

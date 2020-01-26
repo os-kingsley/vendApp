@@ -1,0 +1,11 @@
+fields:
+    amount:
+        label: Amount
+        span: auto
+        type: number
+    user:
+        label: User
+        nameFrom: company
+        descriptionFrom: description
+        span: auto
+        type: relation

@@ -1,0 +1,301 @@
+title = "Product Location"
+url = "/product-location/:slug"
+layout = "default"
+is_hidden = 0
+
+==
+
+<?php
+use Corymillz\Adverts\Models\Advert;
+use Corymillz\Adverts\Models\Cat;
+use RainLab\User\Models\User;
+use Corymillz\Adverts\Models\Rating;
+use Corymillz\Adverts\Models\Msb;
+use Corymillz\Adverts\Models\Mbb;
+use Corymillz\Adverts\Models\Meb;
+use Corymillz\Adverts\Models\Bmsb;
+use Corymillz\Adverts\Models\Bmbb;
+use Corymillz\Adverts\Models\Bmeb;
+use Carbon\Carbon; 
+
+
+
+
+
+
+function onStart(){
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/location/search.js');
+
+$this['url'] = Request::url();
+Session::put('search1', Input::get('location'));
+if (Session::has('search1')) {
+$this['query'] = Session::get('search1');
+}
+$this['slugg'] = $this->param('slug');
+$slug = $this->param('slug');
+$search = Input::get('location');
+
+
+
+$this['sub'] = Cat::where('slug',$slug)->first();
+
+$this['ads'] = Advert
+::withCount(['ratings as rating' => function ($query) {
+    $query->select(DB::raw('COALESCE(avg(rating), 0)'));
+}])
+->whereHas('cats', function ($query) use ($slug){
+                  $query->where('slug',$slug);
+               })->where('location', 'LIKE', "%{$search}%")
+               ->orderBy('created_at','desc')->paginate(10)->appends(['location' => $search]);
+
+
+
+
+
+
+$msbId = Msb::lists('msb');
+
+Msb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['msBoost'] = Advert::whereIn('id', $msbId)->pluck('id'); 
+
+    
+
+$mbbId = Mbb::lists('mbb');
+
+Mbb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['mbBoost'] = Advert::whereIn('id', $mbbId)->pluck('id'); 
+
+
+
+$mebId = Meb::lists('meb');
+
+Meb::where('created_at', '<', now()->subDays(30))->delete();  
+$this['meBoost'] = Advert::whereIn('id', $mebId)->pluck('id'); 
+
+
+
+$bmsbId = Bmsb::lists('bmsb');
+
+Bmsb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmsBoost'] = Advert::whereIn('id', $bmsbId)->pluck('id'); 
+
+$bmbbId = Bmbb::lists('bmbb');
+
+Bmbb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmbBoost'] = Advert::whereIn('id', $bmbbId)->pluck('id');
+
+$bmebId = Bmeb::lists('bmeb');
+
+Bmeb::where('created_at', '<', now()->subDays(15))->delete();  
+$this['bmeBoost'] = Advert::whereIn('id', $bmebId)->pluck('id');
+
+}
+
+
+
+
+
+
+
+function onBookmark()
+{
+ 
+$recordId = post('bookmark');
+
+$record = Advert::find($recordId);
+
+$user=  Auth::getUser();
+
+$user->ads()->syncWithoutDetaching($record);
+Flash::success('Successfully Added!');
+
+
+
+
+}
+
+
+
+
+?>
+==
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+
+<!--
+   <div   align="left" style="margin-left: 10px"><small onclick="loadPage()" style="color: darkblue">Back|All Nigeria</small></div> <br><br> 
+   <p style="color: grey">Filtered by Location: {{ query }}</p><hr>
+ -->
+
+{% if sub %}
+    <div class="d-xl-none" align="center" style="font-family: arial; margin-top: 10px"><h6>{{ sub.cat_title }}</h6></div>
+    <div class="d-none d-xl-block" align="center" style="font-family: arial; font-size: 30px;">{{ sub.cat_title }}</div>
+<br>
+{% endif %}
+
+<div align="center" style="font-family: arial"><b><p style="background-color: #1484B3; color: white; height: 55px;font-size: 15px; line-height: 55px; margin-top: -9px">Select Product/Service</p></b></div>
+<br>
+<br>
+
+
+ 
+ <div class="container d-xl-none"  style="margin-top: -90px;  font-family: arial;">
+  <div class="starter-template" style="margin: -35px ">
+
+
+{% partial "product/product-filter-location-markup"%}
+<p style="color: grey; margin-top: -40px">Filtered by Location: {{ query }}</p><hr><br><br>
+  
+<div id="product-list" class="main-section" id="main-section" style="margin-top: -60px">
+  
+
+ <div   align="left" style="margin-left: 10px"><small onclick="loadPage()" style="color: darkblue">Back|All Nigeria</small></div> <br><br> 
+  {% partial "product-list"%}
+
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+<!--
+desktop view
+-->
+<span class="float-left d-none d-xl-block" style="width: 25%; margin-left: 20px; margin-top: -20px">
+  {% partial "product/product-filter-location-markup-desktop"%}
+<br>
+  <div class="card card-body shadow-sm" style="background-color: lightgrey">
+    <h5>Post One Buy Request, Get Multiple Offers</h5><hr style="color: #1484B3">
+        <div class="container">
+   <div class="row" align="center">
+
+  <div class="col" >
+  <img style="height: 70px; width: auto" src="{{ 'assets/images/write-icon.png'|theme }}">
+  <p align="center" style="color: grey; font-family: arial; font-size: 14px">Write a Buy Request</p>
+  </div>
+
+
+    <div class="col">
+   <img style="height: 70px; width: auto" src="{{ 'assets/images/contact-icon.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 14px">Get Contacted by Suppliers</p>
+    </div>
+
+    <div class="col" style="margin-top: -30px;">
+   <img style="height: 120px; width: 120px;" src="{{ 'assets/images/handi.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 14px; margin-top: -20px">Close a Favourable Deal</p>
+  </div>
+  
+  </div>
+</div>
+<a href="{{ 'request'|page }}"><div align="center"><button style="background-color: #08172A; color: white;" type="button" class="btn btn-sm" >Post a Buy Request</button></div></a>
+  </div><br>
+</span>
+
+<div class="container d-none d-xl-block"  style="margin-top: -50px;  font-family: arial;">
+  <div class="starter-template" style="margin-right: -150px;  margin-left: 40px">
+<p style="color: grey">Filtered by Location: {{ query }}</p><hr>
+   
+<div id="product-list" class="main-section" id="main-section">
+ 
+  <div   align="left" style="margin-left: 10px"><small onclick="loadPage()" style="color: darkblue">Back|All Nigeria</small></div> <br><br> 
+  {% partial "product/product-list-desktop" %}
+
+</div>
+
+</div>
+</div>
+
+
+
+<!--
+end of desktop view
+-->
+
+
+
+
+
+
+
+<div class="modal fade" id="bookmarkModal" tabindex="-1" role="dialog" aria-labelledby="bookmarkModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      
+        
+      <div class="modal-body">
+
+        <p align="center" style="font-size: 20px; font-family: arial; color: grey; font-family: arial">
+           <div align="center" style="font-size: 20px" class="result">
+            
+          </div>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary" id="okay-button">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxConfirmMessage', function(event, message) {
+        // Stop the default confirm dialog
+        event.preventDefault();    
+
+        // open our own bootstrap modal
+        $('#bookmarkModal').modal('show'); 
+        $(".result").html(message);
+
+        // Okay Button. we will unbind if any events are attached to it first
+        // reattach click event - this is required as this code will call each time
+        $('#okay-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Resolve the deferred object, this will trigger whatever was being confirmed
+            event.promise.resolve();
+        });
+
+        // Cancel Button
+        $('#cancel-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Reject the object, this will cancel whatever was being confirmed            
+            event.promise.reject();        
+        });
+
+        // Return a value so the framework knows we're handling the confirm
+        return true;
+    });
+</script>
+
+<script type="text/javascript">
+    function loadPage(){
+
+
+        var theURL = window.location.href;
+       return window.location = theURL.replace("/product-location/", "/product/").split('?')[0];
+        //Set URL
+        
+}
+
+
+</script>
+
+
+
+{% endput %}

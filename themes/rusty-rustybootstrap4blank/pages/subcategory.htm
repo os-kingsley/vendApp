@@ -1,0 +1,116 @@
+title = "Subcategory"
+url = "/subcategory/:slug"
+layout = "pro"
+
+is_hidden = 0
+
+
+==
+<?php
+use Corymillz\Adverts\Models\Cat;
+
+
+function onStart(){
+
+$slug = $this->param('slug');
+
+
+$this['subs'] = Cat::where('slug',$slug)->remember(30)->first();
+
+
+
+
+
+if( !$this['subs'] )
+        return Redirect::to('/404');
+
+
+ $this['child'] = Cat::whereHas('parent', function ($query) use ($slug) {
+                  $query->where('slug',$slug);
+               })->remember(30)->get();
+
+
+
+}
+
+
+
+
+?>
+==
+<br>
+<div align="center" style="margin-top: -10px">
+<h5 style="font-family: arial;">{{ subs.cat_title }}</h5>
+</div>
+
+<div align="center" style="font-family: arial; height: 55px; line-height: 55px; background-color: #1484B3; color: white;"><b><span style=" font-size: 15px;  margin-top: -3px;  display: inline-block; vertical-align: middle; line-height: normal; margin: 10px">Browse {{ subs.cat_title }} by Category</span></b></div>
+
+<div class="d-xl-none container" style="margin-top: -40px">
+
+  <div class="starter-template" style="margin: -25px">
+{%partial "homescreen"%}
+
+ 
+
+
+
+{% for row in child|batch(3) %}
+    <div class="row">
+        {% for child in row %}
+            <div class="col-4 border"><br>
+
+            	 <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img src="{{ child.poster.thumb(500,auto) }}" class="img-fluid" alt="" style="border-radius: 5px; height: 60px; width: auto"></a><br>
+                    <small><a  href="{{ 'product'|page({ slug: child.slug }) }}" style="color:  #08172A; text-decoration: none; line-height: -5px">
+
+                    {{ child.cat_title|truncate(20) }}
+                </a></small><br>
+           </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+
+</div>
+</div>
+
+
+
+<!--desktop view-->
+
+<div class="d-none d-xl-block container" style="margin-top: 130px">
+
+  <div class="starter-template" style="margin: -125px">
+
+
+{% for row in child|batch(3) %}
+    <div class="row">
+        {% for child in row %}
+            <div class="col-4 border"><br>
+
+               <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img src="{{ child.poster.thumb(500,auto) }}" class="img-fluid" alt="" style="border-radius: 5px; height: 80px; width: auto"></a><br>
+                    <small><a  href="{{ 'product'|page({ slug: child.slug }) }}" style="color:  #08172A; text-decoration: none; line-height: -5px">
+
+                    {{ child.cat_title }}
+                </a></small><br>
+           </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+<br><br><br><br>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+ 

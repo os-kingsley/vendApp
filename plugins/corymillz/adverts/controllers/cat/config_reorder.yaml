@@ -1,0 +1,5 @@
+title: Cat
+modelClass: Corymillz\Adverts\Models\Cat
+nameFrom: cat_title
+toolbar:
+    buttons: reorder_toolbar

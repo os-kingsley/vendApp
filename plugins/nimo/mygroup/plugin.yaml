@@ -1,0 +1,6 @@
+plugin:
+    name: 'nimo.mygroup::lang.plugin.name'
+    description: 'nimo.mygroup::lang.plugin.description'
+    author: Nimo
+    icon: oc-icon-align-center
+    homepage: ''

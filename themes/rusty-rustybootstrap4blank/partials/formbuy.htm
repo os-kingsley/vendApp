@@ -1,0 +1,110 @@
+
+    
+
+    <div class="form-label-group">
+    <input 
+    name="name"
+    type="text" 
+    id="inputName" 
+    class="form-control" 
+    placeholder="Name/Company/Business Name" 
+    required autofocus
+    
+
+
+    >
+
+    <label for="inputName">Name/Company/Business Name</label>
+  </div>
+
+
+
+    <div class="form-label-group">
+    <input 
+    name="email"
+    type="email" 
+    id="inputEmail" 
+    class="form-control" 
+    placeholder="Email address" 
+    required autofocus
+    data-request="onCheckEmail"
+    data-request-success="$('#loginTaken').toggle(!!data.isTaken)"
+    data-track-input
+
+
+    >
+
+    <label for="inputEmail">Email address</label>
+    <div id="loginTaken" class="alert alert-danger alert-danger-sm" style="display: none"><small>This Email already exist</small>
+    
+</div>
+  </div>
+
+
+
+
+    
+
+      
+       
+        {% if loginAttribute == "username" %}
+            <div class="form-group">
+                  <div align="left"><small><b><label for="registerUsername">Username</label></b></small></div>
+                <input
+                    name="username"
+                    type="text"
+                    class="form-control form-control-sm field"
+                    id="registerUsername"
+                    placeholder="Enter your username" />
+            </div>
+        {% endif %}
+
+      
+
+         <div class="form-label-group">
+    <input 
+    name="password"
+    type="password" 
+    id="inputPassword" 
+   class="form-control" 
+    placeholder="Password" 
+    required autofocus
+    
+
+
+    >
+
+    <label for="inputPassword">Password</label>
+  </div>
+
+
+
+  <div class="form-label-group">
+    <input 
+    name="password-confirmation"
+    type="password" 
+    id="inputPassword-confirmation" 
+   class="form-control" 
+    placeholder="Password Confirmation" 
+    required autofocus
+    
+
+
+    >
+
+    <label for="inputPassword">Password Confirmation</label>
+  </div>
+
+         
+       
+            
+               
+               <small style="color: grey" >By clicking on Register, you agree to the Merch Terms of Service and Privacy Policy</small><br><br>
+
+               <div id="flash-div"></div>
+           
+    <div align="center"> <button id="shownow" type="submit" style="background-color: #08172A; color: white"  class="btn btn-sm rounded--lg-pill shadow rounded col-6" >Register</button></div>
+
+
+ 
+

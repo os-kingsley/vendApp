@@ -1,0 +1,242 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table corymillz_adverts_'
+    - builder_table_create_corymillz_adverts_.php
+1.0.3:
+    - 'Created table corymillz_adverts_cat'
+    - builder_table_create_corymillz_adverts_cat.php
+1.0.4:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat.php
+1.0.5:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts_.php
+1.0.6:
+    - 'Created table corymillz_adverts_adverts_cat'
+    - builder_table_create_corymillz_adverts_adverts_cat.php
+1.0.7:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__2.php
+1.0.8:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_2.php
+1.0.9:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_3.php
+1.0.10:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_4.php
+1.0.11:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__3.php
+1.0.12:
+    - 'Created table corymillz_adverts_buyrequest'
+    - builder_table_create_corymillz_adverts_buyrequest.php
+1.0.13:
+    - 'Created table corymillz_adverts_buy_cat'
+    - builder_table_create_corymillz_adverts_buy_cat.php
+1.0.14:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest.php
+1.0.15:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_2.php
+1.0.16:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_3.php
+1.0.17:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_4.php
+1.0.18:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__4.php
+1.0.19:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__5.php
+1.0.20:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_5.php
+1.0.21:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_6.php
+1.0.22:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_7.php
+1.0.23:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_8.php
+1.0.24:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_5.php
+1.0.25:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_9.php
+1.0.26:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_6.php
+1.0.27:
+    - 'Updated table corymillz_adverts_buy_cat'
+    - builder_table_update_corymillz_adverts_buyrequest_cat.php
+1.0.28:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__6.php
+1.0.29:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_10.php
+1.0.30:
+    - 'Created table corymillz_adverts_review'
+    - builder_table_create_corymillz_adverts_review.php
+1.0.31:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_11.php
+1.0.32:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_12.php
+1.0.33:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_13.php
+1.0.34:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_14.php
+1.0.35:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_15.php
+1.0.36:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_16.php
+1.0.37:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_17.php
+1.0.38:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_18.php
+1.0.39:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_19.php
+1.0.40:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_20.php
+1.0.41:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__7.php
+1.0.42:
+    - 'Updated table corymillz_adverts_buyrequest'
+    - builder_table_update_corymillz_adverts_buyrequest_21.php
+1.0.43:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_7.php
+1.0.44:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_8.php
+1.0.45:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_9.php
+1.0.46:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__8.php
+1.0.47:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_10.php
+1.0.48:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_11.php
+1.0.49:
+    - 'Created table corymillz_adverts_favorites'
+    - builder_table_create_corymillz_adverts_favorites.php
+1.0.50:
+    - 'Updated table corymillz_adverts_favorites'
+    - builder_table_update_corymillz_adverts_favouriteables.php
+1.0.51:
+    - 'Updated table corymillz_adverts_favouriteables'
+    - builder_table_update_corymillz_adverts_favourites.php
+1.0.52:
+    - 'Created table corymillz_adverts_favourites'
+    - builder_table_create_corymillz_adverts_favourites.php
+1.0.53:
+    - 'Updated table corymillz_adverts_favourites'
+    - builder_table_update_corymillz_adverts_favourites_2.php
+1.0.54:
+    - 'Updated table corymillz_adverts_review'
+    - builder_table_update_corymillz_adverts_rating.php
+1.0.55:
+    - 'Updated table corymillz_adverts_rating'
+    - builder_table_update_corymillz_adverts_rating_2.php
+1.0.56:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__9.php
+1.0.57:
+    - 'Updated table corymillz_adverts_rating'
+    - builder_table_update_corymillz_adverts_ratings.php
+1.0.58:
+    - 'Updated table corymillz_adverts_ratings'
+    - builder_table_update_corymillz_adverts_ratings_2.php
+1.0.59:
+    - 'Updated table corymillz_adverts_ratings'
+    - builder_table_update_corymillz_adverts_ratings_3.php
+1.0.60:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__10.php
+1.0.61:
+    - 'Updated table corymillz_adverts_ratings'
+    - builder_table_update_corymillz_adverts_ratings_4.php
+1.0.62:
+    - 'Updated table corymillz_adverts_ratings'
+    - builder_table_update_corymillz_adverts_ratings_5.php
+1.0.63:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__11.php
+1.0.64:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__12.php
+1.0.65:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__13.php
+1.0.66:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__14.php
+1.0.67:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__15.php
+1.0.68:
+    - 'Created table corymillz_adverts_credits'
+    - builder_table_create_corymillz_adverts_credits.php
+1.0.69:
+    - 'Created table corymillz_adverts_msb'
+    - builder_table_create_corymillz_adverts_msb.php
+1.0.70:
+    - 'Updated table corymillz_adverts_msb'
+    - builder_table_update_corymillz_adverts_msb.php
+1.0.71:
+    - 'Created table corymillz_adverts_mbb'
+    - builder_table_create_corymillz_adverts_mbb.php
+1.0.72:
+    - 'Created table corymillz_adverts_meb'
+    - builder_table_create_corymillz_adverts_meb.php
+1.0.73:
+    - 'Created table corymillz_adverts_bmsb'
+    - builder_table_create_corymillz_adverts_bmsb.php
+1.0.74:
+    - 'Created table corymillz_adverts_bmbb'
+    - builder_table_create_corymillz_adverts_bmbb.php
+1.0.75:
+    - 'Created table corymillz_adverts_bmeb'
+    - builder_table_create_corymillz_adverts_bmeb.php
+1.0.76:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__16.php
+1.0.77:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__17.php
+1.0.78:
+    - 'Updated table corymillz_adverts_cat'
+    - builder_table_update_corymillz_adverts_cat_12.php
+1.0.79:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__18.php
+1.0.80:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__19.php
+1.0.81:
+    - 'Updated table corymillz_adverts_'
+    - builder_table_update_corymillz_adverts__20.php

@@ -1,0 +1,234 @@
+
+<h1>Monthly Plan</h1>
+<div class="container mb-5 mt-5">
+    <div class="pricing card-deck flex-column flex-md-row mb-3">
+        <div class="card card-pricing text-center px-3 mb-4">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Standard</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class="font-weight-normal text-primary text-center mb-0" data-pricing-value="15"><span class="price">500 <small>credits</small></span><span class="h6 text-muted ml-2">/ per month</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                    <li>5x times increase in interested buyers </li>
+                    <li>Auto-advert renewal every day for a month</li>
+                    <li>Category and Search Result Promotion</li>
+                    
+                </ul>
+
+                <form>
+                    <input style="display: none;" type="text" name="msb" value="{{post.id}}">
+                     {% if  post.id in msBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+                     {% elseif user.credit.amount >= 500 %}
+                <button data-request="onMsb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                {% else %}
+                <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                {% endif %}
+            </form>
+            </div>
+        </div>
+
+    <div class="card card-pricing text-center px-3 mb-4">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Business</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class=" font-weight-normal text-primary text-center mb-0" data-pricing-value="60"><span class="price">700 <small>credits</small></span><span class="h6 text-muted ml-2">/ per month</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                       <li>7x times increase in interested buyers </li>
+                       <li>Auto-advert renewal every 12 hours for a month</li>
+                       <li>Category and Search Result Promotion</li>
+                </ul>
+                 <form>
+                    <input style="display: none;" type="text" name="mbb" value="{{post.id}}">
+                       {% if  post.id in mbBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+              {% elseif user.credit.amount >= 700 %}
+            <button data-request="onMbb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                {% else %}
+                <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                {% endif %}
+            </form>
+            </div>
+        </div>
+    </div>
+</div> 
+
+        <div class="card card-pricing popular shadow text-center px-3 mb-4" style="margin-top: -40px">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Enterprise</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class=" font-weight-normal text-primary text-center mb-0" data-pricing-value="30"><span class="price">900 <small>credits</small></span><span class="h6 text-muted ml-2">/ per month</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                      <li>10x times increase in interested buyers </li>
+                    <li>Auto advert renewal every 6 hours for a month</li>
+                    <li>Category and Search Result Promotion</li>
+                    
+                </ul>
+                 <form>
+                    <input style="display: none;" type="text" name="meb" value="{{post.id}}">
+                     {% if  post.id in meBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+             {% elseif user.credit.amount >= 900 %}
+                <button data-request="onMeb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                {% else %}
+                 <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                   {% endif %}
+            </form>
+            </div>
+        </div>
+
+
+<br>
+        <h1>15 Days Plan</h1>
+
+
+
+<div class="container mb-5 mt-5">
+    <div class="pricing card-deck flex-column flex-md-row mb-3">
+        <div class="card card-pricing text-center px-3 mb-4">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Standard</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class=" font-weight-normal text-primary text-center mb-0" data-pricing-value="15"><span class="price">250 <small>credits</small></span><span class="h6 text-muted ml-2">/ 15 Days</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                    <li>5x times increase in interested buyers </li>
+                    <li>Auto-advert renewal every day for 15 days</li>
+                    <li>Category and Search Result Promotion</li>
+                </ul>
+
+                 <form>
+                    <input style="display: none;" type="text" name="bmsb" value="{{post.id}}">
+                     {% if  post.id in bmsBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+                     {% elseif user.credit.amount >= 250 %}
+                <button data-request="onBmsb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                {% else %}
+                 <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                {% endif %}
+            </form>
+           
+            </div>
+        </div>
+
+    <div class="card card-pricing text-center px-3 mb-4">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Business</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class=" font-weight-normal text-primary text-center mb-0" data-pricing-value="60"><span class="price">350 <small>credits</small></span><span class="h6 text-muted ml-2">/ 15 Days</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                       <li>7x times increase in interested buyers </li>
+                       <li>Auto-advert renewal every 12 hours for 15 days</li>
+                       <li>Category and Search Result Promotion</li>
+                </ul>
+                 <form>
+                    <input style="display: none;" type="text" name="bmbb" value="{{post.id}}">
+                    {% if  post.id in bmbBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+                     {% elseif user.credit.amount >= 350 %}
+                <button data-request="onBmbb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                 {% else %}
+                 <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                {% endif %}
+            </form>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+        <div class="card card-pricing popular shadow text-center px-3 mb-4" style="margin-top: -40px">
+            <span class="h6 w-60 mx-auto px-4 py-1 rounded-bottom bg-primary text-white shadow-sm">Enterprise</span>
+            <div class="bg-transparent card-header pt-4 border-0">
+                <h4 class=" font-weight-normal text-primary text-center mb-0" data-pricing-value="30"><span class="price">450 <small>credits</small></span><span class="h6 text-muted ml-2">/ 15 Days</span></h4>
+            </div>
+            <div class="card-body pt-0">
+                <ul class="list-unstyled mb-4">
+                   <li>10x times increase in interested buyers </li>
+                    <li>Auto advert renewal every 6 hours for a 15 days</li>
+                    <li>Category and Search Result Promotion</li>
+                </ul>
+                    <form>
+                    <input style="display: none;" type="text" name="bmeb" value="{{post.id}}">
+                        {% if  post.id in bmeBoost %} 
+             <button  type="submit" class="btn btn-outline-secondary mb-3" disabled="disabled">Running...</button>
+                     {% elseif user.credit.amount >= 450 %}
+                <button data-request="onBmeb" data-request-confirm="Are you sure?" type="submit" class="btn btn-outline-info mb-3">Boost now</button>
+                {% else %}
+                 <button type="button" class="btn btn-outline-info mb-3"  onclick="$.oc.flashMsg({text: 'You do not have sufficient vend credit for this action', 'class': 'error'}); return false;">Boost now</button>
+                {% endif %}
+            </form>
+            </div>
+        </div>
+       
+    
+
+    
+
+
+
+
+        <!--
+        confirmation message for monthly standard boost
+        -->
+       
+<div class="modal fade" id="MonthlyBoost" tabindex="-1" role="dialog" aria-labelledby="MonthlyBoost" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="MonthlyBoost">Confirm</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p align="center" style="font-size: 15px; font-family: arial; color: grey">Your are about to Subscribe to a Paid Boost Plan for "{{ post.title }}" and vend credit will be deducted from your account.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary" id="okay-button">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxConfirmMessage', function(event, message) {
+        // Stop the default confirm dialog
+        event.preventDefault();    
+
+        // open our own bootstrap modal
+        $('#MonthlyBoost').modal('show'); 
+
+        // Okay Button. we will unbind if any events are attached to it first
+        // reattach click event - this is required as this code will call each time
+        $('#okay-button').unbind().click(function() {        
+            // hide modal
+            $('#MonthlyBoost').modal('hide'); 
+            // Resolve the deferred object, this will trigger whatever was being confirmed
+            event.promise.resolve();
+        });
+
+        // Cancel Button
+        $('#cancel-button').unbind().click(function() {        
+            // hide modal
+            $('#MonthlyBoost').modal('hide'); 
+            // Reject the object, this will cancel whatever was being confirmed            
+            event.promise.reject();        
+        });
+
+        // Return a value so the framework knows we're handling the confirm
+        return true;
+    });
+</script>
+{% endput %}
+    

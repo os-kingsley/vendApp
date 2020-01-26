@@ -1,0 +1,156 @@
+
+      <div class="container" style="margin-top: -30px">
+        <div class="starter-template" style="margin: -33px">
+
+
+
+            <div class="card shadow">
+                <div class="card-body">
+        
+            {% if canRegister %}
+
+    <h3 align="center">Seller Account</h3>    
+    <h6 align="center" style="color: grey">Sign Up</h6>
+    <hr> 
+    {{ form_ajax('onRegister') }}
+
+
+ <input style="display: block;" name="phone" type="text" id="user-phone" >  
+    
+
+    
+    <div style="display: none;" id="sign-in-status"></div>
+    <div style="display: none;" id="sign-in"></div>
+    <pre style="display: none;" id="account-details"></pre>
+
+
+
+
+
+
+
+    
+
+    <div class="form-label-group">
+    <input 
+    name="company"
+    type="text" 
+    id="inputName" 
+    class="form-control" 
+    placeholder="Company/Business Name" 
+    required autofocus
+    
+
+
+    >
+
+    <label for="inputName">Company/Business Name</label>
+  </div>
+
+
+
+    <div class="form-label-group">
+    <input 
+    name="email"
+    type="email" 
+    id="inputEmail" 
+    class="form-control" 
+    placeholder="Email address" 
+    required autofocus
+    data-request="onCheckEmail"
+    data-request-success="$('#loginTaken').toggle(!!data.isTaken)"
+    data-track-input
+
+
+    >
+
+    <label for="inputEmail">Email address</label>
+    <div id="loginTaken" class="alert alert-danger alert-danger-sm" style="display: none"><small>This Email already exist</small>
+    
+</div>
+  </div>
+
+
+
+
+    
+
+      
+       
+        {% if loginAttribute == "username" %}
+            <div class="form-group">
+                  <div align="left"><small><b><label for="registerUsername">Username</label></b></small></div>
+                <input
+                    name="username"
+                    type="text"
+                    class="form-control form-control-sm field"
+                    id="registerUsername"
+                    placeholder="Enter your username" />
+            </div>
+        {% endif %}
+
+      
+
+         <div class="form-label-group">
+    <input 
+    name="password"
+    type="password" 
+    id="registerPassword" 
+   class="form-control" 
+    placeholder="Password" 
+     autofocus
+    
+
+
+    >
+
+    <label for="registerPassword">Password</label>
+  </div>
+
+
+
+  <div class="form-label-group">
+    <input 
+    name="password_confirmation"
+    type="password"
+    id="accountPasswordConfirm" 
+   class="form-control" 
+    placeholder="Password Confirmation" 
+    autofocus
+    
+
+
+    >
+
+    <label for="accountPasswordConfirm">Password Confirmation</label>
+  </div>
+
+         
+       
+            
+               
+               <small style="color: grey" >By clicking on Register, you agree to the Merch Terms of Service and Privacy Policy</small><br><br>
+
+               <div id="flash-div"></div>
+           
+    <div align="center"> <button id="shownow" type="submit" style="background-color: #08172A; color: white"  class="btn btn-sm rounded--lg-pill shadow rounded col-6" >Register</button></div>
+
+ 
+    {{ form_close() }}
+
+
+
+    <br>
+
+ {% partial 'homescreen' %}
+
+ <br>
+
+{% else %}
+    <!-- Registration is disabled. -->
+{% endif %}
+</div>
+</div>
+
+        </div>
+    </div>

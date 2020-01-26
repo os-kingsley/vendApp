@@ -1,0 +1,175 @@
+title = "Payment Verification"
+url = "/payment-verification"
+layout = "default"
+is_hidden = 0
+[session]
+security = "user"
+redirect = "login"
+==
+<?php
+
+function onStart(){
+$this['SEC_KEY'] = getenv('FW_SECKEY');
+
+
+}
+
+
+
+?>
+
+
+==
+
+
+
+<div style="font-family: arial">
+<b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -20px; background-color: #1484B3;">Verify Payment</h6></b><br>
+<div align="center"><p style="color: grey">Payment Verification</p></div>
+<div align="center"><p style="font-size: 12px; margin-top: -17px">Please enter your Transaction Reference to verify a payment</p></div>
+<div class="text-center">
+	<div class="spinner-grow text-success" role="status" style="width: 3rem; height: 3rem; display: none; " >
+  <span class="sr-only">Loading...</span>
+</div>
+</div>
+    
+<div class="container">
+  <div class="starter-template" style="margin: -20px; margin-top: -40px"><br>
+	<div class="card" style="margin: -25px">
+  		<div class="card-body " >
+ <div class="form-group">
+    <small><b><label class="float-left">Transaction Reference</label></b></small>
+    <input type="text" class="form-control verify"  aria-describedby="email" placeholder="i.e PROTECTEDPAY-455444****544-PP">
+
+    
+  </div>
+  
+
+  <button style="background-color: #08172A; color: white;"  type="submit" id="verve" class="btn btn-sm col-4" data-request-loading>Verify</button>
+
+</div>
+</div>
+</div>
+</div></div>
+
+
+
+{% put scripts %}
+
+<script type="text/javascript">
+
+   $("#verve").click(function(){
+
+  var id =  $('.verify').val();
+  $('.spinner-grow').show();
+
+
+  $.ajax({
+  type: 'POST',
+  url: "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify",
+  data: {
+    SECKEY: "{{ SEC_KEY }}",
+    txref: id
+  },
+  success: function(data){
+    var txref = data.data.txref;
+
+     $('.spinner-grow').hide();
+
+
+     if(txref.indexOf('PROTECTEDPAY') !== -1){
+
+       if(data.data.meta[0].metavalue == "1"){
+
+
+        $.alert({
+          title: '<small><b style="font-family: arial; color:grey;">Payment Verification</b></small>',
+          type: 'blue',
+          typeAnimated: true,
+          theme: 'supervan',
+          content: 
+          "<small>Date: </small>" + data.data.created + "<br>" +
+          "<b>Transaction Ref: </b>" + "<br>" + data.data.txref + "<br>" +
+
+          "<b >Payment Status: </b>" + data.data.status + "<br>" + 
+          "<b>Amount: </b>" + "₦" + data.data.amount + "<br>" +
+
+          "<b>Protected Pay Status: </b>" +   "PENDING"
+
+
+        });
+
+
+      }
+
+      else if(data.data.meta[0].metavalue == "SETTLED")
+      {
+       $.alert({
+        title: '<small><b style="font-family: arial; color:grey;">Payment Verification</b></small>',
+        type: 'blue',
+        typeAnimated: true,
+        theme: 'supervan',
+        content: 
+        "<small>Date: </small>" + data.data.created + "<br>" +
+        "<b>Transaction Ref: </b>" + "<br>" + data.data.txref + "<br>" +
+
+        "<b >Payment Status: </b>" + data.data.status + "<br>" + 
+        "<b>Amount: </b>" + "₦" + data.data.amount + "<br>" +
+
+        "<b>Protected Pay Status: </b>" +   "SETTLED"
+
+
+      });
+
+
+     }
+
+
+
+   } else if(txref.indexOf('DIRECTPAY') !== -1)
+   {
+
+
+     $.alert({
+      title: '<small><b style="font-family: arial; color:grey;">Payment Verification</b></small>',
+      type: 'blue',
+      typeAnimated: true,
+      theme: 'supervan',
+      content: 
+      "<small>Date: </small>" + data.data.created + "<br>" +
+      "<b>Transaction Ref: </b>" + "<br>" + data.data.txref + "<br>" +
+
+      "<b >Payment Status: </b>" + data.data.status + "<br>" + 
+      "<b>Amount: </b>" + "₦" + data.data.amount 
+
+
+    });
+
+
+   } 
+
+  },
+  error: function(xhr, textStatus, error){
+     $('.spinner-grow').hide();
+      
+    $.alert({
+    title: '<small><b style="font-family: arial; color:red;">Error</b></small>',
+    type: 'red',
+    typeAnimated: true,
+    theme: 'supervan',
+   content: 
+   "<b><h6>Something went wrong. Please...</h6></b>" + "<br>" +
+   "<small>1. Make sure your Transaction Reference is correct</small>" + "<br>" +
+   "<small>2. Try again later, or</small>" + "<br>"  +
+   "<small>3. Contact support@vend.com.ng"
+
+});
+
+  }
+});
+  });
+</script>
+
+{% endput %}
+
+

@@ -1,0 +1,92 @@
+
+ {{ form_ajax('onSubmit', { id:'myform'}) }}
+  {% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+
+
+
+<small><b><label class="float-left">Request Title <span style="color: red">*</span></label></b></small><br>
+  <div class="form-group">
+    <input type="text" name ="title" class="form-control" id="title" aria-describedby="title">
+    
+  </div>
+ 
+  
+<small><b><label class="float-left control-label" for="inputCategory">Add Category Tags <span style="color: red">*</span></label></b></small>
+<div  class="form-group required">
+      <select name="maincat[]" id="cat2" class="form-control form-select" multiple="multiple">
+      
+
+        {% for key, item in items %}
+        <option value={{ key }}> {{ item }}</option>
+        {% endfor %}
+        
+      </select>
+     
+  </div>
+ 
+
+<div align="left"><small><b><label>Request Description <span style="color: red">*</span></label></b></small></div>
+<div class="form-group required">
+ <textarea name="description" id="editor3" required="true">
+  
+</textarea>
+</div>
+
+   <small><b><label class="float-left" for="inputCategory">Preferred Means of Contact <span style="color: red">*</span></label></b></small>
+ <div class="form-group">
+      <select name="contact_means" id="contact_means" class="custom-select">
+        <option selected disabled="disabled" label="" hidden></option>
+        <option>Call Only</option>
+        <option>Message Only</option>
+         <option>Message Or Call</option>
+
+    </select>
+  </div>
+
+<small><b><label class="float-left">Location <span class="fa fa-map-marker"></span> <span style="color: red">*</span></label></b></small>
+ <div  class="form-group">
+<select id="buy_dropdown" class="form-control form-control-sm form-select buy_dropdown" name='location' multiple="multiple">
+  
+</select>
+</div>
+<br>
+
+
+
+<p><small><b>Image Attachment</b></small></b><br>
+<span style="font-size: 12px">Add Images if it makes your request better to understand.</span></p>
+
+ {% component 'imageUploader' %}
+
+
+<br>
+  <button type="submit" style="background-color: #08172A; color: white" class="btn btn-sm col-6 shadow" data-attach-loading >Post Request</button>
+
+
+{{ form_close() }}
+
+
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxErrorMessage', function(event, message){
+
+        // This can be any custom JavaScript you want
+       $.oc.flashMsg({text: message, 'class': 'error'}); return false;
+
+        // This will stop the default alert() message
+        event.preventDefault();
+
+    })
+</script>
+{% endput %}
+
+
+

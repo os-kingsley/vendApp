@@ -1,0 +1,6 @@
+plugin:
+    name: 'corymillz.newplug::lang.plugin.name'
+    description: 'corymillz.newplug::lang.plugin.description'
+    author: Corymillz
+    icon: oc-icon-adjust
+    homepage: ''

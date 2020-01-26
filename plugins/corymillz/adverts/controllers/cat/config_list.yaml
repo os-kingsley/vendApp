@@ -1,0 +1,14 @@
+title: Cat
+modelClass: Corymillz\Adverts\Models\Cat
+list: $/corymillz/adverts/models/cat/columns.yaml
+recordUrl: 'corymillz/adverts/cat/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+showTree: 1
+treeExpanded: 1

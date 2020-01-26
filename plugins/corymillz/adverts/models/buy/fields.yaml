@@ -1,0 +1,52 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: auto
+        type: richeditor
+    slug:
+        label: Slug
+        span: auto
+        preset:
+            field: title
+            type: slug
+        dependsOn:
+            - title
+        defaultFrom: title
+        type: text
+    catbuy:
+        label: Category
+        nameFrom: cat_title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    buy_image:
+        label: 'Buy Image'
+        span: auto
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        imageWidth: '100'
+        imageHeight: '100'
+        type: fileupload
+    location:
+        label: Location
+        span: auto
+        type: text
+    contact_means:
+        label: 'Contact Means'
+        emptyOption: Select
+        span: auto
+        type: dropdown
+    user:
+        label: 'Buy User'
+        span: auto
+        nameFrom: name
+        descriptionFrom: description
+        type: relation

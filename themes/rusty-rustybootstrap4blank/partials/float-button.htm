@@ -1,0 +1,23 @@
+     {% if not user%}
+     </div>
+     <a href="#" class="float" data-toggle="modal" data-target="#signupModal">
+<i class="fa fa-user-plus my-float"></i>
+</a>
+{% endif %}
+{% if user %} 
+<div class=" dropup jop">
+  <a href="#" class="jopa" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i style="color: white; margin-top:22px;font-size: 18px" class="fa fa-plus"></i>
+  </a>
+
+  <div class="dropdown-menu">
+      {% if inGroup('seller') %}
+    <a class="dropdown-item" href="{{ 'post'|page }}" style="font-family: arial">Post Product/Service</a>
+    {% endif %}
+      <div class="dropdown-divider"></div>
+  
+    <a class="dropdown-item" href="{{ 'request'|page }}" style="font-family: arial">Post Buy Request</a>
+   
+  </div>
+</div>
+{% endif %}

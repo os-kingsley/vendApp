@@ -1,0 +1,201 @@
+description = "A basic navbar to get you started"
+
+==
+
+<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas shadow p-3 mb-5 bg-white rounded " role="navigation">
+ <ul class="nav navmenu-nav flex-column" >
+  <div  style="background-color: #1484B3;  filter: brightness(100%); height: 150px; margin-left: -15px; margin-right: -15px; margin-top: -20px; font-family: arial;">
+    
+    {% if user %}
+    {% if inGroup('buyer') %}
+
+
+    <p style="color:white; margin-top: 20px; margin-left: 10px; font-size: 12px; font-family: arial ">{{ user.name }}</p><span class="float-right">
+    {% if user.avatar %}
+      <img src="{{ user.avatar.thumb(500,auto) }}"  style=" height: 60px; width: 60px;  border-radius: 100px; margin-top: -50px; margin-right: 10px">
+        {% else %}
+        <div style="background-color: grey; border-radius: 50%; margin-right: 10px; margin-top: -40px"><p  style="height: 50px; width: 50px; line-height: 50px; background-color: grey; border-radius: 50%; font-size: 20px; color: white; text-align: center">{{ user.name[:2] }}</p></div>
+        {% endif %}
+
+       </span>
+      <h5 style="margin-top: -10px; margin-left: 10px; color: white; font-family: arial">Buyer Account</h5>
+
+
+     {% elseif inGroup('seller')%}
+
+    <p style="color:white; margin-top: 20px; margin-left: 10px; font-size: 12px; font-family: arial ">{{ user.company|truncate(30) }}</p><span class="float-right">
+    {% if user.avatar %}
+      <img src="{{ user.avatar.thumb(500,auto) }}"  style=" height: 60px; width: 60px;  border-radius: 100px; margin-top: -50px; margin-right: 10px">
+        {% else %}
+        <div style="background-color: grey; border-radius: 50%; margin-right: 10px; margin-top: -40px"><p  style="height: 50px; width: 50px; line-height: 50px; background-color: grey; border-radius: 50%; font-size: 20px; color: white; text-align: center">{{ user.company[:2] }}</p></div>
+        {% endif %}
+
+       </span>
+      <h5 style="margin-top: -10px; margin-left: 10px; color: white; font-family: arial">Seller Account</h5>
+
+    {% endif %}
+    {% endif %}
+
+
+
+    
+{% if inGroup('seller')%} 
+    <div align="center" style="margin-top: 20px"> 
+
+     <a href="{{ 'seller-profile'|page ({ id: user.id }) }}"><button style="font-family: arial" class="btn btn-sm btn-light rounded--lg-pill shadow rounded border col-6">View Profile</button></a> 
+
+    </div>
+    {% elseif inGroup('buyer')%}
+
+     <div align="center" style="margin-top: 20px"> 
+
+     <a href="{{ 'buyer-profile'|page ({ id: user.id }) }}"><button style="font-family: arial" class="btn btn-sm btn-light rounded--lg-pill shadow rounded border col-6">View Profile</button></a>
+
+    </div>
+
+
+      
+   {% endif %}
+
+{% if not user %}
+
+
+       <div align="center" style="margin-top: 20px"> <img style="height: 120px; width: 120px" src="{{ 'assets/images/signin.png'|theme }}"></div>
+
+
+
+{% endif %}
+
+
+  </div>
+  
+
+
+ 
+ 
+
+    <li class="nav-item {% if this.page.id == 'home' %} active {% endif %}"><a class="nav-link" href="{{ 'home'|page }}"  style="font-family: arial"><span class="fa fa-home"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</small></b></a></li> 
+   
+   
+    {% if inGroup('seller') and user %}
+    <li class="nav-item  {% if this.page.id == 'post' %} active {% endif %} "><a class="nav-link" href="{{ 'post'|page }}" style="font-family: arial"><span class="fa fa-sticky-note"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post Product/Service</b></small></a></li>
+    {% endif %}
+
+
+ {% if not user %}
+
+    <li class="nav-item  {% if this.page.id == 'login' %} active {% endif %}"><a class="nav-link" href="{{ 'login'|page }}" style="font-family: arial"><span class="fa fa-sign-in"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login</b></small></a></li>
+ 
+    {% endif %}
+    
+
+   {% if user %}
+    <li class="nav-item  {% if this.page.id == 'request' %} active {% endif %}"><a class="nav-link" href="{{ 'request'|page }}" style="font-family: arial"><span class="fa fa-sticky-note"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post Buy Request</b></small></a></li>
+  {% endif %}
+   {% if user and inGroup('seller')%}
+     <li class="nav-item  {% if this.page.id == 'manage-posts' %} active {% endif %}"><a class="nav-link" href="{{ 'manage-posts'|page ({ slug: user.id })  }}" style="font-family: arial"><span class="fa fa-edit"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Product/Services</b></small></a></li>
+ {% endif %}
+ {% if user %}
+      <li class="nav-item  {% if this.page.id == 'manage-buy-request' %} active {% endif %}"><a class="nav-link" href="{{ 'manage-buy-request'|page({ slug: user.id }) }}" style="font-family: arial"><span class="fa fa-edit"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Buy Request</b></small></a></li>
+      {% endif %}
+     {% if user and inGroup('seller')%}
+     <li class="nav-item  {% if this.page.id == 'buy-request' %} active {% endif %}"><a class="nav-link" href="{{ 'buy-request'|page }}" style="font-family: arial"><span class="fa fa-shopping-cart"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sales Lead</b></small></a></li>
+     {% elseif user and inGroup('buyer')%}
+      <li class="nav-item  {% if this.page.id == 'buy-request' %} active {% endif %}"><a class="nav-link" href="{{ 'buy-request'|page }}" style="font-family: arial"><span class="fa fa-shopping-cart"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy Requests</b></small></a></li>
+      {% endif %}
+
+    <li class="nav-item  {% if this.page.id == 'category' %} active {% endif %}"><a class="nav-link" href="{{ 'category'|page }}" style="font-family: arial"><span class="fa fa-list"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Categories</b></small></a></li>
+
+    <li class="nav-item  {% if this.page.id == 'subcategory/services' %} active {% endif %}"><a class="nav-link" href="/subcategory/services" style="font-family: arial"><span class="fa fa-users"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Service Providers</b></small></a></li>
+
+
+     <li class="nav-item  {% if this.page.id == 'protected-pay' %} active {% endif %}"><a class="nav-link" href="{{ 'protected-pay'|page }}" style="font-family: arial"><span class="fa fa-lock"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protected Pay</b></small></a></li>
+
+      <li class="nav-item  {% if this.page.id == 'fqa' %} active {% endif %}"><a class="nav-link" href="{{ 'fqa'|page }}" style="font-family: arial"><span class="fa fa-question"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAQ</b></small></a></li>
+
+      {% if user %}
+      <li class="nav-item  {% if this.page.id == 'account-update' %} active {% endif %}"><a class="nav-link" href="{{ 'account-update'|page }}" style="font-family: arial"><span class="fa fa-gear"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account Settings</b></small></a></li>
+      {% endif %}
+      {% if user and inGroup('seller' )%}
+
+       <li class="nav-item  {% if this.page.id == 'credits' %} active {% endif %}"><a class="nav-link" href="{{ 'credits'|page }}" style="font-family: arial"><span class="fa fa-money"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy Vend Credit</b></small></a></li>
+       {% endif %}
+
+     <div style="height: 1px; background-color: lightgrey; margin-left: -15px; margin-right: -15px; "></div>
+
+    {% if user %}
+
+      <li class="nav-item"><a class="nav-link"  data-request="onLogout" data-request-data="redirect: '/'" style="font-family: arial"><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log out</b></small></a></li>
+{% endif %}
+     
+  
+  </ul>
+</nav>
+
+<header class="navbar navbar-dark fixed-top shadow" style="background-color: #08172A; color: white;" >
+  <button style="outline: none;"  class="navbar-toggler  p-0 border-0" type="button" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+    <span style=" margin-top: -10px; font-weight: bold;" class="navbar-toggler-icon"></span>
+  </button>
+  
+   <a class="navbar-brand" href="{{ 'home'|page }}" style="font-weight: bold; letter-spacing: 1px; font-family: arial; margin-top: 0px; font-size: 18px"><img style="height: 45px; width: auto; margin-top:-10px" src="{{'assets/images/vendlogo2.png'|theme }}"></a>
+
+  <!--
+  <form class="form-inline my-2  col-lg-8 d-none d-sm-block d-md-none" action="{{ 'search' | page }}" method="get">
+      <input name="q" class="form-control form-control shadow rounded" type="text" placeholder="What are you sourcing for?" aria-label="Search"> -->
+<!--
+      <button type="submit">Search</button>
+    
+    </form>-->
+
+    <form id="speak-form"  class=" my-1 col-12 col-lg-8" action="{{ 'site-search' | page }}" method="POST">
+      <div style="margin-top: -10px">
+      <input  class="form-control form-control-sm shadow rounded" name="q" type="search" id="transcript" style="font-family: FontAwesome, Arial;" placeholder="&#xF002; Search for Product/Service" aria-label="Search" ><img class="recordSpeech" onclick="startRecording()" src="{{ 'assets/images/mic-icon.png'|theme }}" />
+
+  <audio id="audio" class="sound" src="{{ 'assets/beep-07.wav'|theme }}"></audio>
+</div>
+     
+      
+    </form>
+</header>
+
+{% put scripts %}
+<script>  function startRecording() {
+  var sound = document.getElementById("audio");
+          sound.play();
+
+if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+var recognition = new webkitSpeechRecognition();
+
+recognition.continuous = false;
+
+recognition.interimResults = false;
+
+recognition.lang = 'en-US';
+
+recognition.start();
+
+recognition.onresult = function(e) {
+
+document.getElementById('transcript').value = e.results[0][0].transcript;
+
+recognition.stop();
+
+document.getElementById('speak-form').submit();
+
+};
+
+recognition.onerror = function(e) {
+
+recognition.stop();
+
+}
+
+}
+
+}
+
+</script>
+{% endput %}
+
+

@@ -1,0 +1,53 @@
+title = "Login"
+url = "/login"
+layout = "default"
+is_hidden = 0
+
+[account]
+redirect = "/"
+paramCode = "code"
+forceSecure = 0
+==
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+
+{% if not user %}
+<br>
+        <div>
+           
+            {% partial __SELF__ ~ '::signin' %}
+        </div>
+
+        {% else %}
+
+    {% partial __SELF__ ~ '::activation_check' %}
+
+    
+
+{% endif %}
+
+
+
+{% put scripts %}
+
+<script>
+$(window).on('ajaxErrorMessage', function(event){
+
+    // This can be any custom JavaScript you want
+    $.oc.flashMsg({text: "Incorrect Password or Email", 'class': 'error'}); return false;
+
+    // This will stop the default alert() message
+    event.preventDefault();
+
+})
+</script>
+
+{% endput %}

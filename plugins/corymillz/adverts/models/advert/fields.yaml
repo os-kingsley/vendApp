@@ -1,0 +1,77 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: auto
+        type: richeditor
+    price:
+        label: Price
+        span: auto
+        type: text
+    specification:
+        label: 'Product Specification'
+        size: ''
+        span: auto
+        type: richeditor
+    minimum_order:
+        label: 'Minimum Order Quantity'
+        span: auto
+        type: text
+    supply_ability:
+        label: 'Supply Ability'
+        span: auto
+        type: text
+    delivery_time:
+        label: 'Delivery Time'
+        span: auto
+        type: text
+    discount_offer:
+        label: 'Discount Offer'
+        span: auto
+        type: text
+    slug:
+        label: Slug
+        span: auto
+        preset:
+            field: title
+            type: slug
+        type: text
+    cats:
+        label: Category
+        nameFrom: cat_title
+        descriptionFrom: description
+        emptyOption: 'Select a Category'
+        span: auto
+        required: 0
+        type: relation
+    allimage:
+        label: 'Advert Gallery'
+        mode: image
+        imageWidth: '80'
+        imageHeight: '80'
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    delivery:
+        label: Delivery
+        emptyOption: Select
+        span: auto
+        placeholder: ''
+        type: dropdown
+    location:
+        label: Location
+        span: auto
+        type: text
+    user:
+        label: User
+        span: auto
+        nameFrom: name
+        descriptionFrom: description
+        type: relation

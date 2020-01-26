@@ -1,0 +1,168 @@
+title = "Favorite Posts"
+url = "/favorites"
+layout = "default"
+is_hidden = 0
+[session]
+security = "user"
+redirect = "login"
+==
+
+<?php
+use Corymillz\Adverts\Models\Advert;
+use RainLab\User\Models\User;
+
+function onStart(){
+
+$user = Auth::getUser();
+
+$this['products'] = $user->ads()->paginate(10);
+}
+
+
+function onRemoveBookmark()
+{
+ 
+$recordId = post('remove');
+
+$record = Advert::find($recordId);
+
+$user=  Auth::getUser();
+
+$user->ads()->detach($record);
+
+return redirect()->back();
+
+Flash::success('Successfully Removed!');
+
+}
+
+?>
+==
+
+
+
+
+
+
+
+
+<b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -15px; background-color: #1484B3">Bookmarked Ads</h6></b><br><br>
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{ message }}
+    </p>
+{% endflash %}
+
+<div style="font-family: arial; font-size: 14px" class="container">
+  <div class="starter-template" style="margin: -40px; margin-top: -60px">
+
+ <table class="table table-striped">
+  <thead>
+    <tr>
+      
+     
+      
+
+      
+  </tr>
+  </thead>
+{% set counter = 0 %}
+  <tbody>
+  	 {% for pro in products %}
+  	 {% set counter = counter + 1 %}
+  	    <tr>
+              <th scope="row">{{ counter }}</th>
+  	    	
+     
+      <td><a style="color:  #08172A; text-decoration: none;" href="{{ 'product-single'|page({ slug: pro.slug }) }}" >{{ pro.title }}</a></td>
+
+ <td><button class="btn btn-sm btn-link" data-request ="onRemoveBookmark" data-request-confirm="Are you sure?" data-request-data= "remove: {{ pro.id }}">Remove</button> </td>
+ 
+
+      
+     
+      
+     
+    </tr>
+
+
+    {% else %}
+
+<div><p style="color: grey"> No Bookmarked Ad</p></div>
+
+    
+
+
+    {% endfor %}
+
+
+   
+
+  </tbody>
+
+</table>
+
+</div>
+</div>
+
+
+
+<div class="modal fade" id="bookmarkModal" tabindex="-1" role="dialog" aria-labelledby="bookmarkModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="bookmarkModal" style="font-family: arial">Remove to Favourites</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <p align="center" style="font-size: 20px; font-family: arial; color: grey; font-family: arial">Are you sure?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary" id="okay-button">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% put scripts %}
+<script>
+    $(window).on('ajaxConfirmMessage', function(event, message) {
+        // Stop the default confirm dialog
+        event.preventDefault();    
+
+        // open our own bootstrap modal
+        $('#bookmarkModal').modal('show'); 
+
+        // Okay Button. we will unbind if any events are attached to it first
+        // reattach click event - this is required as this code will call each time
+        $('#okay-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Resolve the deferred object, this will trigger whatever was being confirmed
+            event.promise.resolve();
+        });
+
+        // Cancel Button
+        $('#cancel-button').unbind().click(function() {        
+            // hide modal
+            $('#bookmarkModal').modal('hide'); 
+            // Reject the object, this will cancel whatever was being confirmed            
+            event.promise.reject();        
+        });
+
+        // Return a value so the framework knows we're handling the confirm
+        return true;
+    });
+</script>
+{% endput %}
+
+
+
+

@@ -1,0 +1,54 @@
+
+
+{% for advertino in adsimage %}
+<div class="container " >
+  <div class="starter-template" style="margin-top: -30px; margin: -38px">
+
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+
+    <div id="carouselExampleIndicators" class="carousel slide  " data-ride="carousel" data-interval="5000">
+
+      <ol class="carousel-indicators">
+        {% for image in advertino.allimage %}
+        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index }}" class="{{ loop.first ? 'active' : '' }}"></li>
+        {% endfor %}
+      </ol>
+      
+      <div class="carousel-inner" role="listbox">
+        {% for image in advertino.allimage %}
+        <div align="center" class="carousel-item {{ loop.first ? 'active' : '' }} "  >
+         <img class="d-block  img-fluid" style="height: 400px; width: 450px" src="{{ image.thumb(1000, 1000)  }}"  alt="...">
+   
+       </div>
+       {% else %}
+
+  <div align="center"><img class="d-block  img-fluid" style="height: 250px; width: 200px" src="{{ 'assets/images/no-image.png'|theme }}"  alt="..."></div>
+       {% endfor %}
+     </div>
+   
+     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    
+  </div>
+
+
+
+</div>
+</div>
+
+{% endfor %} 

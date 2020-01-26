@@ -1,0 +1,13 @@
+1.0.1:
+    - Initialize plugin
+    - add_new_fields.php
+1.0.2:
+    - Add addition store and profile fields
+    - additional_store_fields.php
+1.0.3:
+    - Add slug to user table
+    - add_slug.php
+1.0.4:
+    - Add profile fields
+    - profile_fields.php
+

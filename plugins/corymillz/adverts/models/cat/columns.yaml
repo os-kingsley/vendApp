@@ -1,0 +1,6 @@
+columns:
+    cat_title:
+        label: Cat_title
+        type: text
+        searchable: true
+        sortable: true

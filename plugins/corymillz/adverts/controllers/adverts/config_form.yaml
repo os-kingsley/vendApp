@@ -1,0 +1,10 @@
+name: Adverts
+form: $/corymillz/adverts/models/advert/fields.yaml
+modelClass: Corymillz\Adverts\Models\Advert
+defaultRedirect: corymillz/adverts/adverts
+create:
+    redirect: 'corymillz/adverts/adverts/update/:id'
+    redirectClose: corymillz/adverts/adverts
+update:
+    redirect: corymillz/adverts/adverts
+    redirectClose: corymillz/adverts/adverts

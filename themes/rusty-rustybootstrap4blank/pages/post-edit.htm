@@ -1,0 +1,102 @@
+title = "Post Edit"
+url = "/post-edit/:slug"
+layout = "default"
+is_hidden = 0
+
+
+[postedit]
+[imageUploader]
+maxSize = "2"
+fileTypes = "*"
+
+security = "user"
+redirect = "/login"
+
+==
+<?php
+use Corymillz\Adverts\Models\Advert;
+use Corymillz\Adverts\Models\Cat;
+
+
+
+  
+
+function onInit()
+{
+
+
+  $slug = $this->param('slug');
+
+  $ads = Advert::where('slug', $slug)->first();
+    $this->imageUploader->bindModel('allimage', Advert::find($ads->id));
+}
+
+function onStart(){
+  
+  $this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/editor/post-editor.js');
+  $this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/location/location.js'); 
+
+	$slug = $this->param('slug');
+
+  $this['post'] = Advert::where('slug', $slug)->first();
+
+  $this['items'] = Cat::where('parent_id',0)->pluck('cat_title', 'id');
+
+
+}
+
+
+
+function onChangeCat()
+{
+
+$id = post('catsId');
+
+
+$this['subs'] = Cat::whereHas('parent', function ($query) use($id) {
+  
+ $query->where('id','=', $id );
+
+})->pluck('cat_title', 'id'); 
+
+return [
+        '#subcategory' => $this->renderPartial('select')
+    ];
+  
+
+
+  
+}
+
+
+?>
+==
+
+
+ <b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -20px; background-color: #1484B3">Post Edit</h6></b><br>
+
+<div class="container">
+  <div class="starter-template" style="margin: -40px ">
+
+  	  {%partial "homescreen"%}
+    
+   
+<div class="container" style="margin-top: -40px">
+  <div class="starter-template" style="margin: -20px ">
+
+ 
+   {% component 'postedit' %}
+
+
+
+</div></div>
+
+
+
+
+
+
+
+
+
+

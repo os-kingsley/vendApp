@@ -1,0 +1,77 @@
+
+[account]
+==
+{% if inGroup('seller') or user or not user %}
+   
+
+<div style="font-family: arial" align="right"><a href="{{url}}"><small>Back | Top</small></a></div>
+
+{% for row in allproducts|batch(4) %}
+    <div class="row">
+        {% for allproducts in row %}
+        <div class="col-6 border" style="border-radius: 15px; background-color: white"><br>
+
+  {% for image in allproducts.allimage %}
+{% if loop.first%}
+   <div style="margin-top: 20px" align="center"><img src="{{ image.thumb(800, auto) }}" class="mr-3 store-pics" style="height: 120px; width: 100%;" alt="..."></div>
+   {% endif %}
+   {% else %}
+    <img src="{{ 'assets/images/no-image.png'|theme }}" style="height: 120px; width:120px; margin-top: 20px" class="mr-3 " alt="...">
+{% endfor%}<span>   <p>
+{% if user %}
+
+  <a  href="#"  data-request ="onBookmark" data-request-confirm="Add to Favourite List" data-request-success="alert('Successfully Added')" data-request-data= "bookmark: {{ allproducts.id }}"><span style="font-size: 15px; color: #08172A; margin-top: -170px" class="fa fa-heart-o float-right "></span></a> 
+{% else %}
+
+  <a  href="#"  onclick="$.oc.flashMsg({text: 'Log in to Favourite a Produt/Servce', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A; margin-top: -170px" class="fa fa-heart-o float-right "></span></a> 
+{% endif %}
+
+
+
+</p></span>
+ <div align="left"> 
+<a  href="{{ 'product-single'|page({ slug: allproducts.slug }) }}"><small style="margin: 0px; font-size: 16px; color:  #08172A; font-weight: lighter; text-decoration: none;">{{ allproducts.title|truncate(17) }}</small></a><br>
+</div>
+<div align="left">
+  {% if allproducts.price %}
+<small style=" font-size: 16px; font-family: arial"><b>₦ {{ allproducts.price }}</b></small> 
+{% else %}
+<div  class="float-left "><span style="background-color: #1484B3; color: white; " class="badge">Contact for Price</span></div><br>
+
+    {% endif %}
+</div><br>
+    <div align="left" style="font-size: 14px; margin-top: -22px; font-family: arial">
+
+  
+    {% if allproducts.rating %}
+        {% for i in range(1,5) %}
+            {% if allproducts.rating >=  max(0, i-0.25) %}
+                <span style="color: orange" class="fa fa-star"></span>
+            {% elseif (allproducts.rating > (i-0.75)) %}
+                <span style="color: orange" class="fa fa-star-half-o"></span>
+            {% else %}
+                <span style="color: grey" class="fa fa-star-o"></span>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+     
+    
+</div>
+<br>
+
+
+
+</div>
+
+
+{% endfor %}
+</div>
+{% endfor %}
+
+</div>
+
+
+{% endif %}
+
+
+ 

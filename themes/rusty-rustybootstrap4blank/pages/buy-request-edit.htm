@@ -1,0 +1,64 @@
+title = "Buy Request Edit"
+url = "/buy-request-edit/:slug"
+layout = "default"
+is_hidden = 0
+
+
+[buyedit]
+[imageUploader]
+maxSize = "2"
+fileTypes = "*"
+[session]
+security = "user"
+redirect = "login"
+
+==
+<?php
+use Corymillz\Adverts\Models\Buy;
+use Corymillz\Adverts\Models\Cat;
+
+
+
+
+  
+
+function onInit()
+{
+  
+    
+  $slug = $this->param('slug');
+
+  $ads = Buy::where('slug', $slug)->first();
+    $this->imageUploader->bindModel('buy_image', Buy::find($ads->id));
+}
+
+
+function onStart(){
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/editor/buy-editor.js');
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/location/location.js');
+
+	$slug = $this->param('slug');
+
+  $this['post'] = Buy::where('slug', $slug)->first();
+  $this['items'] = Cat::where('parent_id','>',0)->pluck('cat_title', 'id');
+
+
+}
+?>
+==
+
+
+ <b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -20px; background-color: #1484B3">Buy Request Edit</h6></b><br>
+<div class="container">
+  <div class="starter-template" style="margin: -20px ">
+
+  	 {% partial "sidebar" %}
+    
+  
+ 
+   {% component 'buyedit' %}
+
+
+
+</div></div>
+

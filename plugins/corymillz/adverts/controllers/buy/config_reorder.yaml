@@ -1,0 +1,4 @@
+title: Buy
+modelClass: Corymillz\Adverts\Models\Buy
+toolbar:
+    buttons: reorder_toolbar

@@ -1,0 +1,4 @@
+title: Credit
+modelClass: Corymillz\Adverts\Models\Credit
+toolbar:
+    buttons: reorder_toolbar

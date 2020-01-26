@@ -1,0 +1,22 @@
+
+<p>
+  <a class="btn btn-primary shadow" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <span class="fa fa-filter"></span> Filter by Location
+  </a>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <form class=" my-1 col-12 col-lg-8" action="{{ 'product-location'|page({ slug: slugg }) }}" method="POST">
+            <small><b><label class="float-left">Filter by Location</label></b></small><br>
+ <div  class="form-group">
+<select style="width: 100%" id="search" class="form-control form-control-sm form-select searchCity" name='location' multiple="multiple">
+  
+</select>
+
+
+</div>
+
+<button  class="btn btn-outline-info col-6 rounded-pill" type="submit">Apply Filter</button>
+</form>
+
+</div></div><hr><br><br>
+

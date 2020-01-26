@@ -1,0 +1,112 @@
+<form  data-request="onUpdateProfile" data-request-files data-request-flash>
+
+{% if user and inGroup('buyer')%}
+
+    <div class="form-group">
+        <div align="left"><small><b><label for="accountEmail">Name</label></b></small></div>
+        <input name="name" type="text" class="form-control" id="accountName" value="{{ user.name }}">
+    </div>
+    {% endif %}
+
+{% if user and inGroup('seller')%}
+    <div class="form-group">
+        <div align="left"><small><b><label for="accountCompany">Company/Business Name</label></b></small></div>
+        <input name="company" type="text" class="form-control" id="accountCompany" value="{{ user.company }}">
+    </div>
+
+    {% endif %}
+
+      <div class="form-group">
+        <div align="left"><small><b><label for="accountEmail">Email</label></b></small></div>
+        <input name="email" type="email" class="form-control" id="accountEmail" value="{{ user.email }}">
+    </div>
+
+     
+{% if user and inGroup('seller')%}
+     <div class="form-group">
+        <div align="left"><small><b><label for="accountAddress">Company/Business Address</label></b></small></div>
+        <input name="street_addr" type="text" class="form-control" id="accountAddress" value="{{ user.street_addr }}">
+    </div>
+{% endif %}
+{% if user and inGroup('seller')%}
+  
+
+
+    <div class="form-group required">
+  <div align="left"> <small><b><label>About</label></b></small></div>
+ 
+<textarea name="about_us" id="editor2" >{{ user.about_us|raw }}
+
+</textarea>
+</div>
+
+    {% endif %}
+
+
+  <div class="form-group">
+        <div align="left"><small><b><label for="accountAddress">Phone Number</label></b></small></div>
+        <input  name="phone" minlength="14" type="tel" class="form-control phone_val" id="phone" value="{{ user.phone }}" pattern="^\+234[0-9]\d{9}$">
+        <small>Phone Number must start with +234, followed by your number without the first zero(0) </small>
+    </div>
+
+
+
+{% if inGroup('buyer') %}
+ <div align="left"><small><b><label for="accountAbout">Avatar</label></b></small></div>
+ {% elseif inGroup('seller')%}
+ <div align="left"><small><b><label for="accountAbout">Logo</label></b></small></div>
+ {% endif %}
+  
+
+     
+<small> Choose or Change {% if inGroup('buyer') %}Avatar {% elseif inGroup('seller')%} Logo{% endif %}</small>
+      <div class="custom-file">
+  <input type="file" class="custom-file-input" name="avatar" accept="image/*" id="customFile" data-request="onAvatar" data-request-files data-request-flash>
+
+  <label class="custom-file-label float-left" for="customFile">Choose</label>
+</div>
+<br><br>
+<div style="font-family: arial" id="imageResult"><img src="{{ user.avatar.thumb(100,100) }}"></div>
+
+
+
+ 
+    <div class="form-group">
+          <div align="left"><small><b><label for="accountPassword">New Password</label></b></small></div>
+        <input name="password" type="password" class="form-control" id="accountPasswordUpdate">
+    </div>
+
+
+
+
+    <div class="form-group">
+          <div align="left"><small><b><label for="accountPasswordConfirm">Password Confirmation</label></b></small></div>
+        <input name="password_confirmation" type="password" class="form-control" id="accountPasswordConfirm">
+    </div>
+    <!--
+      accountPasswordUpdate
+
+   <div id="divCheckPasswordMatch"></div>
+  -->
+<hr>
+<div align="center"><small><b>Enter Current Password to Update</b></small></div><hr>
+    <div class="form-group">
+          <div align="left"><small><b><label for="accountPasswordConfirm">Current Password</label></b></small></div>
+        <input name="password_current" type="password" class="form-control" id="accountPasswordUpdateConfirm">
+    </div>
+
+    <button type="submit" class="btn btn-success btn-sm col-6 shadow submit">Update</button>
+
+</form>
+{% put scripts %}
+<script type="text/javascript">
+  CKEDITOR.replace( 'editor2', {
+
+ height: 80,
+ removeButtons: 'About, anchor,subcript,superscript'
+       
+ 
+
+});
+</script>
+{% endput %}

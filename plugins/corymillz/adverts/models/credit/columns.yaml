@@ -1,0 +1,6 @@
+columns:
+    amount:
+        label: Amount
+        type: number
+        searchable: true
+        sortable: true

@@ -1,0 +1,117 @@
+title = "Authorize Settlement"
+url = "/authorize-settlement"
+layout = "default"
+is_hidden = 0
+[session]
+security = "user"
+redirect = "login"
+==
+<?php
+
+function onStart(){
+$this['SEC_KEY'] = getenv('FW_SECKEY');
+
+//$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/payments/payment-settlement.js');
+
+}
+
+
+
+?>
+
+
+==
+
+<div style="font-family: arial">
+<b><h6 align="center"  class="p-3 mb-2 text-white shadow" style="margin-top: -20px; background-color: #1484B3;">Authorize Settlement</h6></b><br>
+
+ 
+<div align="center"><p style="color: grey">Protected Pay Settlement</p></div>
+<div align="center"><p style="font-size: 12px; margin-top: -20px">Please enter your settlememt code to settle a seller</p></div>
+<div class="text-center">
+<div class="spinner-grow" role="status" style="width: 3rem; height: 3rem; display: none; color: #1484B3;" >
+  <span class="sr-only">Loading...</span>
+</div>
+</div>
+    
+<div class="container">
+  <div class="starter-template" style="margin: -25px; margin-top: -40px"><br>
+  	
+
+  	<div class="card" style="margin: -25px">
+  		<div class="card-body">
+ <div class="form-group">
+    <small><b><label class="float-left">Settlement Code</label></b></small>
+    <input style="font-size: 13px" type="number" class="form-control auth"  aria-describedby="number" placeholder="i.e 123456">
+
+    
+  </div>
+
+  <button style="background-color: #08172A; color: white;"  type="submit" id="set" class="btn btn-sm col-4">Settle</button>
+</div>
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+</div>
+
+{% put scripts %}
+
+<script type="text/javascript">
+
+  $("#set").click(function(){
+     var settle =  $('.auth').val();
+    $('.spinner-grow').show();
+
+
+  $.ajax({
+  type: 'POST',
+  url: 'https://api.ravepay.co/v2/gpx/transactions/escrow/settle',
+  data: {
+       id: settle,
+    secret_key: "{{ SEC_KEY }}"
+  },
+  success: function(data){
+     $('.spinner-grow').hide();
+        $.alert({
+    title: '<small><b style="font-family: arial; color:grey;">Authorize Settlement</b></small>',
+    type: 'blue',
+    typeAnimated: true,
+    theme: 'supervan',
+    content: 
+   "<b>Payment Status: </b>" + data.status + "<br>" + 
+   "<b>Protected Pay Status: </b>" + data.data
+});
+  },
+  error: function(xhr, textStatus, error){
+     $('.spinner-grow').hide();
+      
+    $.alert({
+    title: '<small><b style="font-family: arial; color:red;">Error</b></small>',
+    type: 'red',
+    typeAnimated: true,
+    theme: 'supervan',
+   content: 
+   "<b><h6>Something went wrong. Please...</h6></b>" + "<br>" +
+   "<small>1. Make sure your code is correct</small>" + "<br>" +
+   "<small>2. Make sure the transaction has not already been settled</small>" + "<br>" +
+   "<small>3. Try again later, or</small>" + "<br>"  +
+   "<small>4. Contact support@vend.com.ng"
+
+});
+
+  }
+});
+  });
+</script>
+
+{% endput %}

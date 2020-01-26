@@ -1,0 +1,38 @@
+  <div class="card card-body shadow-sm" >
+    <form class=" my-1 col-12 col-lg-8" action="{{ 'product-location'|page({ slug: slugg }) }}" method="POST">
+            <small><b><label class="float-left">Filter by Location</label></b></small><br>
+ <div  class="form-group">
+<select style="width: 170%" id="searchdesktop" class="form-control form-control-sm form-select searchCity" name='location' multiple="multiple">
+  
+</select>
+
+
+</div>
+
+<button  class="btn btn-sm btn-info" type="submit">Apply Filter</button>
+</form>
+
+</div>
+
+
+{% put scripts %}
+
+<script type="text/javascript">
+	 let search_dropdown_desktop = $("#searchdesktop");
+
+search_dropdown_desktop.empty();
+
+
+search_dropdown_desktop.prop('selectedIndex', 0);
+
+const url_desktop = '/location.json';
+
+// Populate search_dropdown_desktop with list of provinces
+$.getJSON(url_desktop, function (data) {
+  $.each(data, function (key, entry) {
+    search_dropdown_desktop.append($('<option></option>').attr('value',  entry.city).text(entry.city));
+  })
+});
+
+</script>
+{% endput %}

@@ -1,0 +1,68 @@
+<div >
+  <body>
+    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" style="margin-top: 55px; ">
+
+
+      <ul class="nav navmenu-nav flex-column">
+         <div  style="background-color: #1484B3;  filter: brightness(100%); height: 150px; margin-left: -15px; margin-right: -15px; margin-top: -20px; font-family: arial">
+           
+
+        
+    {% if user %}
+    {% if inGroup('buyer') %}
+    <p style="color:red; margin-top: 30px ">{{ user.name }}</p>
+    <p>Buyer Account</p>
+     {% elseif inGroup('seller')%}
+
+    <p style="color:white; margin-top: 30px; margin-left: 20px; font-size: 12px; font-family: arial ">{{ user.company }}<span class="float-right"><img src="{{ user.avatar.thumb(500,auto) }}"  style=" height: 60px; width: auto;  border-radius: 100px; margin-top: 0px; margin-right: 20px"> </span>
+      <h5 style="margin-top: -10px; margin-left: 20px; color: white; font-family: arial">Seller Account</h5>
+
+    {% endif %}
+    {% endif %}
+
+    {% if inGroup('seller')%}
+    <div align="center" style="margin-top: 20px"> <a href="{{ 'profile'|page ({ id: user.company }) }}"><button style="font-family: arial" class="btn btn-sm btn-light rounded--lg-pill shadow rounded border col-6">View Profile</button></a></div>
+
+
+  {% elseif inGroup('buyer')%}
+   <div align="center" style="margin-top: 20px"> <a href="{{ 'profile'|page ({ id: user.id }) }}"><button style="font-family: arial" class="btn btn-sm btn-light rounded--lg-pill shadow rounded border col-6">View Profile</button></a></div>
+   {% endif %}
+         </div>
+
+
+         <li class="nav-item {% if this.page.id == 'home' %} active {% endif %}"><a class="nav-link" href="{{ 'home'|page }}"  style="font-family: arial"><span class="fa fa-home"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Home</small></b></a></li> 
+          {% if inGroup('seller') and user %}
+    <li class="nav-item  {% if this.page.id == 'post' %} active {% endif %} "><a class="nav-link" href="{{ 'post'|page }}" style="font-family: arial"><span class="fa fa-sticky-note"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post Product/Service</b></small></a></li>
+    {% endif %}
+       
+ {% if not user %}
+
+    <li class="nav-item  {% if this.page.id == 'login' %} active {% endif %}"><a class="nav-link" href="{{ 'login'|page }}" style="font-family: arial"><span class="fa fa-sign-in-alt"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login</b></small></a></li>
+ 
+    {% endif %}
+     <li class="nav-item  {% if this.page.id == 'messages' %} active {% endif %}"><a class="nav-link" href="{{ 'messages'|page }}" style="font-family: arial"><span class="fa fa-envelope"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Messages</b></small></a></li>
+
+    <li class="nav-item  {% if this.page.id == 'request' %} active {% endif %}"><a class="nav-link" href="{{ 'request'|page }}" style="font-family: arial"><span class="fa fa-edit"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Post Buy Request</b></small></a></li>
+
+     <li class="nav-item  {% if this.page.id == 'manage-posts' %} active {% endif %}"><a class="nav-link" href="{{ 'manage-posts'|page ({ slug: user.id })  }}" style="font-family: arial"><span class="fa fa-edit"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Posts</b></small></a></li>
+
+      <li class="nav-item  {% if this.page.id == 'request' %} active {% endif %}"><a class="nav-link" href="{{ 'request'|page }}" style="font-family: arial"><span class="fa fa-edit"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Buy Request</b></small></a></li>
+
+       <li class="nav-item  {% if this.page.id == 'buy-request' %} active {% endif %}"><a class="nav-link" href="{{ 'buy-request'|page }}" style="font-family: arial"><span class="fa fa-shopping-cart"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy Leads</b></small></a></li>
+
+    <li class="nav-item  {% if this.page.id == 'category' %} active {% endif %}"><a class="nav-link" href="{{ 'category'|page }}" style="font-family: arial"><span class="fa fa-list"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;All Categories</b></small></a></li>
+
+    <li class="nav-item  {% if this.page.id == 'subcategory/services' %} active {% endif %}"><a class="nav-link" href="http://localhost/subcategory/services" style="font-family: arial"><span class="fa fa-users"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Service Providers</b></small></a></li>
+
+
+     <li class="nav-item  {% if this.page.id == 'protected-pay' %} active {% endif %}"><a class="nav-link" href="{{ 'protected-pay'|page }}" style="font-family: arial"><span class="fa fa-lock"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Protected Pay</b></small></a></li>
+
+      <li class="nav-item  {% if this.page.id == 'fqa' %} active {% endif %}"><a class="nav-link" href="{{ 'fqa'|page }}" style="font-family: arial"><span class="fa fa-lock"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FAQ</b></small></a></li>
+
+
+     <div style="height: 1px; background-color: lightgrey; margin-left: -15px; margin-right: -15px; "></div>
+
+    
+      <li class="nav-item"><a class="nav-link"  data-request="onLogout" data-request-data="redirect: '/'" style="font-family: arial"><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log out</b></small></a></li>
+   
+    </div></div>

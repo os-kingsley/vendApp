@@ -1,0 +1,272 @@
+title = "Buy Request Filter"
+url = "/buy-request-filter"
+layout = "default"
+is_hidden = 0
+==
+
+<?php
+use Corymillz\Adverts\Models\Buy;
+use Corymillz\Adverts\Models\Cat;
+
+
+function onStart(){
+
+$this->addJs('/themes/rusty-rustybootstrap4blank/assets/js/location/filter.js');
+$category = Input::get('maincat', []);
+
+$locate = Input::get('location');
+
+
+
+
+
+$this['items'] = Cat::where('parent_id','>',0)->pluck('cat_title', 'id');
+
+
+
+	
+      $list = Buy::with('catbuy');
+      
+
+
+
+
+
+
+	$this['requests'] = $list
+     ->whereHas('catbuy', function($q) use ($category){
+        $q->whereIn('id', $category);
+    })
+    ->where('location', 'like', '%' . $locate  . '%')
+
+	->orderBy('created_at','desc')->paginate(10)->appends(Input::all());
+
+
+
+}
+
+?>
+==
+
+<div class="buy-header" style="background-color: #1484B3; color: white; height: 55px; line-height: 55px; font-family: arial; margin-top: -15px" align="center"><b>Buy Request</b></div>
+
+
+
+
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+
+ <div class="container d-xl-none" style="margin-top: -80px;  font-family: arial;">
+  <div class="starter-template" style="margin: -30px ">
+  	<br>
+  	<br>
+    <div class="d-xl-none">
+{% if inGroup('seller') %}
+
+  <a class="btn btn-primary shadow" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    <span class="fa fa-filter"></span> Filter List
+  </a><br>
+
+<div class="collapse" id="collapseExample">
+  <div class="card card-body" style="margin: 0px">
+
+
+<form class=" my-1 col-12 col-lg-8" action="{{ 'buy-request-filter'|page }}" method="POST">
+  	<div  class="form-group">
+      <small><b><label class="float-left control-label" for="inputCategory">Filter by Category</label></b></small><br>
+      <select style="width: 100%" name="maincat[]" id="cat2" class="form-control form-control-sm form-select" multiple="multiple">
+      
+
+        {% for key, item in items %}
+        <option value={{ key }}> {{ item }}</option>
+        {% endfor %}
+        
+      </select>
+     
+  </div>
+
+
+
+<small><b><label class="float-left">Filter by Location</label></b></small><br>
+ <div  class="form-group">
+<select style="width: 100%"  id="places" class="form-control form-control-sm form-select places" name='location' multiple="multiple">
+  
+</select>
+</div>
+
+<button  class="btn btn-outline-info col-6 rounded-pill" type="submit">Apply Filter</button>
+</form>
+</div></div>
+<hr>
+ 
+
+
+{% endif %}
+</div>
+<br><br>
+
+<div id="buy" class="main-section">
+{% partial 'request/buy-request'%}
+</div>
+
+</div>
+</div>
+
+
+
+
+
+
+
+<!--
+  desktop view
+-->
+
+<span class="float-left d-none d-xl-block" style="margin-top: 30px; width: 25%; margin-left: 20px">
+  {% if inGroup('seller') %}
+
+
+<div class="card card-body">
+<form class=" my-1 col-12 col-lg-8" action="{{ 'buy-request-filter'|page }}" method="POST">
+    <div  class="form-group">
+      <small><b><label class="float-left control-label" for="inputCategory">Filter by Category</label></b></small><br>
+      <select style="width: 170%" name="maincat[]" id="cat2buy" class="form-control form-control-sm form-select" multiple="multiple">
+      
+
+        {% for key, item in items %}
+        <option value={{ key }}> {{ item }}</option>
+        {% endfor %}
+        
+      </select>
+     
+  </div>
+
+
+
+<small><b><label class="float-left">Filter by Location</label></b></small><br>
+ <div  class="form-group">
+<select style="width: 170%" id="placebuy" class="form-control form-control-sm form-select places" name='location' multiple="multiple">
+  
+</select>
+</div>
+
+<button  class="btn btn-info" type="submit">Apply Filter</button>
+</form>
+</div>
+
+{% endif %}
+
+<br><br>
+
+  
+</span>
+
+ <div class="container d-none d-xl-block" style="margin-top: -40px;  font-family: arial;">
+  <div class="starter-template" style="margin: -30px ">
+    <br>
+    <br>
+  
+
+<div id="buy" class="main-section">
+{% partial 'request/buy-request'%}
+</div>
+
+
+</div>
+</div>
+
+
+<!--
+  end
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav aria-label="Page navigation example" >
+  {% if requests.hasPages %}
+  <ul class="pagination justify-content-center">
+    {% if requests.currentPage > 1 %}
+    <li class="page-item">
+      <a class="page-link" href="{{ requests.previousPageUrl }}" rel="prev" ><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-left"></span></a>
+    </li>
+    
+    {% endif %}
+
+
+    {% if requests.currentPage > 3 %}
+    <li class="page-link"><a href="{{ requests.url(1) }}">1</a></li>
+    {% endif %}
+
+    {% if requests.currentPage > 4 %}
+    <li class="page-link"><span>...</span></li>
+    {% endif %}
+
+
+
+
+
+    {% for page in range(1, requests.lastPage) %}
+    {% if page >= requests.currentPage - 2 and page <= requests.currentPage + 2 %}
+    {% if page == requests.currentPage %}
+    <li class="page-item active"><a class="page-link">{{ page }}</a></li>
+    {% else %}
+    <li class="page-link"><a href="{{ requests.url(page) }}">{{ page }}</a></li>
+    {% endif %}
+    {% endif %}
+    
+
+    {% endfor %}
+
+    {% if requests.currentPage < requests.lastPage - 3 %}
+    <li class="page-link"><span>...</span></li>
+    {% endif %}
+
+    {% if requests.currentPage < requests.lastPage - 2 %}
+    <li class="page-link"><a href="{{ requests.url(requests.lastPage) }}">{{ requests.lastPage }}</a></li>
+    {% endif %}
+
+    {% if requests.hasMorePages %}
+    
+    <li class="page-item">
+      <a class="page-link" href="{{ requests.nextPageUrl }}"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span class=" fa fa-arrow-right"></span></a>
+    </li>
+    {% endif %}
+
+  </ul>
+  {% endif %}
+</nav>
+
+
