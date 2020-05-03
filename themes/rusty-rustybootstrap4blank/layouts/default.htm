@@ -13,7 +13,20 @@ description = "Nigerian B2B and B2C Online MarketPlace"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta name="description" content="Nigerian Online Business MarketPlace">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157952329-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157952329-1');
+</script>
+
+
     <title>{{ this.page.title }} | Vend</title>
+     
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <!-- CSS includes -->
     <link href="{{ [
@@ -31,7 +44,7 @@ description = "Nigerian B2B and B2C Online MarketPlace"
 
 
 
-<link rel="manifest" href="/site.webmanifest">
+<link rel="manifest" href="/manifest.json">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
 
@@ -92,6 +105,8 @@ description = "Nigerian B2B and B2C Online MarketPlace"
     <script type="text/javascript" src="{{ 'assets/vendor/bootstrap-4.2.1-dist/js/bootstrap.min.js'|theme }}"></script>
     
        <script type="text/javascript" src="{{ 'assets/vendor/tether/js/tether.min.js'|theme }}"></script>   
+      
+       
 
 
    <script type="text/javascript" src="{{ 'assets/vendor/ck4/ckeditor/ckeditor.js'|theme }}"></script> 
@@ -100,7 +115,6 @@ description = "Nigerian B2B and B2C Online MarketPlace"
     
     
 <script type="text/javascript" src="{{ 'assets/vendor/slick/slick/slick.min.js'|theme }}"></script>
-   
 
  {% framework extras %}
  {% scripts %}
@@ -359,6 +373,8 @@ function addToHomeScreen() {
 
 </script>
 
+
+
    
  
 <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js"></script>
@@ -378,6 +394,24 @@ function addToHomeScreen() {
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script>
+const observer = lozad();
+observer.observe();
+
+</script>
+
+<script type="application/javascript" src="https://sdki.truepush.com/sdk/v2.0.2/app.js" async></script>
+<script>
+var truepush = window.truepush || [];
+truepush.push(function(){
+    truepush.Init({
+        id: "5e36c4c1200b668daf398479"
+        }, function(error){
+          if(error) console.error(error);
+        })
+    })
+</script>
 </body>
 </html>
 

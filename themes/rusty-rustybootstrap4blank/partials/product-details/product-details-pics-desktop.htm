@@ -26,7 +26,7 @@
       <div class="carousel-inner" role="listbox">
         {% for image in advertino.allimage %}
         <div align="center" class="carousel-item {{ loop.first ? 'active' : '' }} "  >
-         <img class="d-block  img-fluid" style="height: 400px; width: 450px" src="{{ image.thumb(1000, 1000)  }}"  alt="...">
+         <img class="d-block lozad  img-fluid" style="height: 400px; width: 450px" data-src="{{ image.path  }}"  alt="...">
    
        </div>
        {% else %}

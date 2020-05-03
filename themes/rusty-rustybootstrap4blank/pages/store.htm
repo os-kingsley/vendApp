@@ -158,6 +158,12 @@ $this['allproducts'] = Advert
 }
 ?>
 ==
+{% put styles %}
+<link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Acme|Bree+Serif|Comfortaa|Fira+Sans|Lacquer|Lato|Lobster|Maven+Pro|Old+Standard+TT|Open+Sans|Playfair+Display|Roboto+Mono|Simonetta|Tomorrow|Ubuntu|Zilla+Slab&display=swap" rel="stylesheet">
+{% endput %}
+
+
+
 {% flash %}
     <p
         data-control="flash-message"
@@ -171,12 +177,12 @@ $this['allproducts'] = Advert
 
 <nav class="navbar navbar-dark sticky-top shadow d-xl-none" style="margin-top: -39px; color: white; background-color:{% if userprofile.background_color %} {{ userprofile.background_color }}{% else%}#8E134C{% endif %}">
 
-  <span class="navbar-brand" style="font-family: {% if userprofile.font_font_family %}{{ userprofile.font_family }}{% else %}cambria{% endif %}; color: {% if userprofile.font_color %}{{ userprofile.font_color }}{% else%}white{% endif %}" >
+  <span class="navbar-brand" style="font-family: {% if userprofile.font_family %}{{ userprofile.font_family }}{% else %}cambria{% endif %}; color: {% if userprofile.font_color %}{{ userprofile.font_color }}{% else%}white{% endif %}" >
     {% if userprofile.show_icon == 'Yes' and userprofile.avatar %}
-    <img style="height: 30px; width: 30px; border-radius: 20%; border: 2px solid white" src="{{ userprofile.avatar.thumb(500,auto) }}">
+    <img style="height: 25px; width: 25px; border-radius: 20%; border: 2px solid white;" src="{{ userprofile.avatar.path }}">
     {% endif %}
-    {% if userprofile.store_title  %} {{ userprofile.store_title|truncate(25) }} {% else %}My new store
-{% endif %}
+    <span style="font-size:16px">{% if userprofile.store_title  %} {{ userprofile.store_title|truncate(20) }} {% else %}My new store
+{% endif %}</span>
   </span>
 
    <button style="margin-right: 10px; outline: none;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -198,7 +204,7 @@ $this['allproducts'] = Advert
 
     <div align="center" class="align-middle store-background d-xl-none" style=" {% if userprofile.store_pic %} background-image: url('{{ asset(userprofile.store_pic.path) }}'); {% else %}  background-image: url('{{ 'assets/images/shopper.jpg'|theme }}');{% endif %}background-repeat: no-repeat; background-size: 100% 300px; background-position: center; height: 300px; width: 100%; line-height: 300px">
 
-        <span style=" display: inline-block; vertical-align: middle; line-height: normal; font-size: 30px; text-align: center; margin: 10px; color: white; font-weight: bolder; font-family: {% if userprofile.store_description_font_style %}{{ userprofile.store_description_font_style }}{% else %}arial{% endif %}; color: {% if userprofile.store_description_font_color %}{{ userprofile.store_description_font_color }}{% else %}grey{% endif %}">{{userprofile.store_description}}</span>
+        <span style=" display: inline-block; vertical-align: middle; line-height: normal; font-size: 30px; text-align: center; margin: 10px; color: white; font-weight: bolder; font-family: {% if userprofile.store_description_font_style %}{{ userprofile.store_description_font_style }}{% else %}arial{% endif %}; color: {% if userprofile.store_description_font_color %}{{ userprofile.store_description_font_color }}{% else %}grey{% endif %}" class="shadow-lg">{{userprofile.store_description}}</span>
     </div>
   
 

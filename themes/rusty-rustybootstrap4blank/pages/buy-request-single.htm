@@ -72,7 +72,7 @@ $this['buyimagesingles'] = Buy::with('buy_image')->where('slug',$slug)->get();
 
         {% for buypics in buyerimage.buy_image %}
        
-        <div class="slide"><img style="height: 150px; width: auto;" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></div>
+        <div class="slide"><img style="height: 150px; width: auto;" src="{{ buypics.path}}" class="mr-3 img-thumbnail" alt=""></div>
 
 
 
@@ -151,7 +151,7 @@ desktop view
 
         {% for buypics in buyerimage.buy_image %}
        
-        <div class="slide"><img style="height: 150px; width: auto;" src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></div>
+        <div class="slide lozad"><img style="height: 150px; width: auto;" data-src="{{ buypics.thumb(200, auto) }}" class="mr-3 img-thumbnail" alt="..."></div>
 
 
 

@@ -52,7 +52,7 @@ return ['isTaken' => User::find(post('company')) ? 1 : 0,];
     {{ form_ajax('onRegister') }}
 
 
- <input style="display: block;" name="phone" type="text" id="user-phone" >  
+ <input style="display: none;" name="phone" type="text" id="user-phone" >  
     
 
     
@@ -169,7 +169,7 @@ return ['isTaken' => User::find(post('company')) ? 1 : 0,];
   
             
                
-               <small style="color: grey" >By clicking on Register, you agree to the Merch Terms of Service and Privacy Policy</small><br><br>
+               <small style="color: grey" >By clicking on Register, you agree to the Vend <a href="{{'terms'|page}}"> Terms of Service</a> and <a href="{{'privacy-policy'|page}}">Privacy Policy</a></small><br><br>
 
                <div id="flash-div"></div>
            

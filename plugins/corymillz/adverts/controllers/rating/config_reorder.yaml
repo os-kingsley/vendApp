@@ -1,0 +1,4 @@
+title: Rating
+modelClass: Corymillz\Adverts\Models\Rating
+toolbar:
+    buttons: reorder_toolbar

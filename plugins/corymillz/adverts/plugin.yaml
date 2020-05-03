@@ -22,3 +22,7 @@ navigation:
         label: Credit
         url: corymillz/adverts/credit
         icon: icon-money
+    main-menu-item3:
+        label: Rating
+        url: corymillz/adverts/rating
+        icon: icon-angellist

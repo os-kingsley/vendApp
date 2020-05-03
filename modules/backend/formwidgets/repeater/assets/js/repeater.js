@@ -116,6 +116,17 @@
     }
 
     Repeater.prototype.onRemoveItemSuccess = function(ev) {
+        // Allow any widgets inside a deleted item to be disposed
+        $(ev.target).closest('.field-repeater-item').find('[data-disposable]').each(function () {
+            var $elem = $(this),
+                control = $elem.data('control'),
+                widget = $elem.data('oc.' + control)
+
+            if (widget && typeof widget['dispose'] === 'function') {
+                widget.dispose()
+            }
+        })
+
         $(ev.target).closest('.field-repeater-item').remove()
         this.togglePrompt()
     }
@@ -200,9 +211,14 @@
             $target = $item
         }
 
-        var $textInput = $('input[type=text]:first', $target)
+        var $textInput = $('input[type=text]:first, select:first', $target).first();
         if ($textInput.length) {
-            return $textInput.val()
+            switch($textInput.prop("tagName")) {
+                case 'SELECT':
+                    return $textInput.find('option:selected').text();
+                default:
+                    return $textInput.val();
+            }
         } else {
             var $disabledTextInput = $('.text-field:first > .form-control', $target)
             if ($disabledTextInput.length) {

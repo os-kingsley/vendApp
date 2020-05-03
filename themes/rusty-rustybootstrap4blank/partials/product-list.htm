@@ -5,7 +5,7 @@
 
  {% for image in ad.allimage %}
   {% if loop.first %}
-   <img src="{{ image.thumb(500, auto) }}" style="height: 110px; width:120px; margin-top: 20px; margin-left: -7px" class="mr-3 " alt="...">
+   <img data-src="{{ image.path }}" style="height: 110px; width:120px; margin-top: 20px; margin-left: -7px" class="mr-3 lozad ">
    {% endif %}
     {% else %}
     <img src="{{ 'assets/images/no-image.png'|theme }}" style="height: 110px; width:105px; margin-top: 20px; margin-left: 10px" class="mr-3 " alt="...">
@@ -23,14 +23,14 @@
     {% if user %}
     <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"  data-request ="onBookmark" data-request-confirm="Add to Favourite List"  data-request-data= "bookmark: {{ ad.id }}" data-request-flash><span style="font-size: 15px; color: #08172A;" class="fa fa-heart-o"></span></a> 
    {% else %}
-   <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"   onclick="$.oc.flashMsg({text: 'Log in to Favourite a Produt/Servce', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A;" class="fa fa-heart-o"></span></a>
+   <a class="float-right" style=" margin-top: 10px; margin-right: 10px"  href="#"   onclick="$.oc.flashMsg({text: 'Log in to Favourite a Product/Service', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A;" class="fa fa-heart-o"></span></a>
    {% endif %}
     <br>
 
     
 
   	 <a  href="{{ 'product-single'|page({ slug: ad.slug }) }}" style="text-decoration: none;">
-    <h6 style="color:  darkblue; overflow-wrap: break-word; font-size: 18px" class="mt-0" align="left">{{ ad.title| truncate(30)}}</h6>
+    <h6 style="color:  darkblue; overflow-wrap: break-word; font-size: 15px" class="mt-0" align="left">{{ ad.title| truncate(30)}}</h6>
     </a>
 
  
@@ -88,7 +88,7 @@
 
 
   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a class="dropdown-item  "href="https://wa.me/{{ ad.user.phone [1:]}}?text=Hello,%20I%20am%20interested%20in%20your%20ad%20({{ ad.title }})%20posted%20on%20vend.com.ng"  style="font-family: arial"><span class="fab fa-whatsapp"></span> Whatsapp</a>
+    <a class="dropdown-item  "href="https://wa.me/{{ ad.user.phone [1:]}}?text=Hello,%20I%20am%20interested%20in%20your%20advert%20({{ ad.title }})%20posted%20on%20vend.com.ng"  style="font-family: arial"><span class="fab fa-whatsapp"></span> Whatsapp</a>
      <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="mailto:{{ ad.user.email }}"><span class="fa fa-envelope-o"></span> Email</a>
      <div class="dropdown-divider"></div>

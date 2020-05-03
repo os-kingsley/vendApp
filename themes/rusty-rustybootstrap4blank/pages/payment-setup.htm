@@ -64,11 +64,57 @@ $this['API_KEY'] = getenv('FW_publicKey');
     <div style="font-size: 18px"><b style="color: #1484B3">Payment Id</b></div><br>
  <div class="card" style="margin-top: -20px">
         <div class="card-body">
-        <p><small style="color: grey">Once your Payment setup is complete, your generated Payment Id will become visible on your profile page and attached to all Products/Services you post and buyers can now pay you. Your Payment Id routes all your payments instantly to you once the payment is made. You can verify each payment using the transaction Reference of the payment.</small></p> 
+        <p><small style="color: grey">Once your Payment setup is complete, your generated Payment Id will become visible on your profile page and attached to all Products/Services you post and buyers can now pay you. Your Payment Id routes all your  payments instantly to you once they are made. You can verify each payment using the Transaction Reference of the payment.</small></p> 
         </div></div>    
-        
 
-{% component 'paymentsetup' %}
+<br>
+<div style="font-family:arial; color:grey">Pick an Account type</div>
+<br>
+
+
+
+<div class="accordion" id="accordionExample">
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+           Individual Account
+        </button>
+      </h2>
+    </div>
+
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        {% component 'paymentsetup' %}
+ </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Business Account
+        </button>
+      </h2>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+         <div style="font-family:arial; font-size:14px; color grey">Registered Businesses should send  the following to <a href="mailto:setup@vend.com.ng">setup@vend.com.ng</a><br>
+1. Incorporation documents. <br> 2. Corporate Bank Account details.<br> 3. A valid ID of one of the directors. <br>
+4. Email as registered with on Vend.<br>
+</div>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+
+
+
+
+
+
+
 </div>
 </div>
 

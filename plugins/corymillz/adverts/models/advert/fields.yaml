@@ -12,11 +12,6 @@ fields:
         label: Price
         span: auto
         type: text
-    specification:
-        label: 'Product Specification'
-        size: ''
-        span: auto
-        type: richeditor
     minimum_order:
         label: 'Minimum Order Quantity'
         span: auto

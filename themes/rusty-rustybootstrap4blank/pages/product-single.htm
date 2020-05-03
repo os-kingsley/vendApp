@@ -8,18 +8,31 @@ is_hidden = 0
 [starrating]
 
 
-[ssbuttons]
-fa = "maxcdn"
-twitter = 1
+
+[ssbuttonsssb]
 facebook = 1
+twitter = 1
 google+ = 0
-stumbleupon = 0
+tumblr = 0
+pinterest = 0
+pocket = 0
+reddit = 0
 linkedin = 1
-order_twitter = 1
-order_facebook = 2
+wordpress = 0
+pinboard = 0 
+email = 1
+order_facebook = 1
+order_twitter = 2
 order_google+ = 3
-order_stumbleupon = 4
-order_linkedin = 5
+order_tumblr = 4
+order_pinterest = 5
+order_pocket = 6
+order_reddit = 7
+order_linkedin = 8
+order_wordpress = 9
+order_pinboard = 10
+order_email = 11
+theme = "flat_web_icon_set_color"
 ==
 <?php
 use Corymillz\Adverts\Models\Advert;
@@ -40,7 +53,7 @@ $this['adsingles'] = Advert::
 withCount(['ratings as rating' => function ($query) {
 $query->select(DB::raw('COALESCE(avg(rating), 0)'));
 }])
-->where('slug',$slug)->remember(60)->first();
+->where('slug',$slug)->first();
 
 $getPostUser = Advert::where('slug', $slug)->first();
 
@@ -134,7 +147,7 @@ return Redirect::back();
  <a class="float-left d-xl-none" style=" margin-top: 20px; margin-left: 20px; text-decoration: none;"  href="#"  data-request ="onBookmark"  data-request-confirm="Add to Favourite" data-request-data= "bookmark: {{ adsingles.id }}"  data-request-flash><span style="font-size: 20px; color: grey" class="fa fa-heart-o"></span> <span style="font-size: 16px; font-family: arial; color: black; ">Add to Favourite List</span></a>
  {% else %}
 
-  <a class="float-left d-xl-none" style=" margin-top: 20px; margin-left: 20px; text-decoration: none;"  href="#"   onclick="$.oc.flashMsg({text: 'Log in to Favourite a Produt/Servce', 'class': 'error'}); return false;"><span style="font-size: 20px; color: grey" class="fa fa-heart-o"></span> <span style="font-size: 16px; font-family: arial; color: black; ">Add to Favourite List</span></a>
+  <a class="float-left d-xl-none" style=" margin-top: 20px; margin-left: 20px; text-decoration: none;"  href="#"   onclick="$.oc.flashMsg({text: 'Log in to Favourite a Product/Service', 'class': 'error'}); return false;"><span style="font-size: 20px; color: grey" class="fa fa-heart-o"></span> <span style="font-size: 16px; font-family: arial; color: black; ">Add to Favourite List</span></a>
   {% endif %}
 
 
@@ -217,7 +230,7 @@ return Redirect::back();
 <br><br>
 {% endif %}
       <small>Share on:</small>
-    {% component 'ssbuttons' %}
+    {% component 'ssbuttonsssb' %}
 
 </div>
 </div>

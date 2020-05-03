@@ -13,7 +13,7 @@
 
   {% for image in allproducts.allimage %}
 {% if loop.first%}
-   <div style="margin-top: 20px" align="center"><img src="{{ image.thumb(800, auto) }}" class="mr-3 store-pics" style="height: 120px; width: 100%;" alt="..."></div>
+   <div style="margin-top: 20px" align="center"><img src="{{ image.path }}" class="mr-3 store-pics" style="height: 120px; width: 100%;" alt="..."></div>
    {% endif %}
    {% else %}
     <img src="{{ 'assets/images/no-image.png'|theme }}" style="height: 120px; width:120px; margin-top: 20px" class="mr-3 " alt="...">
@@ -23,7 +23,7 @@
   <a  href="#"  data-request ="onBookmark" data-request-confirm="Add to Favourite List" data-request-success="alert('Successfully Added')" data-request-data= "bookmark: {{ allproducts.id }}"><span style="font-size: 15px; color: #08172A; margin-top: -170px" class="fa fa-heart-o float-right "></span></a> 
 {% else %}
 
-  <a  href="#"  onclick="$.oc.flashMsg({text: 'Log in to Favourite a Produt/Servce', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A; margin-top: -170px" class="fa fa-heart-o float-right "></span></a> 
+  <a  href="#"  onclick="$.oc.flashMsg({text: 'Log in to Favourite a Product/Service', 'class': 'error'}); return false;"><span style="font-size: 15px; color: #08172A; margin-top: -170px" class="fa fa-heart-o float-right "></span></a> 
 {% endif %}
 
 

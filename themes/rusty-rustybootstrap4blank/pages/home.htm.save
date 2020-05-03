@@ -1,0 +1,354 @@
+title = "Home"
+url = "/"
+layout = "pro"
+description = "Default home of the Bootstrap 4.2.1 Dist Blank Template"
+is_hidden = 0
+[session]
+
+
+
+
+==
+<?php
+use Corymillz\Adverts\Models\Cat;
+use Corymillz\Adverts\Models\Advert;
+
+function onStart(){
+
+$this['cats'] = Cat::where('parent_id',0)->take(12)->remember(30)->get();
+
+
+$this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat_count','desc')->limit(12)->get();
+
+
+}
+
+
+
+?>
+
+
+==
+{% flash %}
+    <p
+        data-control="flash-message"
+        class="flash-message fade {{ type }}"
+        data-interval="5">
+        {{message}}
+    </p>
+{% endflash %}
+
+<div class="d-xl-none">
+{% partial "jumbotron" %}
+
+{{ user.avater }}
+
+<div   style="background-color: silver; height: 45px; margin-top: -35px; display: block; line-height: 45px;font-family: arial;" align="center">
+
+
+  <b class="text-dark" style="font-size: 14px;">Browse Products/Services by Category</b></div>
+   
+
+
+
+ <div class="container" style="margin-top: -80px">
+  <div class="starter-template" style="margin: -25px;px">
+
+         
+<br>
+<br>
+{%partial "homescreen"%}   
+{% for row in cats|batch(3) %}
+    <div class="row">
+        {% for cats in row %}
+            <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
+
+              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img data-src="{{ cats.poster.path }}" class="img-fluid shadow lozard" style="border-radius: 35px; height: 55px; width: auto" alt=""></a><br>
+                    <small><a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
+                    {{ cats.cat_title|truncate(20) }}
+
+                </a></small>
+               
+             
+            </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+
+
+
+<br>
+<a href="{{ 'category'|page }}"><button type="button" class="btn btn-success col-12 col-lg-6 shadow  rounded" style="font-family: arial"> Explore All Categories...</button></a>
+<br>
+<br>
+<br>
+</div>
+</div>
+
+
+
+  
+
+
+
+<div class="container-fluid" style="background-color: silver; max-height: 900px; margin-top: -70px"><br>
+  <div><h4 align="center" style="color:#1484B3 ;  font-family: arial;">Have Specific Buying Needs?</h4></div>
+  <div><small><p align="center" style="color: grey; font-family: arial">Post One Buy Request, Get Multiple Offers</p></small></div>
+
+    
+    <div class="container">
+   <div class="row" align="center">
+
+  <div class="col" >
+  <img style="height: 70px; width: auto" data-src="{{ 'assets/images/write-icon.png'|theme }}">
+  <p align="center" style="color: grey; font-family: arial; font-size: 14px">Write a Buy Request</p>
+  </div>
+
+
+    <div class="col">
+   <img style="height: 70px; width: auto" data-src="{{ 'assets/images/contact-icon.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 14px">Get Contacted by Sellers</p>
+    </div>
+
+    <div class="col">
+   <img style="height: 70px; width: auto;"  data-src="{{ 'assets/images/shake13.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 14px;">Close a Favourable Deal</p>
+  </div>
+
+  
+  </div>
+</div>
+
+ <a href="{{ 'request'|page }}"><div align="center"><button style="background-color: #08172A; color: white;" type="button" class="btn btn-sm col-6 shadow col-lg-4" >Post a Buy Request</button></a></div><br>
+</div>
+<br>
+
+
+<div align="center"><span style="color: #08172A" class="fa fa-lock fa-2x"></span></div>
+<div align="center" style="color: grey; font-size: 19px">Secured Payment Transactions with</div>
+<div align="center"><h3 style="font-family: arial; color: grey">Protected Pay</h3></div>
+<div align="center"><img  data-src="{{ 'assets/images/power.png'|theme }}"></div>
+ <div align="center" style="margin-right: -170px"><a href="{{'protected-pay'}}"><button class="btn btn-success btn-sm shadow">Learn More</button></a></div><hr><br>
+
+ <p style="color: grey; font-family: arials; margin: 40px; text-align: center; font-size: 19px; margin-top: -20px">Easily generate your own online store for free and sell directly to your buyers</p>
+ <div style="margin-top: -70px" align="center"><img  data-src="{{ 'assets/images/store.png'|theme }}"></div>
+<div align="center" style="margin-top: -30px"><a style="font-size: 16px; font-weight: bold; font-family: arial; text-align: center; color: #1484B3;" data-toggle="modal" data-target="#infomodal">How it works </a><span class="fa fa-gear"></span></div>
+
+ <hr>
+
+  <div align="left"><p style="font-family: arial; font-size: 16px;color: grey; letter-spacing: 1px; margin-left: 20px">Trending Categories</p></div>
+<div class="container ">
+  <div class="starter-template" style="margin-top: -70px; margin: -25px">
+
+    <div class="your-class">
+      {% for catCount in catCount %}
+  <div><a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img  data-src="{{ catCount.poster.path }}"  style="height: 100px; width: 120px; margin: 10px" alt="{{ catCount.cat_title }}"></a>
+<small>{{ catCount.cat_title }}</small>
+  </div>
+  {% endfor %}
+</div>
+ 
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--desktop view-->
+<div class="d-none d-xl-block">
+{% partial "jumbotron" %}
+
+{{ user.avater }}
+
+<div   style="background-color: silver; height: 45px; margin-top: -35px; display: block; line-height: 45px;font-family: arial;" align="center">
+
+
+  <b class="text-dark" style="font-size: 14px;">Browse Products by Category</b></div>
+  
+<span class="float-left card card-body" style="margin-left: 20px; margin-top: 20px; width: 350px;position: relative;" >
+
+  
+<div align="center"><span style="color: #08172A" class="fa fa-lock fa-2x"></span></div>
+<div align="center" style="color: grey; font-size: 19px">Secured Payment Transactions with</div>
+<div align="center"><h3 style="font-family: arial; color: grey">Protected Pay</h3></div>
+<div align="center"><img src="{{ 'assets/images/power.png'|theme }}"></div>
+ <div align="center" style="margin-right: -170px"><a href="{{'protected-pay'}}"><button class="btn btn-success btn-sm shadow">Learn More</button></a></div><hr><br>
+
+  <p style="color: grey; font-family: arials; margin: 40px; text-align: center; font-size: 19px; margin-top: -20px">Easily generate your own online store for free and sell directly to your buyers</p>
+ <div style="margin-top: -70px" align="center"><img class="imgsize" src="{{ 'assets/images/store.png'|theme }}"></div>
+<div align="center"><a style="font-size: 18px; margin-top: -20px; font-family: arial; text-align: center;" data-toggle="modal" data-target="#infomodal">How it works <span class="fa fa-gear"></span></a></div>
+</span>
+ <div class="container marg" style="margin-top: -80px">
+  <div class="starter-template" style="margin: -25px;">
+
+         
+<br>
+<br>
+
+{% for row in cats|batch(3) %}
+    <div class="row">
+        {% for cats in row %}
+            <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
+
+              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img src="{{ cats.poster.path }}" class="img-fluid shadow " style="border-radius: 35px; height: 55px; width: auto" alt=""></a><br>
+                    <small><a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
+                    {{ cats.cat_title|truncate(20) }}
+
+                </a></small>
+               
+             
+            </div>
+        {% endfor %}
+
+    </div>
+    {% else %}
+        <div class="no-data">{{ noRecordsMessage }}</div>
+{% endfor %}
+
+
+
+<br>
+<a href="{{ 'category'|page }}"><button type="button" class="btn btn-success col-12 col-lg-6 shadow  rounded" style="font-family: arial"> Explore All Categories...</button></a>
+<br>
+
+<br>
+<br>
+</div>
+</div>
+<br><br><br>
+
+
+  
+
+
+
+<div class="container-fluid" style="background-color: silver; max-height: 900px; margin-top: 30px"><br>
+  <div><h2 align="center" style="color:#1484B3 ;  font-family: arial;">Have Specific Buying Needs?</h2></div>
+  <div><small><p align="center" style="color: grey; font-family: arial; font-size: 20px">Post One Request, Get Multiple Offers</p></small></div>
+
+    
+  
+    <div class="container">
+   <div class="row" align="center">
+
+  <div class="col" >
+  <img style="height: 150px; width: auto" src="{{ 'assets/images/write-icon.png'|theme }}">
+  <p align="center" style="color: grey; font-family: arial; font-size: 18px">Write a Buy Request</p>
+  </div>
+
+
+    <div class="col">
+   <img style="height: 150px; width: auto" src="{{ 'assets/images/contact-icon.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 18px">Get Contacted by Sellers</p>
+    </div>
+
+    <div class="col">
+   <img style="height: 150px; width: auto;" src="{{ 'assets/images/shake13.png'|theme }}">
+    <p align="center" style="color: grey; font-family: arial; font-size: 18px; ">Close a Favourable Deal</p>
+  </div>
+
+  
+  </div>
+</div>
+
+
+ <a href="{{ 'request'|page }}"><div align="center"><button style="background-color: #08172A; color: white;" type="button" class="btn btn-sm col-6 shadow col-lg-4" >Post a Buy Request</button></a></div><br>
+</div>
+<br>
+
+
+  <div align="center"><p style="font-family: arial; font-size: 18px; color: grey; letter-spacing: 1px">Trending Categories</p></div>
+
+<div align="center" style="margin: 150px; margin-top: -10px">
+{% for row in catCount|batch(3) %}
+    <div class="row">
+        {% for catCount in row %}
+            <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
+
+              <a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img src="{{ catCount.poster.path }}"  style="height: 150px; width: 180px" alt="{{ catCount.cat_title }}"></a><br>
+                    <small><a href="{{ 'product'|page({ slug: catCount.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
+                    {{ catCount.cat_title|truncate(20) }}
+
+                </a></small>
+               
+             
+            </div>
+        {% endfor %}
+
+    </div>
+    
+{% endfor %}
+</div>
+
+
+
+
+</div></div>
+
+
+</div>
+
+</div>
+
+<!--end-->
+
+<div class="modal fade" id="infomodal" tabindex="-1" role="dialog" aria-labelledby="infomodal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="infomodal">Generate a Store</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <p style="font-family: arial; color: grey"> Sign up a <a href="{{ 'seller-account-phone-verification'|page }}">Seller Account</a> and start posting as many products as you want in different categories. All your posted products are automatically aggregated into a store for you and properly categorized using the categories you posted in. Open your profile page and click on "Store". Click on the "Edit" button and add customization to your store to make it look unique. Copy the generated store link and start sharing to your buyers anywhere you can find them. You can run ads on Google, Facebook, Twitter etc. with your link. Buyers can contact your directly from your store and you can collect payments online once you request "Payment Setup" from your profile page and it is approved.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+{% put scripts %}
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+  jQuery('#sli').slippry()
+});
+</script>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+  jQuery('#slid').slippry()
+});
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+ $('.your-class').slick({
+   slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 2000,
+});
+});
+</script>
+
+{% endput %}

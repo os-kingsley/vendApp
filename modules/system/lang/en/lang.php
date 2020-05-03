@@ -41,6 +41,8 @@ return [
         'fi' => 'Suomi',
         'sv' => 'Svenska',
         'sk' => 'Slovenský',
+        'sl' => 'Slovenščina',
+        'th' => 'ไทย',
         'tr' => 'Türkçe',
         'uk' => 'Українська мова',
         'zh-cn' => '简体中文',
@@ -98,7 +100,8 @@ return [
         'name' => [
             'label' => 'Plugin Name',
             'help' => 'Name the plugin by its unique code. For example, RainLab.Blog'
-        ]
+        ],
+        'by_author' => 'By :name'
     ],
     'plugins' => [
         'manage' => 'Manage plugins',
@@ -196,6 +199,9 @@ return [
         'ses_key_comment' => 'Enter your SES API key',
         'ses_secret' => 'SES secret',
         'ses_secret_comment' => 'Enter your SES API secret key',
+        'sparkpost' => 'SparkPost',
+        'sparkpost_secret' => 'SparkPost secret',
+        'sparkpost_secret_comment' => 'Enter your SparkPost API secret key',
         'ses_region' => 'SES region',
         'ses_region_comment' => 'Enter your SES region (e.g. us-east-1)',
         'drivers_hint_header' => 'Drivers not installed',
@@ -317,11 +323,14 @@ return [
         'plugin_author' => 'Author',
         'plugin_not_found' => 'Plugin not found',
         'core_current_build' => 'Current build',
+        'core_view_changelog' => 'View Changelog',
         'core_build' => 'Build :build',
         'core_build_help' => 'Latest build is available.',
         'core_downloading' => 'Downloading application files',
         'core_extracting' => 'Unpacking application files',
         'core_set_build' => 'Setting build number',
+        'changelog' => 'Changelog',
+        'changelog_view_details' => 'View details',
         'plugins' => 'Plugins',
         'themes' => 'Themes',
         'disabled' => 'Disabled',
@@ -426,6 +435,7 @@ return [
         'manage_mail_templates' => 'Manage mail templates',
         'manage_mail_settings' => 'Manage mail settings',
         'manage_other_administrators' => 'Manage other administrators',
+        'impersonate_users' => 'Impersonate users',
         'manage_preferences' => 'Manage backend preferences',
         'manage_editor' => 'Manage code editor preferences',
         'view_the_dashboard' => 'View the dashboard',
@@ -446,5 +456,24 @@ return [
     'media' => [
         'invalid_path' => "Invalid file path specified: ':path'.",
         'folder_size_items' => 'item(s)',
+    ],
+    'page' => [
+        'custom_error' => [
+            'label' => 'Page error',
+            'help' => "We're sorry, but something went wrong and the page cannot be displayed."
+        ],
+        'invalid_token' => [
+            'label' => 'Invalid security token',
+        ],
+        'maintenance' => [
+            'label' => "We'll be right back!",
+            'help' => "We're currently down for maintenance, check back soon!",
+            'message' => "Message:",
+            'available_at' => "Try again after:",
+        ],
+    ],
+    'pagination' => [
+        'previous' => 'Previous',
+        'next' => 'Next',
     ],
 ];

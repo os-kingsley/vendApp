@@ -1,6 +1,7 @@
 title = "Subcategory"
 url = "/subcategory/:slug"
 layout = "pro"
+description = "Nigerian Online Business Marketplace"
 
 is_hidden = 0
 
@@ -59,7 +60,7 @@ if( !$this['subs'] )
         {% for child in row %}
             <div class="col-4 border"><br>
 
-            	 <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img src="{{ child.poster.thumb(500,auto) }}" class="img-fluid" alt="" style="border-radius: 5px; height: 60px; width: auto"></a><br>
+            	 <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img  data-src="{{ child.poster.path }}" class="img-fluid lozad " alt="" style="border-radius: 5px; height: 60px; width: auto"></a><br>
                     <small><a  href="{{ 'product'|page({ slug: child.slug }) }}" style="color:  #08172A; text-decoration: none; line-height: -5px">
 
                     {{ child.cat_title|truncate(20) }}
@@ -88,7 +89,7 @@ if( !$this['subs'] )
         {% for child in row %}
             <div class="col-4 border"><br>
 
-               <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img src="{{ child.poster.thumb(500,auto) }}" class="img-fluid" alt="" style="border-radius: 5px; height: 80px; width: auto"></a><br>
+               <a  href="{{ 'product'|page({ slug: child.slug }) }}"><img data-src="{{ child.poster.path }}" class="img-fluid lozad " alt="" style="border-radius: 5px; height: 80px; width: auto"></a><br>
                     <small><a  href="{{ 'product'|page({ slug: child.slug }) }}" style="color:  #08172A; text-decoration: none; line-height: -5px">
 
                     {{ child.cat_title }}

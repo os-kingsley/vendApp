@@ -188,6 +188,17 @@
             }
         }
     }
+
+    &.radio-field {
+        > label {
+            display: block;
+        }
+
+        .custom-radio {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+    }
 }
 
 //
@@ -264,6 +275,9 @@
                     display: none;
                 }
             }
+        }
+        &[disabled] {
+            ~ span { background-color: #666666 !important; }
         }
     }
 

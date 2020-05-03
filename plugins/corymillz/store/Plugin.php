@@ -19,9 +19,9 @@ class Plugin extends PluginBase
     {
 
        UserModel::extend(function($model){
-
+        
         $model->addFillable([
-
+          
           'store_title',
           'store_description',
           'background_color',
@@ -48,22 +48,14 @@ class Plugin extends PluginBase
 
       });
 
-       UsersController::extendFormFields(function($form, $model, $context){
+      
 
+       UsersController::extendFormFields(function($form, $model, $context){
+        if ($model instanceof \RainLab\User\Controllers\Users) 
+          return;
           $form->addTabFields([
 
-
-
-          	'store_pic' => [
-
-          		'label' => 'Pic',
-          		'type' => 'fileupload',
-          		'mode' => 'image',
-          		'imageHeight' => 100,
-          		'imageWidth' => 100,
-          		'tab' => 'Store'
-          ],
-
+   
             'store_title' => [
 
               'label' => 'Store Title',
@@ -196,7 +188,7 @@ class Plugin extends PluginBase
 
 
           ]);
-
+        
        });
 
     }

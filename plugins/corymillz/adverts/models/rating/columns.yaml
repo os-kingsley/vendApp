@@ -1,0 +1,7 @@
+columns:
+    rating:
+        label: Rating
+        type: number
+    user_id:
+        label: User
+        type: text

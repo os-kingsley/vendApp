@@ -15,7 +15,19 @@ security = "all"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="Nigerian Online Business MarketPlace">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157952329-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-157952329-1');
+</script>
+
     <title>{{ this.page.title }} | Vend</title>
+    
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
     <!-- CSS includes -->
     <link href="{{ [
@@ -33,7 +45,7 @@ security = "all"
 
 
 
-<link rel="manifest" href="/site.webmanifest">
+<link rel="manifest" href="/manifest.json">
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
 
@@ -90,8 +102,7 @@ security = "all"
        {% partial "signupPartial" %}
 
     
-
-
+ 
 
 
 
@@ -114,10 +125,7 @@ security = "all"
     
 <script type="text/javascript" src="{{ 'assets/vendor/slick/slick/slick.min.js'|theme }}"></script>
    
-
-
-
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 
 
 
@@ -374,9 +382,10 @@ function addToHomeScreen() {
     $(this).removeAttr('disabled'); 
 });
 </script>
-
-
-
+<script>
+const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();
+</script>
 </body>
 </html>
 

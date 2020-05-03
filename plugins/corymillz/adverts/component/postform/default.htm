@@ -1,8 +1,4 @@
 
-
-<!--
-<form  data-request="onSubmit" data-request-validate data-request-flash data-request-files  id="myform">
--->
   {{ form_ajax('onSubmit', { id:'myform'}) }}
 
 
@@ -22,11 +18,7 @@
     <input id="pro_title" type="text" name ="title" class="form-control"  aria-describedby="title" autocomplete="off">
       </div>
 
- <!--
-<div><small><b><label  class="control-label" >Select Up to 10 Images</label></b></small><br></div>
-<div style="margin-top: -10px"><span style="font-size: 12px; color: grey">First Image is your cover image and is required.</span></div><br>
-
--->
+ 
 
     <!-- File uploader -->
     {% component 'imageUploader' %}
@@ -127,19 +119,6 @@
     </select>
   </div>
 
-<!--
-
-  <div  class="form-group">
-    <small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
-    <input type="text" name ="delivery_time" class="form-control form-control-sm" id="delivery_time" aria-describedby="delivery_time">
-       <span style="font-size: 12px; color: grey">i.e. 1-3 days etc.</span>
-  </div>
-  -->
-  <!--
-<small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
-  <div class="float-right" style="font-size: 13px; font-weight: bold; color: brown"><label for="customRange2">Day(s)</label> <output name="timeoutput" id="timeoutput"></output></div>
-<input type="range" name="delivery_time" class="custom-range"  id="customRange2" oninput="timeoutput.value=customRange2.value" min="0" max="14" value="0">
--->
 
   <small><b><label  class="float-left control-label">(If Yes) Delivery Timeframe</label></b></small>
   <span style="font-size: 12px; color: grey">i.e within 2 Days</span>
@@ -175,8 +154,8 @@
 </div>
 
 <br>
-<div align="left"><small><b><label class="control-label" >Specification <span style="color: red">*</span></label></b></small></div>
- <div style="margin-top: -10px;" align="left"><span style="font-size: 12px; color: grey">Add your product specification like Model, Size, Condition, Brand etc..<br>Add Atleast One Specification.</span></div>
+<div align="left"><small><b><label class="control-label" >Specification </label></b></small></div>
+ <div style="margin-top: -10px;" align="left"><span style="font-size: 12px; color: grey">Add your product specification like Model, Size, Condition, Brand etc..</span></div>
 <div class="row clearfix" style="font-family: arial">
     <div class="col-md-12">
       <table class="table table-bordered table-hover" id="tab_logic">
@@ -191,8 +170,8 @@
         <tbody>
           <tr id='addr0'>
             <td>1</td>
-            <td><input type="text" name='spec_name[]'  placeholder='I.e Size.' class="form-control" required="required" /></td>
-            <td><input type="text" name='spec_detail[]' placeholder='5.5 inches' class="form-control qty" step="0" min="0" required="required" /></td>
+            <td><input type="text" name='spec_name[]'  placeholder='I.e Size.' class="form-control"  /></td>
+            <td><input type="text" name='spec_detail[]' placeholder='5.5 inches' class="form-control qty" step="0" min="0"  /></td>
             
           </tr>
           <tr id='addr1'></tr>
@@ -209,22 +188,7 @@
 <br>
 
 
-<!--
-<div class="form-group required">
-  <div align="left"> <small><b><label>Specification</label></b></small></div>
-    <div style="margin-top: -10px;" align="left"><span style="font-size: 12px; color: grey">List all specifications i.e Model, Size, Color, Warantee etc.</span></div>
- 
-<textarea name="specification" id="editor2" >
 
-</textarea>
-</div>
--->
-<!--
-<small><b><label class="float-left">Location</label></b></small>
-<input name="location" type="search" id="single-country-search" class="form-control" placeholder="Start typing..."><br>
-
-<div align="left"><p style="font-size: 13px">Selected: <strong id="single-country-address-value">none</strong></p></div>
--->
 
 <small><b><label class="float-left">Location <span class="fa fa-map-marker"></span> <span style="color: red">*</span></label></b></small>
  <div  class="form-group">

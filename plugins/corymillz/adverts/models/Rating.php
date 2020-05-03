@@ -17,7 +17,7 @@ class Rating extends Model
     public $table = 'corymillz_adverts_ratings';
 
 
-  public $fillable = ['user_id'];
+  protected $fillable = ['user_id','rateable_id'];
 
 
    public $morphTo = [

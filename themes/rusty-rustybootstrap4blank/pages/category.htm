@@ -1,6 +1,7 @@
 title = "Category"
 url = "/category"
 layout = "pro"
+description = "Nigerian Online Business Marketplace"
 is_hidden = 0
 ==
 <?php
@@ -28,7 +29,7 @@ $this['cats'] = Cat::where('parent_id',0)->remember(30)->get();
         {% for cats in row %}
             <div class="col-4 border"><br>
 
-            	<a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" ><img src="{{ cats.poster.thumb(500, auto)  }}" class="img-fluid shadow" alt="" style="border-radius: 35px; height: 55px; width: auto"></a><br>
+            	<a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" ><img data-src="{{ cats.poster.path  }}" class="img-fluid shadow lozad" alt="" style="border-radius: 35px; height: 55px; width: auto"></a><br>
                     <small><a style="color: #08172A; text-decoration: none" href="{{ 'subcategory'|page({ slug: cats.slug }) }}" >
                     {{ cats.cat_title|truncate(20) }}
 
@@ -57,7 +58,7 @@ $this['cats'] = Cat::where('parent_id',0)->remember(30)->get();
         {% for cats in row %}
             <div class="col-4 border"><br>
 
-                <img src="{{ cats.poster.thumb(500, auto)  }}" class="img-fluid shadow cat-image" alt="" style="border-radius: 35px; height: 55px; width: auto"><br>
+                <img data-src="{{ cats.poster.path  }}" class="img-fluid shadow cat-image lozad " alt="" style="border-radius: 35px; height: 55px; width: auto"><br>
                     <small><a style="color: #08172A; text-decoration: none" href="{{ 'subcategory'|page({ slug: cats.slug }) }}" >
                     {{ cats.cat_title|truncate(20) }}
 

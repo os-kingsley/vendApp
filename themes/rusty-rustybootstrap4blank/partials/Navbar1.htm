@@ -60,7 +60,7 @@ description = "A basic navbar to get you started"
 {% if not user %}
 
 
-       <div align="center" style="margin-top: 20px"> <img style="height: 120px; width: 120px" src="{{ 'assets/images/signin.png'|theme }}"></div>
+       <div align="center"  style="margin-top: 30px"> <img  style="height: 80px; width: auto; border-radius: 100%;" src="{{ 'assets/images/profile.png'|theme }}"></div>
 
 
 
@@ -121,9 +121,10 @@ description = "A basic navbar to get you started"
        <li class="nav-item  {% if this.page.id == 'credits' %} active {% endif %}"><a class="nav-link" href="{{ 'credits'|page }}" style="font-family: arial"><span class="fa fa-money"></span><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Buy Vend Credit</b></small></a></li>
        {% endif %}
 
-     <div style="height: 1px; background-color: lightgrey; margin-left: -15px; margin-right: -15px; "></div>
+     
 
     {% if user %}
+      <div style="height: 1px; background-color: lightgrey; margin-left: -15px; margin-right: -15px; "></div>
 
       <li class="nav-item"><a class="nav-link"  data-request="onLogout" data-request-data="redirect: '/'" style="font-family: arial"><small><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Log out</b></small></a></li>
 {% endif %}

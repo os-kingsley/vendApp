@@ -1,1 +1,1 @@
-C:/xampp/htdocs/myoctober/index.php
+/var/www/html/vendApp/index.php

@@ -1,7 +1,7 @@
 title = "Home"
 url = "/"
 layout = "pro"
-description = "Default home of the Bootstrap 4.2.1 Dist Blank Template"
+description = "Nigerian Online Business Marketplace"
 is_hidden = 0
 [session]
 
@@ -63,7 +63,7 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
         {% for cats in row %}
             <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
 
-              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img src="{{ cats.poster.thumb(500,auto) }}" class="img-fluid shadow " style="border-radius: 35px; height: 55px; width: auto" alt=""></a><br>
+              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img  data-src="{{ cats.poster.path }}" class="img-fluid shadow lozad" style="border-radius: 35px; height: 55px; width: auto;" alt=""></a><br>
                     <small><a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
                     {{ cats.cat_title|truncate(20) }}
 
@@ -103,18 +103,18 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
    <div class="row" align="center">
 
   <div class="col" >
-  <img style="height: 70px; width: auto" src="{{ 'assets/images/write-icon.png'|theme }}">
+  <img class="lozad" style="height: 70px; width: auto"   data-src="{{ 'assets/images/write-icon.png'|theme }}">
   <p align="center" style="color: grey; font-family: arial; font-size: 14px">Write a Buy Request</p>
   </div>
 
 
     <div class="col">
-   <img style="height: 70px; width: auto" src="{{ 'assets/images/contact-icon.png'|theme }}">
+   <img class="lozad" style="height: 70px; width: auto" data-src="{{ 'assets/images/contact-icon.png'|theme }}">
     <p align="center" style="color: grey; font-family: arial; font-size: 14px">Get Contacted by Sellers</p>
     </div>
 
     <div class="col">
-   <img style="height: 70px; width: auto;" src="{{ 'assets/images/shake13.png'|theme }}">
+   <img class="lozad"   style="height: 70px; width: auto;"  data-src="{{ 'assets/images/shake13.png'|theme }}">
     <p align="center" style="color: grey; font-family: arial; font-size: 14px;">Close a Favourable Deal</p>
   </div>
 
@@ -130,11 +130,11 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
 <div align="center"><span style="color: #08172A" class="fa fa-lock fa-2x"></span></div>
 <div align="center" style="color: grey; font-size: 19px">Secured Payment Transactions with</div>
 <div align="center"><h3 style="font-family: arial; color: grey">Protected Pay</h3></div>
-<div align="center"><img src="{{ 'assets/images/power.png'|theme }}"></div>
+<div align="center"><img class="lozad"   data-src="{{ 'assets/images/power.png'|theme }}"></div>
  <div align="center" style="margin-right: -170px"><a href="{{'protected-pay'}}"><button class="btn btn-success btn-sm shadow">Learn More</button></a></div><hr><br>
 
  <p style="color: grey; font-family: arials; margin: 40px; text-align: center; font-size: 19px; margin-top: -20px">Easily generate your own online store for free and sell directly to your buyers</p>
- <div style="margin-top: -70px" align="center"><img src="{{ 'assets/images/store.png'|theme }}"></div>
+ <div style="margin-top: -70px" align="center"><img class="lozad"   data-src="{{ 'assets/images/store.png'|theme }}"></div>
 <div align="center" style="margin-top: -30px"><a style="font-size: 16px; font-weight: bold; font-family: arial; text-align: center; color: #1484B3;" data-toggle="modal" data-target="#infomodal">How it works </a><span class="fa fa-gear"></span></div>
 
  <hr>
@@ -145,29 +145,14 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
 
     <div class="your-class">
       {% for catCount in catCount %}
-  <div><a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img src="{{ catCount.poster.thumb(500,auto) }}"  style="height: 100px; width: 120px; margin: 10px" alt="{{ catCount.cat_title }}"></a>
+  <div><a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img class="lozad"  data-src="{{ catCount.poster.path }}"  style="height: 100px; width: 120px; margin: 10px"></a>
 <small>{{ catCount.cat_title }}</small>
   </div>
   {% endfor %}
 </div>
- <!--
-<ul id="sli">
-{% for catCount in catCount %}
-  
-  
-  <li>
-    <a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img src="{{ catCount.poster.thumb(500,auto) }}"  style="height: 250px; width: 100%" alt="{{ catCount.cat_title }}"></a>
-  </li>
  
- 
-  {% endfor %}
- 
-</ul>
-
--->
-</div></div>
-
-
+</div>
+</div>
 </div>
 
 
@@ -195,11 +180,11 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
 <div align="center"><span style="color: #08172A" class="fa fa-lock fa-2x"></span></div>
 <div align="center" style="color: grey; font-size: 19px">Secured Payment Transactions with</div>
 <div align="center"><h3 style="font-family: arial; color: grey">Protected Pay</h3></div>
-<div align="center"><img src="{{ 'assets/images/power.png'|theme }}"></div>
+<div align="center"><img class="lozad"  data-src="{{ 'assets/images/power.png'|theme }}"></div>
  <div align="center" style="margin-right: -170px"><a href="{{'protected-pay'}}"><button class="btn btn-success btn-sm shadow">Learn More</button></a></div><hr><br>
 
   <p style="color: grey; font-family: arials; margin: 40px; text-align: center; font-size: 19px; margin-top: -20px">Easily generate your own online store for free and sell directly to your buyers</p>
- <div style="margin-top: -70px" align="center"><img class="imgsize" src="{{ 'assets/images/store.png'|theme }}"></div>
+ <div style="margin-top: -70px" align="center"><img class="imgsize lozad"  data-src="{{ 'assets/images/store.png'|theme }}"></div>
 <div align="center"><a style="font-size: 18px; margin-top: -20px; font-family: arial; text-align: center;" data-toggle="modal" data-target="#infomodal">How it works <span class="fa fa-gear"></span></a></div>
 </span>
  <div class="container marg" style="margin-top: -80px">
@@ -214,7 +199,7 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
         {% for cats in row %}
             <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
 
-              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img src="{{ cats.poster.thumb(500,auto) }}" class="img-fluid shadow " style="border-radius: 35px; height: 55px; width: auto" alt=""></a><br>
+              <a href="{{ 'subcategory'|page({ slug: cats.slug }) }}"><img class="lozad"  data-src="{{ cats.poster.path }}" class="img-fluid shadow " style="border-radius: 35px; height: 55px; width: auto" alt=""></a><br>
                     <small><a href="{{ 'subcategory'|page({ slug: cats.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
                     {{ cats.cat_title|truncate(20) }}
 
@@ -256,18 +241,18 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
    <div class="row" align="center">
 
   <div class="col" >
-  <img style="height: 150px; width: auto" src="{{ 'assets/images/write-icon.png'|theme }}">
+  <img style="height: 150px; width: auto" class="lozad"  data-src="{{ 'assets/images/write-icon.png'|theme }}">
   <p align="center" style="color: grey; font-family: arial; font-size: 18px">Write a Buy Request</p>
   </div>
 
 
     <div class="col">
-   <img style="height: 150px; width: auto" src="{{ 'assets/images/contact-icon.png'|theme }}">
+   <img style="height: 150px; width: auto" class="lozad"  data-src="{{ 'assets/images/contact-icon.png'|theme }}">
     <p align="center" style="color: grey; font-family: arial; font-size: 18px">Get Contacted by Sellers</p>
     </div>
 
     <div class="col">
-   <img style="height: 150px; width: auto;" src="{{ 'assets/images/shake13.png'|theme }}">
+   <img style="height: 150px; width: auto;" class="lozad"  data-src="{{ 'assets/images/shake13.png'|theme }}">
     <p align="center" style="color: grey; font-family: arial; font-size: 18px; ">Close a Favourable Deal</p>
   </div>
 
@@ -289,7 +274,7 @@ $this['catCount'] = Cat::with('poster')->where('parent_id','>', 0)->orderBy('cat
         {% for catCount in row %}
             <div class="col-4 col-lg-4 border" style=" font-family: arial;"><br>
 
-              <a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img src="{{ catCount.poster.thumb(750,auto) }}"  style="height: 150px; width: 180px" alt="{{ catCount.cat_title }}"></a><br>
+              <a href="{{ 'product'|page({ slug: catCount.slug }) }} "><img class="lozad"   data-src="{{ catCount.poster.path }}"  style="height: 150px; width: 180px" alt="{{ catCount.cat_title }}"></a><br>
                     <small><a href="{{ 'product'|page({ slug: catCount.slug }) }}" style="color: #08172A; text-decoration: none; line-height: -15pt ">
                     {{ catCount.cat_title|truncate(20) }}
 

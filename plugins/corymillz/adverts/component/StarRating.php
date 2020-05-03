@@ -27,23 +27,31 @@ class StarRating extends ComponentBase
 
   public function onStar()
 {
-
-
-  
-  $recordId = post('rate');
+$recordId = Input::get('rate');
 
  $record = Advert::find($recordId);
  $newRating = Input::get('star');
 
-      $rating = Rating::firstOrCreate([
-            'user_id' => Auth::getUser()->id
+$rating = Rating::firstOrNew([
+  'user_id' => Auth::id(),
+  'rateable_type' => Advert::class,
+  'rateable_id' => $recordId,
 ]);
 
-       $rating->rating = $newRating;
-          $record->ratings()->save($rating);
-          Flash::success('Rating Saved!');
+// If this is a new rating we need to specify the user id:
+if (!$recordId) {
+  $rating->user_id = Auth::getUser()->id;
+}
+
+// Whether new or not, set the proper rating value, then save it through the post:
+$rating->rating = $newRating;
+$record->ratings()->save($rating);
+
+        Flash::success('Rating Saved!');
           return redirect()->back();
 
+  
+  
 
 
 

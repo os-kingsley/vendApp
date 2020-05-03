@@ -1,6 +1,7 @@
 <?php namespace Backend\Models;
 
 use App;
+use Backend;
 use Url;
 use File;
 use Lang;
@@ -39,9 +40,10 @@ class BrandSetting extends Model
     public $settingsFields = 'fields.yaml';
 
     public $attachOne = [
+        'favicon' => \System\Models\File::class,
         'logo' => \System\Models\File::class
     ];
-    
+
     /**
      * @var string The key to store rendered CSS in the cache under
      */
@@ -78,11 +80,28 @@ class BrandSetting extends Model
         $this->secondary_color = $config->get('brand.secondaryColor', self::SECONDARY_COLOR);
         $this->accent_color = $config->get('brand.accentColor', self::ACCENT_COLOR);
         $this->menu_mode = $config->get('brand.menuMode', self::INLINE_MENU);
+
+        // Attempt to load custom CSS
+        $brandCssPath = File::symbolizePath(Config::get('brand.customLessPath'));
+        if ($brandCssPath && File::exists($brandCssPath)) {
+            $this->custom_css = File::get($brandCssPath);
+        }
     }
 
     public function afterSave()
     {
         Cache::forget(self::instance()->cacheKey);
+    }
+
+    public static function getFavicon()
+    {
+        $settings = self::instance();
+
+        if ($settings->favicon) {
+            return $settings->favicon->getPath();
+        }
+
+        return self::getDefaultFavicon() ?: null;
     }
 
     public static function getLogo()
@@ -147,6 +166,17 @@ class BrandSetting extends Model
         return !!Config::get('brand');
     }
 
+    public static function getDefaultFavicon()
+    {
+        $faviconPath = File::symbolizePath(Config::get('brand.faviconPath'));
+
+        if ($faviconPath && File::exists($faviconPath)) {
+            return Url::asset(File::localToPublic($faviconPath));
+        }
+
+        return Backend::skinAsset('assets/images/favicon.png');
+    }
+
     public static function getDefaultLogo()
     {
         $logoPath = File::symbolizePath(Config::get('brand.logoPath'));
@@ -157,5 +187,4 @@ class BrandSetting extends Model
 
         return null;
     }
-
 }
